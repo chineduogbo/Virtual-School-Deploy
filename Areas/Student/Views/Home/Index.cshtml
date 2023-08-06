@@ -1,0 +1,490 @@
+﻿@model Abundance_Nk.Web.Areas.Student.Models.HomeViewModel
+@{
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+}
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Message", (Abundance_Nk.Model.Model.Message)TempData["Message"])
+}
+<style>
+    .progress {
+        height: 6px;
+        margin-bottom: 10px;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+        box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    }
+
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #e3e6f0;
+        border-radius: .35rem;
+        margin-bottom: 10px;
+    }
+
+    .card-body {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 1.25rem;
+    }
+
+    .align-items-center {
+        -webkit-box-align: center !important;
+        -ms-flex-align: center !important;
+        align-items: center !important;
+    }
+
+    .no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    .shadow {
+        -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important;
+        box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important;
+    }
+
+    .pb-2, .py-2 {
+        padding-bottom: .5rem !important;
+    }
+
+    .pt-2, .py-2 {
+        padding-top: .5rem !important;
+    }
+
+    .text-xs {
+        font-size: 1.2rem;
+    }
+
+    .border-left-info {
+        border-left: .25rem solid #36b9cc !important;
+    }
+
+    .border-left-success {
+        border-left: .25rem solid #1cc88a !important;
+    }
+
+    .border-left-primary {
+        border-left: .25rem solid #4e73df !important;
+    }
+
+    .border-left-warning {
+        border-left: .25rem solid #2c1e8c !important;
+    }
+</style>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jquery")
+
+        <link href="~/Content/sweetalert.css" rel="stylesheet" />
+        <script src="~/Scripts/sweetalert.min.js"></script>*@
+    @*<link href="~/Content/NewScript/css/sb-admin-2.min.css" rel="stylesheet" />*@
+    <script src="~/Content/NewScript/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/NewScript/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/NewScript/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Content/NewScript/js/sb-admin-2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnModal').on('click', function () {
+
+                $('#editeModal').modal('show');
+            });
+            $('#updateEmail').on('click', function () {
+                var emailAddress=$('#email').val();
+                                        $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UpdateEmail", "Home")', // Calling json method
+                dataType: 'json',
+                                            data: { emailAddress },
+                // Get Selected Country ID.
+                                            success: function (result) {
+                                                if (!result.isError && result.Message!=null) {
+
+                                                    alert(result.Message);
+                                                    window.location.reload(true);
+                                }
+                },
+                error: function(ex) {
+                    alert('Failed to retrieve semesters.' + ex);
+                }
+            });
+            })
+        })
+    </script>
+}
+@if (Model == null)
+{
+    <div class="col-md-12">
+
+        <div>
+            @if (TempData["Message"] != null)
+            {
+                @Html.Partial("_Message", (Abundance_Nk.Model.Model.Message)TempData["Message"])
+            }
+        </div>
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-3 col-md-3 mb-4">
+
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Elearning</div>
+
+                                <div class="row">
+                                    <div class="col-md-6 h5 mb-0 font-weight-bold text-gray-800 text-left">
+
+                                    </div>
+                                    <div class="col-md-6 card-body text-right">
+                                        <a href="@Url.Action("RegisteredCourse", "Elearning", new { area = "Student" })" class="btn btn-info">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            @*<div class="col-auto">
+                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-3 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">E-Assignment</div>
+
+                                <div class="row">
+                                    <div class="col-md-6 h5 mb-0 font-weight-bold text-gray-800 text-left">
+
+                                    </div>
+                                    <div class="col-md-6 card-body text-right">
+                                        <a href="@Url.Action("Assignment", "Elearning", new { area = "Student" })" class="btn btn-info">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            @*<div class="col-auto">
+                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            @*<div class="col-xl-6 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        <label><b style="color:red">@ViewBag.Email</b> :Is this your Email Address?</label>
+                                        <button class="btn btn-sm btn-info" id="btnModal">No</button>
+                                    </div>
+
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">40</div>
+                                        </div>
+                                        <div class="col">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+        <br />
+        <br />
+        <div class="ct-page-title">
+            <h4 class="ct-title" id="content">E-Learning Email Notifications:</h4>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <div class="card">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+
+                        <label><b style="color:red">@ViewBag.Email</b> :Is this your Email Address?</label>
+                        <button class="btn btn-sm btn-info" id="btnModal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" role="dialog" id="editeModal" style="z-index:999999999">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" style="float:right">&times;</button>
+                        <h4 class="modal-title">Update Email Address</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Please, enter your correct Email Address</label>
+                            <input type="email" id="email" />
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer form-group">
+                        <span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                        <button type="submit" id="updateEmail" class="btn btn-success">Save</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+else
+{
+    
+   
+   
+<div class="col-md-12">
+
+
+
+    <div class="row">
+
+
+        <div class="col-xl-3 col-md-3 mb-4">
+
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sessions Spent</div>
+
+                            <div class="row">
+                                <div class="col-md-6 h5 mb-0 font-weight-bold text-gray-800 text-left">
+
+                                </div>
+                                <div class="col-md-6 card-body text-right">
+                                    <h3><b>@Model.SessionsSpent</b></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="progress progress-sm mr-2">
+                                <div class="progress-bar @Model.BgColor" role="progressbar" style="width: @Model.SessionsSpentPercentage%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Expected Graduation Date</div>
+
+                            <div class="row">
+                                <div class="col-md-6 h5 mb-0 font-weight-bold text-gray-800 text-left">
+
+                                </div>
+                                <div class="col-md-6 card-body text-right">
+                                    <h3 style="color:red"><b>@Model.ExpectedGradDate</b></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="progress progress-sm mr-2">
+                                <div class="progress-bar @Model.BgColor" role="progressbar" style="width: @Model.ExpectedGradDatePercentage%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-3 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Months to Graduation</div>
+
+                            <div class="row">
+                                <div class="col-md-6 h5 mb-0 font-weight-bold text-gray-800 text-left">
+
+                                </div>
+                                <div class="col-md-6 card-body text-right">
+                                    <h3><b>@Model.NoOfMonthsToGraduation</b></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="progress progress-sm mr-2">
+                                <div class="progress-bar @Model.BgColor" role="progressbar" style="width: @Model.NoOfMonthsToGraduationPercentage%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row mt-4">
+        <div class="col-xl-10 col-md-10 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <h3><b> Sessions History</b></h3>
+                <table class="table table-striped table-bordered m-3">
+                    <thead>
+                        <tr class="info">
+                            <th class="text-center">S/n</th>
+                            <th class="text-center">Session</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.SessionsNamesSpent != null)
+                        {
+                            for (int i = 0; Model.SessionsNamesSpent.Count > i; i++)
+                            {
+                                int v = i + 1;
+                                <tr>
+                                    <td class="text-center">@v</td>
+                                    <td class="text-center"> @Model.SessionsNamesSpent[i]</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        @*<div class="col-xl-6 col-md-6 mb-4">
+            <div class=" m-3 p-3">
+                <h2 class="card-title"><b>Instructions:</b></h2>
+                <p class="card-text">
+                    1. Please be aware that at the end of the specified duration, your student account will be deactivated.
+                </p>
+                <p class="card-text">
+                    2. Deactivation means that you will no longer have access to student-specific services, such as course registration, results, or academic support.
+                </p>
+                <p class="card-text">
+                    3. If you wish to continue accessing these services or extend your studentship, you will be required to pay a fee to apply for an extension.
+                </p>
+                <p class="card-text">
+                    If you have any questions or need further clarification, we recommend reaching out to the relevant administrative department or student services office for assistance.
+                </p>
+                <p class="card-text">
+                    Thank you for your understanding, and we appreciate your cooperation in this matter.
+                </p>
+            </div>
+        </div>*@
+    </div>
+        @if (Model.StudentId > 0)
+        {
+            if (!Model.ActiveStudent)
+            {
+                <div class="row mt-4">
+                    <div class="col-xl-9 col-md-9 mb-4">
+                        <div class="">
+                            <div class="alert alert-warning bg-danger">
+                                <strong>Warning:</strong> You have been deactivated for overstaying in the program. Please apply for an extension using the form below:
+                            </div>
+
+
+                            @using (Html.BeginForm("ApplyForExtension", "Home", new { Area = "Student" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                            {
+                                @Html.HiddenFor(x => x.StudentId)
+                                <div class="form-group">
+                                    <label for="reasons">Reasons for Overstaying:</label>
+                                    @Html.TextAreaFor(x => x.Reason, new { @class = "form-control", id = "reasons", rows = "3", placeholder = "Enter your reasons here" })
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }          <br />
+        <br />
+        <div class="ct-page-title">
+            <h4 class="ct-title" id="content">Email Notifications:</h4>
+        </div>
+        <div class="row">
+            <div class="col-xs-8 col-md-6">
+                <div class="card">
+                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+
+                        <label><b style="color:red">@ViewBag.Email</b> :Is this your Email Address?</label>
+                        <button class="btn btn-sm btn-info" id="btnModal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" role="dialog" id="editeModal" style="z-index:999999999">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" style="float:right">&times;</button>
+                        <h4 class="modal-title">Update Email Address</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Please, enter your correct Email Address</label>
+                            <input type="email" id="email" />
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer form-group">
+                        <span style="display: none" class="Load"><img src="~/Content/Images/bx_loader.gif" /></span>
+                        <button type="submit" id="updateEmail" class="btn btn-success">Save</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+            }

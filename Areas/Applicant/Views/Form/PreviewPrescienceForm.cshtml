@@ -1,0 +1,393 @@
+﻿
+@using Abundance_Nk.Model.Model
+@using Abundance_Nk.Web.Models
+@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJambViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "::Acknowlegment Slip::";
+}
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/putme/css/bootstrap.min.css">
+    <!-- Now-ui-kit CSS -->
+    <link rel="stylesheet" href="~/Content/putme/css/now-ui-kit.css">
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Include the above in your HEAD tag -->
+
+    <title>Nau prescience post utme form</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#aPrint").click(function () {
+                $("#aPrint").hide();
+                $("#printable").show();
+                window.print();
+                $("#aPrint").show();
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row pt-4">
+                <div class="col-md-12 pl-0 pr-0">
+                    <div class="card printable">
+                          <div class="container">
+                            <div class="col-md-12 text-center pt-3">
+                                <img src="~/Content/Images/school_logo.png" alt="schoollogo" />
+                                <h4>NNAMDI AZIKIWE UNIVERSITY</h4>
+                                
+                                    <b>PRE-SCIENCE</b>
+                                
+                                <b>ACKNOWLEGMENT SLIP</b>
+                            </div>
+                            <hr class="bg-warning">
+                            <div class="row pr-4 pl-4 pb-4 pt-0">
+                                <div class="col-md-9">
+
+
+                                    <div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+
+
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.Person.FullName, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Person.FullName, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.MobilePhone, new { @class = "control-label ", })
+                                                    @Html.TextBoxFor(model => model.Person.MobilePhone, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.Email, "Email:", new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.State.Name, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.State.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.LocalGovernment.Name, "LGA of Origin", new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.LocalGovernment.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="col-md-12">
+                                                    <hr class="bg-warning">
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+
+                                                    @Html.LabelFor(model => model.Person.DateOfBirth, new { @class = "control-label " })
+                                                    @{ string date = Convert.ToDateTime(Model.Person.DateOfBirth).ToLongDateString();}
+
+                                                    @*@Html.TextBoxFor(model => model.Person.DateOfBirth.Value.ToLongDateString(), new { @class = "form-control" })*@
+                                                    <input  class="form-control" readonly  value="@date" style="color: black"/>
+                                                </div>
+
+
+                                             
+
+
+                                               
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.MobilePhone, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.MobilePhone, new { @class = "form-control", max = "15", min = "11", type = "number", @style = "color: black", disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.MobilePhone)*@
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.Email, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control text-uppercase",disabled = true, max = "50",@style = "color: black" })
+                                                </div>
+
+                                                
+
+                                                
+                                                <div class="col-md-12 well" style="">
+                                                    <h4 style="font-weight:bold">Other Information</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.Name)
+                                                            @Html.TextBoxFor(model => model.Sponsor.Name, new { @class = "form-control text-uppercase", max = "50", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Name)*@
+                                                        </div>
+
+                                                     
+
+                                                        <div class="col-md-6 form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.MobilePhone, new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.Sponsor.MobilePhone, new { @class = "form-control", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.MobilePhone)*@
+                                                        </div>
+
+                                                        <div class="col-md-6 form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.ContactAddress, new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.Sponsor.ContactAddress, new { @class = "form-control text-uppercase", max = "350", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.ContactAddress)*@
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 well" style="">
+                                                    <h4 style="font-weight:bold">Previous Education</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-8 form-group">
+                                                            <label>School</label>
+                                                        </div>
+                                                        <div class="col-md-2 form-group">
+                                                            <label>From</label>
+                                                        </div>
+                                                        <div class="col-md-2 form-group">
+                                                            <label>To</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.Name)*@
+                                                            @Html.TextBoxFor(model => model.PreviousSchoolRecord1.SchoolName, new { @class = "form-control text-uppercase", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Name)*@
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.Relationship.Id, new { @class = "control-label " })*@
+                                                            @Html.TextBoxFor(model => model.PreviousSchoolRecord1.StartDate, new { @class = "form-control", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Relationship.Id)*@
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.MobilePhone, new { @class = "control-label " })*@
+                                                            @Html.TextBoxFor(model => model.PreviousSchoolRecord1.EndDate, new { @class = "form-control", @id = "PhoneId", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.MobilePhone)*@
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-8 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.Name)*@
+                                                            @Html.TextBoxFor(model => model.PreviousSchoolRecord2.SchoolName, new { @class = "form-control text-uppercase", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Name)*@
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.Relationship.Id, new { @class = "control-label " })*@
+                                                            @Html.TextBoxFor(model => model.PreviousSchoolRecord2.StartDate, new { @class = "form-control", @id = "relationshipId", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Relationship.Id)*@
+                                                        </div>
+
+                                                        <div class="col-md-2 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.MobilePhone, new { @class = "control-label " })*@
+                                                            @Html.TextBoxFor(model => model.PreviousSchoolRecord2.EndDate, new { @class = "form-control", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.MobilePhone)*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-12 well" style="">
+                                                    <h4 style="font-weight:bold">Department Choice</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-group">
+                                                            <label>First Choice Department</label>
+                                                        </div>
+                                                        <div class="col-md-6 form-group">
+                                                            <label>Second Choice Department</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-group">
+                                                            @*@Html.LabelFor(model => model.Sponsor.Name)*@
+                                                            @Html.TextBoxFor(model => model.DepartmentFirstChoice.Name, new { @class = "form-control", @style = "color: black", disabled = true })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Name)*@
+                                                        </div>
+                                                        @if (Model.DepartmentSecondChoice != null)
+                                                        {
+                                                            <div class="col-md-6 form-group">
+                                                                @*@Html.LabelFor(model => model.Sponsor.Relationship.Id, new { @class = "control-label " })*@
+                                                                @Html.TextBoxFor(model => model.DepartmentSecondChoice.Name, new { @class = "form-control", @style = "color: black", disabled = true })
+                                                                @*@Html.ValidationMessageFor(model => model.Sponsor.Relationship.Id)*@
+                                                            </div>
+                                                        }
+
+
+
+                                                    </div>
+                                                    
+                                                    
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <hr class="bg-warning">
+                                                </div>
+
+                                                <div class="col-md-12 p-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+
+                                                            <div class="col-md-12 form-group">
+                                                                @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                            </div>
+                                                            <div class="col-md-12 form-group">
+                                                                @Html.LabelFor(model => model.FirstSittingOLevelResult.Type.Id, "Type", new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.FirstSittingOLevelResult.Type.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                            </div>
+
+                                                            <div class="col-md-12 form-group">
+                                                                @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                            </div>
+                                                            @for (int i = 0; i < Model.FirstSittingOLevelResultDetails.Count; i++)
+                                                            {
+                                                                if (Model.FirstSittingOLevelResultDetails[i].Subject != null)
+                                                                {
+                                                                    <div class="col-md-12">
+                                                                        <div class="row">
+                                                                            <div class="col-md-8 form-group">
+                                                                                @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Id)
+                                                                                @Html.TextBoxFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                            </div>
+
+                                                                            <div class="col-md-4 form-group">
+                                                                                @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Id)
+                                                                                @Html.TextBoxFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        </div>
+                                                        <!--col-md-6 end form 1-->
+                                                        <!-- beginning of form 2-->
+                                                        @if (Model.SecondSittingOLevelResultDetails != null && Model.SecondSittingOLevelResultDetails.Count > 0)
+                                                        {
+
+                                                            <div class="col-md-6">
+                                                                <div class="col-md-12 form-group">
+                                                                    @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "control-label" })
+                                                                    @Html.TextBoxFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                </div>
+                                                                <div class="col-md-12 form-group">
+                                                                    @Html.LabelFor(model => model.SecondSittingOLevelResult.Type.Id, "Type", new { @class = "control-label" })
+                                                                    @Html.TextBoxFor(model => model.SecondSittingOLevelResult.Type.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                </div>
+
+                                                                <div class="col-md-12 form-group">
+                                                                    @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "control-label" })
+                                                                    @Html.TextBoxFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                </div>
+                                                                @for (int i = 0; i < Model.SecondSittingOLevelResultDetails.Count; i++)
+                                                                {
+                                                                    if (Model.SecondSittingOLevelResultDetails[i].Subject != null)
+                                                                    {
+                                                                        <div class="col-md-12">
+                                                                            <div class="row">
+                                                                                <div class="col-md-8 form-group">
+                                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Id)
+                                                                                    @Html.TextBoxFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                                </div>
+
+                                                                                <div class="col-md-4 form-group">
+                                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Id)
+                                                                                    @Html.TextBoxFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+
+                                                            </div>
+
+
+                                                        }
+
+
+                                                        <div class="clearfix"></div>
+                                                        <div class="col-md-12 pl-4 mt-2">
+                                                            <button class="btn btn-warning" id="aPrint">PRINT</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    <div class="col-md-12 pt-1" style="height:85%">
+                                        <img src="@Url.Content(Model.Person.ImageFileUrl)" class="mt-2" alt="photo">
+                                       
+                                            <div class="col-md-12" style="margin-left:15px">
+                                                @Html.LabelFor(model => model.ApplicationForm.Number, new { @class = "control-label" })
+                                                <b>@Html.DisplayFor(model => model.ApplicationForm.Number)</b>
+                                            </div>
+                                       
+                                        
+
+                                        
+
+
+
+
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        @*@Html.GenerateQrCode(Model.QRVerification)*@
+                                        @*<img src="~/Content/putme/img/qr.png" alt="qr code">*@
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <p>Please Proceed To The Pre-Science Unit For Documentation</p>
+                            <p>For further enquiries please call: 07084954957, 08024974600</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+</html>

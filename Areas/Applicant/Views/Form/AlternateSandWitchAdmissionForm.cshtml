@@ -1,0 +1,585 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJambViewModel
+@{
+    ViewBag.Title = "FillStudentIdentificationForm";
+}
+
+
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#exampleModal").modal("show");
+
+
+        $("#stateid").change(function () {
+
+            var state = $("#stateid").val();
+
+
+            $("#LgaId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ReturnLgaByState")', // we are calling json method
+                dataType: 'json',
+                data: { StateId: state},
+                success: function (departments) {
+
+                    $.each(departments, function (i, department) {
+                        $("#LgaId").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+
+        });
+
+    });
+    function Getstate() {
+        var state = $("#StateId :selected").val();
+
+
+            $("#LgaId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ReturnLgaByState")', // we are calling json method
+                dataType: 'json',
+                data: { StateId: state},
+                success: function (departments) {
+
+                    $.each(departments, function (i, department) {
+                        $("#LgaId").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<div>
+
+</div>
+
+<div class="container">
+
+    <div class="col-md-12">
+
+        <div class="row pt-4 justify-content-center">
+            <div class="col-lg-12 col-md-12 pl-0 pr-0">
+                <h4 class="text-center font-weight-bold">@Model.SandwitchAdmissionFix.Fullname Bio-Data Form</h4>
+
+                <div class="card">
+
+
+                    <div class="container">
+
+                        @using (Html.BeginForm("AlternateSandWitchAdmissionForm", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                         
+
+                            @Html.HiddenFor(x => x.SandwitchAdmissionFix.Id)
+                            @Html.HiddenFor(x => x.SandwitchAdmissionFix.Department.Id)
+                            @Html.HiddenFor(x => x.Person.LastName)
+                            @Html.HiddenFor(x => x.Person.FirstName)
+                            @Html.HiddenFor(x => x.Person.OtherName)
+                            @Html.HiddenFor(x => x.Person.MobilePhone)
+                            <div class="row setup-content pr-4 pl-4 pb-4 pt-0" id="step-1">
+                                <div class="col-xs-12">
+                                    <div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h4 style="font-weight:bold">Bio Data</h4>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.LabelFor(model => model.Person.LastName)
+                                                    @Html.TextBoxFor(model => model.Person.LastName, new { @class = "form-control text-uppercase", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.LastName)*@
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.FirstName)
+                                                    @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control text-uppercase", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.FirstName)*@
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.OtherName, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.OtherName, new { @class = "form-control text-uppercase", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.OtherName)*@
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.Sex.Id, new { @class = "control-label " })
+                                                    @Html.DropDownListFor(f => f.Person.Sex.Id, (IEnumerable<SelectListItem>)ViewBag.SexId, new { @class = "form-control", @id = "SexId", required = "required" })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.Sex.Id)*@
+                                                </div>
+
+
+                                                @*<div class="col-md-6 form-group">
+
+                @Html.LabelFor(model => model.Person.DateOfBirth, new { @class = "control-label " })
+
+                @Html.TextBoxFor(model => model.Person.DateOfBirth, new { @class = "form-control", @type = "date", @Value = Model.Person.DateOfBirth.Value.ToString("yyyy-MM-dd") })
+
+            </div>*@
+
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.SandwitchAdmissionFix.Department.Name, new { @class = "control-label " })
+                                                    @Html.DropDownListFor(f => f.SandwitchAdmissionFix.Department.Id, (IEnumerable<SelectListItem>)ViewBag.DepartmentId, new { @class = "form-control", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.State.Id)*@
+                                                </div>
+
+                                                @*<div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Applicant.Mode_Of_Entry, "Mode Of Entry", new { @class = "control-label " })
+                @Html.DropDownListFor(f => f.Applicant.Mode_Of_Entry, (IEnumerable<SelectListItem>)ViewBag.ModeOfEntry, new { @class = "form-control", required = "required" })
+
+            </div>*@
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.State.Id, new { @class = "control-label " })
+                                                    @Html.DropDownListFor(f => f.Person.State.Id, (IEnumerable<SelectListItem>)ViewBag.StateId, new { @class = "form-control", required = "required", @id = "StateId", @onchange = "Getstate()" })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.State.Id)*@
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.LocalGovernment.Id, new { @class = "control-label " })
+                                                    @Html.DropDownListFor(f => f.Person.LocalGovernment.Id, (IEnumerable<SelectListItem>)ViewBag.LgaId, new { @class = "form-control", @id = "LgaId", required = "required" })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.LocalGovernment.Id)*@
+                                                </div>
+
+
+
+                                                @*<div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Person.HomeTown, new { @class = "control-label " })
+                @Html.TextBoxFor(model => model.Person.HomeTown, new { @class = "form-control text-uppercase", max = "50", @id = "HomeTownId" })
+
+            </div>
+
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Person.HomeAddress, new { @class = "control-label " })
+                @Html.TextBoxFor(model => model.Person.HomeAddress, new { @class = "form-control text-uppercase", max = "250", @id = "HomeaddressId" })
+            </div>*@
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.MobilePhone, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.MobilePhone, new { @class = "form-control", @id = "PhoneId" })
+                                                    @Html.ValidationMessageFor(model => model.Person.MobilePhone)
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.Email, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control text-uppercase", max = "50", @id = "EmailId" })
+                                                </div>
+
+                                                @*<div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Person.Religion.Id, new { @class = "control-label " })
+                @Html.DropDownListFor(model => model.Person.Religion.Id, (IEnumerable<SelectListItem>)ViewBag.ReligionId, new { @class = "form-control", @id = "ReligionId" })
+
+            </div>*@
+
+                                                @*<div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Applicant.Ability.Id, new { @class = "control-label " })
+                @Html.DropDownListFor(model => model.Applicant.Ability.Id, (IEnumerable<SelectListItem>)ViewBag.AbilityId, new { @class = "form-control", @id = "AbilityId" })
+            </div>
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Applicant.OtherAbility)
+                @Html.TextBoxFor(model => model.Applicant.OtherAbility, new { @class = "form-control text-uppercase", @id = "OtherId" })
+            </div>
+            <div class="col-md-6 form-group">
+                @Html.LabelFor(model => model.Applicant.ExtraCurricullarActivities)
+                @Html.TextBoxFor(model => model.Applicant.ExtraCurricullarActivities, new { @class = "form-control text-uppercase", @id = "ExtracuricularId" })
+            </div>*@
+
+                                                @*<div class="col-md-6 form-group">
+                <label>Passport <span class="text-danger">(Image Upload Size Should Not Exceed 1Mb )</span></label>
+
+                <input type="file" accept="image/*" title="Upload Passport" id="fileInput" name="Upload Passport" class="form-control" />
+
+            </div>*@
+                                                <div class="col-md-12 well" style="">
+                                                    <h4 style="font-weight:bold">Other Information</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.Name)
+                                                            @Html.TextBoxFor(model => model.Sponsor.Name, new { @class = "form-control text-uppercase", max = "50", @id = "SponsorNameid", required = "required" })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Name)*@
+                                                        </div>
+
+                                                        @*<div class="col-md-6 form-group">
+                        @Html.LabelFor(model => model.Sponsor.Relationship.Id, new { @class = "control-label " })
+                        @Html.DropDownListFor(model => model.Sponsor.Relationship.Id, (IEnumerable<SelectListItem>)ViewBag.RelationshipId, new { @class = "form-control", @id = "relationshipId" })
+
+                    </div>*@
+
+                                                        <div class="col-md-6 form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.MobilePhone, new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.Sponsor.MobilePhone, new { @class = "form-control", @id = "PhoneId", required = "required" })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.MobilePhone)*@
+                                                        </div>
+
+                                                        <div class="col-md-6 form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.ContactAddress, new { @class = "control-label " })
+                                                            @Html.TextBoxFor(model => model.Sponsor.ContactAddress, new { @class = "form-control text-uppercase", max = "350", @id = "ContactaddressId", required = "required" })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.ContactAddress)*@
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                            </div>
+
+                                            <div class="col-xs-12">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12 pb-5" style="height: 700px; overflow-y: auto;">
+                                                        <div class="col-md-12">
+                                                            <h4 style="font-weight:bold">O-Level Information</h4>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 card pt-2">
+                                                                <h5>First Sitting</h5>
+                                                                <hr class="no-top-padding" />
+                                                                @Html.HiddenFor(model => model.FirstSittingOLevelResult.Id)
+                                                                <div>
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.FirstSittingOLevelResult.Type.Id, "Type", new { @class = "control-label col-md-3" })
+                                                                        <div class="col-md-9">
+                                                                            @Html.DropDownListFor(model => model.FirstSittingOLevelResult.Type.Id, (IEnumerable<SelectListItem>)ViewBag.FirstSittingOLevelTypeId, new { @class = "form-control olevel" })
+                                                                            @*@Html.ValidationMessageFor(model => model.FirstSittingOLevelResult.Type.Id)*@
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "control-label col-md-3" })
+                                                                        <div class="col-md-9">
+                                                                            @Html.TextBoxFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "form-control" })
+                                                                            @*@Html.ValidationMessageFor(model => model.FirstSittingOLevelResult.ExamNumber)*@
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group ">
+                                                                        @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "control-label col-md-3" })
+                                                                        <div class="col-md-9">
+                                                                            @Html.DropDownListFor(model => model.FirstSittingOLevelResult.ExamYear, (IEnumerable<SelectListItem>)ViewBag.FirstSittingExamYearId, new { @class = "form-control olevel" })
+                                                                            @*@Html.ValidationMessageFor(model => model.FirstSittingOLevelResult.ExamYear)*@
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <table id="firstSittingTable" class="table table-condensed table-responsive" style="background-color: whitesmoke">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Subject
+                                                                            </th>
+                                                                            <th>
+                                                                                Grade
+                                                                            </th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @for (int i = 0; i < 9; i++)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Id)
+                                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Name)
+                                                                                    @Html.DropDownListFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Id, (IEnumerable<SelectListItem>)ViewData["FirstSittingOLevelSubjectId" + i], new { @class = "form-control olevel", @id = "@('subject' + @i)" })
+                                                                                </td>
+                                                                                <td>
+
+                                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Name)
+                                                                                    @Html.DropDownListFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Id, (IEnumerable<SelectListItem>)ViewData["FirstSittingOLevelGradeId" + i], new { @class = "form-control olevel", @id = "@('grade' + @i)" })
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <!--col-md-6 end form 1-->
+                                                            <!-- beginning of form 2-->
+                                                            <div class="col-md-6 card pt-2">
+                                                                <h5>Second Sitting</h5>
+                                                                <hr class="no-top-padding" />
+                                                                @Html.HiddenFor(model => model.SecondSittingOLevelResult.Id)
+                                                                <div>
+                                                                    <div class="form-group">
+
+                                                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.Type.Id, "Type", new { @class = "control-label col-md-3" })
+                                                                        <div class="col-md-9">
+                                                                            @Html.DropDownListFor(model => model.SecondSittingOLevelResult.Type.Id, (IEnumerable<SelectListItem>)ViewBag.SecondSittingOLevelTypeId, new { @class = "form-control olevel" })
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "control-label col-md-3" })
+                                                                        <div class="col-md-9">
+                                                                            @Html.TextBoxFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "form-control" })
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group ">
+                                                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "control-label col-md-3" })
+                                                                        <div class="col-md-9">
+                                                                            @Html.DropDownListFor(model => model.SecondSittingOLevelResult.ExamYear, (IEnumerable<SelectListItem>)ViewBag.SecondSittingExamYearId, new { @class = "form-control olevel" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <table id="secondSittingTable" class="table table-condensed table-responsive" style="background-color: whitesmoke">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Subject
+                                                                            </th>
+                                                                            <th>
+                                                                                Grade
+                                                                            </th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @for (int i = 0; i < 9; i++)
+                                                                        {
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Id)
+                                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Name)
+                                                                                    @Html.DropDownListFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Id, (IEnumerable<SelectListItem>)ViewData["SecondSittingOLevelSubjectId" + i], new { @class = "form-control olevel", @id = "@(Secondsubject + @i)" })
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Name)
+                                                                                    @Html.DropDownListFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Id, (IEnumerable<SelectListItem>)ViewData["SecondSittingOLevelGradeId" + i], new { @class = "form-control olevel", @id = "@(secondgrade + @i)" })
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                            <div class="col-xs-12">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12 pb-5" style="height: 700px; overflow-y: auto;">
+                                                        <div class="col-md-12">
+                                                            <h4 style="font-weight:bold">Previous Education Information</h4>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 form-group">
+                                                                @Html.LabelFor(model => model.PreviousEducation.SchoolName, new { @class = "control-label " })
+                                                                @Html.TextBoxFor(model => model.PreviousEducation.SchoolName, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.PreviousEducation.SchoolName)
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                @Html.LabelFor(model => model.PreviousEducation.Course, new { @class = "control-label " })
+                                                                @Html.TextBoxFor(model => model.PreviousEducation.Course, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.PreviousEducation.Course)
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <div class="form-inline">
+                                                                    <div class="form-inline" style="color: black">
+                                                                        @Html.LabelFor(model => model.PreviousEducation.StartDate, new { @class = "control-label " })
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                    <div>
+                                                                        @if (Model.PreviousEducation.StartDate != null)
+                                                                        {
+                                                                            @Html.TextBoxFor(model => model.PreviousEducation.StartDate, new { @class = "form-control", @type = "date", @Value = Model.PreviousEducation.StartDate.ToString("yyyy-MM-dd") })
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.TextBoxFor(model => model.PreviousEducation.StartDate, new { @class = "form-control", @type = "date" })}
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <div class="form-inline">
+                                                                    <div class="form-inline" style="color:black">
+                                                                        @Html.LabelFor(model => model.PreviousEducation.EndDate, new { @class = "control-label " })
+                                                                    </div>
+                                                                    <div class="clearfix"></div>
+                                                                    <div>
+                                                                        @if (Model.PreviousEducation.EndDate != null)
+                                                                        {
+                                                                            @Html.TextBoxFor(model => model.PreviousEducation.EndDate, new { @class = "form-control", @type = "date", @Value = Model.PreviousEducation.EndDate.ToString("yyyy-MM-dd") })
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.TextBoxFor(model => model.PreviousEducation.EndDate, new { @class = "form-control", @type = "date" })}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                @Html.LabelFor(model => model.PreviousEducation.Qualification.Id, new { @class = "control-label " })
+                                                                @Html.DropDownListFor(model => model.PreviousEducation.Qualification.Id, (IEnumerable<SelectListItem>)ViewBag.QualificationId, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.PreviousEducation.Qualification.Id)
+                                                            </div>
+
+                                                            <div class="col-md-6 form-group">
+                                                                @Html.LabelFor(model => model.PreviousEducation.ResultGrade.Id, new { @class = "control-label" })
+                                                                @Html.DropDownListFor(model => model.PreviousEducation.ResultGrade.Id, (IEnumerable<SelectListItem>)ViewBag.ResultGradeId, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.PreviousEducation.ResultGrade.Id)
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                @Html.LabelFor(model => model.PreviousEducation.ITDuration.Id, "IT Duration", new { @class = "control-label " })
+                                                                @Html.DropDownListFor(model => model.PreviousEducation.ITDuration.Id, (IEnumerable<SelectListItem>)ViewBag.ITDurationId, new { @class = "form-control" })
+                                                                @Html.ValidationMessageFor(model => model.PreviousEducation.ITDuration.Id)
+
+                                                            </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                            </div>
+
+                                        </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <div style="font-size: x-large">Declaration</div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <blockquote>
+                                                                    @*<i class="fa fa-quote-left"></i>*@
+                                                                    <p>
+                                                                        I hereby acknowledge by ticking this check box that if it is discovered at any time that I do not possess any of the qualifications which I claim
+                                                                        I have obtained, I will be disciplined by the university.
+                                                                    </p>
+                                                                </blockquote>
+
+                                                                <div class="ckbox ckbox-default">
+                                                                    <input type="checkbox" id="checkboxDefault" />
+                                                                    <label for="checkboxDefault"><b style="font-size: 13pt">I Agree</b></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 text-right">
+                                                    <button class="btn btn-primary pull-right" id="submitBtn" type="submit" disabled>Submit</button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                            @*</div>*@
+
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+    //document.querySelector("#fileInput").addEventListener("change", (e) => {
+    //    const fileEl = document.querySelector("#fileInput");
+    //    const file = e.target.files[0];
+    //    const fileType = file.type;
+    //    const fileSize = file.size;
+    //    if (fileSize > 1048576) {
+    //        alert("File size is too much. Allowed size is 1MB")
+    //        $("#fileInput").val("");
+    //        $("#fileInput").text("");
+    //        return false;
+    //    }
+
+
+    //    ////If file type is Video, Return False; ask user to insert a youtube link
+    //    //if (fileType.split("/")[1] != "") {
+    //    //    alert("Only Image is allowed!");
+
+    //    //    //Reset the file selector to application/pdf
+    //    //    fileEl.setAttribute("accept", "application/pdf");
+
+    //    //    //Clear the inout type field
+    //    //    $("#fileInput").val("");
+    //    //    $("#fileInput").text("");
+    //    //    //$('#videoUrl').show();
+    //    //    return false;
+    //    //}
+
+    //});
+    $('#checkboxDefault').on('click', function (e) {
+        $('#submitBtn').removeAttr("disabled");
+
+    });
+</script>
+
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>*@
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Congratulations! @Model.SandwitchAdmissionFix.Fullname </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You have been offered provisional admission into the Nnamdi Azikiwe University to pursue a degree programme in (@Model.SandwitchAdmissionFix.DepartmentName)
+                Kindly fill your bio-data form to continue
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>

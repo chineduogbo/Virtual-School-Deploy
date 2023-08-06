@@ -1,0 +1,1098 @@
+﻿@model Abundance_Nk.Web.Areas.Student.ViewModels.PaymentViewModel
+
+@{
+    ViewBag.Title = "PgStudentStatus";
+}
+
+
+<style>
+    .step {
+        color: blue;
+        font-size: 11pt;
+    }
+</style>
+
+<link href="~/Content/AdminLayoutContent/smart_wizard.css" rel="stylesheet" />
+<link href="~/Content/AdminLayoutContent/smart_wizard.min.css" rel="stylesheet" />
+<link href="~/Content/AdminLayoutContent/smart_wizard_theme_arrows.css" rel="stylesheet" />
+<link href="~/Content/AdminLayoutContent/smart_wizard_theme_dots.css" rel="stylesheet" />
+
+
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/core/jquery.3.2.1.min.js"></script>
+<script src="~/Scripts/jquery.smartWizard.min.js"></script>
+
+<script type="text/javascript">
+    var jQueryVesrsion_1_11_1 = $.noConflict(true);
+    jQueryVesrsion_1_11_1(document).ready(function () {
+
+        var applicantStatus = $('#CurrentPage').val();
+        var stepToGoTo;
+        if (applicantStatus == 2) {
+            stepToGoTo = 2;
+        }
+        else if (applicantStatus == 3) {
+            stepToGoTo = 3;
+        }
+        else if (applicantStatus == 4) {
+            stepToGoTo = 4;
+        }
+
+        else if (applicantStatus == 5 ) {
+            stepToGoTo = 5;
+        }
+        else if (applicantStatus == 7) {
+            stepToGoTo = 2;
+        }
+        else if (applicantStatus == 8) {
+            stepToGoTo = 4;
+        }
+        else if (applicantStatus == 9) {
+            stepToGoTo = 5;
+        }
+        else if (applicantStatus == 10) {
+            stepToGoTo = 6;
+        }
+        else if (applicantStatus == 11) {
+            stepToGoTo = 7;
+        }
+
+        jQueryVesrsion_1_11_1('#smartwizard').smartWizard({
+            selected: stepToGoTo,
+            theme: 'default',
+            transitionEffect: 'fade',
+            toolbarPosition: 'bottom',
+            showStepURLhash: false
+        });
+
+        jQueryVesrsion_1_11_1("#smartwizard").on("showStep", function (e, anchorObject, stepNumber, stepDirection, stepPosition) {
+            //alert("You are on step " + stepNumber + " now" + stepToGoTo);
+            if (stepPosition === 'first') {
+                $("#prev-btn").addClass('disabled');
+            } else if (stepPosition === 'final') {
+                $("#next-btn").addClass('disabled');
+            } else {
+                $("#prev-btn").removeClass('disabled');
+                $("#next-btn").removeClass('disabled');
+            }
+        });
+
+        jQueryVesrsion_1_11_1("#prev-btn").on("click", function () {
+            // Navigate previous
+            UpdateTabState(stepToGoTo);
+            $('#smartwizard').smartWizard("prev");
+            return true;
+        });
+
+        jQueryVesrsion_1_11_1("#next-btn").on("click", function () {
+            // Navigate next
+            $('#smartwizard').smartWizard("next");
+            return true;
+        });
+
+        jQueryVesrsion_1_11_1("#theme_selector").on("change", function () {
+            // Change theme
+            $('#smartwizard').smartWizard("theme", $(this).val());
+            return true;
+        });
+
+        // Set selected theme on page refresh
+        jQueryVesrsion_1_11_1("#theme_selector").change();
+
+
+
+
+
+
+
+
+            // Upload button click event
+        $("#uploadBtn").click(function () {
+          var personId =  $('#PersonId').val();
+           var fileName =  $('#filename').val();
+                var fileInput = $("#fileInput")[0];
+                if (fileInput.files.length > 0) {
+                    var model = new FormData();
+                    model.append("file", fileInput.files[0]);
+                    model.append("personId", personId); // Replace userId with the actual value
+                    model.append("filename", fileName); // Replace stageId with the actual value
+
+                    $.ajax({
+                        url: '@Url.Action("Upload", "Home")',
+                        type: "POST",
+                        data: model,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // Handle success response
+                            if (response.Id>0) {
+                                // Display uploaded file details
+                                var FileName = response.FileName;
+                                var fileUrl = 'http://localhost/'+ response.FileUrl;
+                                var previewBtn = '<a class="previewBtn btn btn-outline" target="_blank" href="' + fileUrl + '">Preview</a>';
+
+                                var deleteBtn = '<a class="deleteBtn btn btn-danager" href="~/PGStudent/Home/Delete?fileId=' + response.Id + '" data-filename="' + FileName + '">Delete</a>';
+                                ////var previewBtn = '<a class="previewBtn btn btn-outline" target="_blank" href='Url.Content(' + response.FileUrl  +')'">Preview</a>';
+                                var fileDetails = '<div>' + FileName +'</div>';
+                                $("#previewContainer").append(fileDetails + deleteBtn + previewBtn);
+
+                                $('#filename').val('');
+                                $("#fileInput").val('');
+
+                            } else {
+                                alert("File upload failed!");
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred during file upload!");
+                        }
+                    });
+                }
+            });
+
+
+
+
+    });
+</script>
+
+<div class="">
+    @Html.HiddenFor(x => x.Student.Id, new {id="PersonId"})
+    @Html.HiddenFor(x=>x.CurrentPage, new {id="CurrentPage"})
+    <div class="col-md-12 card p-5">
+        <div class="custom-text-black">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        PostGraduate Student Status
+                    </h2><hr />
+                    <h4>CURRENT STATUS: 
+                          @if(Model.PgStudentStageRequest != null)
+                          {
+                              if (Model.PgStudentStageRequest.Count > 0)
+                              {
+                                <b style="color: #b78825">
+                                    @Model.PgStudentStageRequest.LastOrDefault().Status.Name    @(Model.PgStudentStageRequest.LastOrDefault().StudentRequestStage?"Approved":"Unapproved")
+                                </b>
+                              }
+                           }
+                               </h4>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", TempData["Message"])
+                    }
+                </div>
+            </div>
+
+         
+        </div>
+
+        <div class="col-md-12 stretch-card grid-margin">
+            <div class=" container-fluid">
+                <div class="">
+
+                   
+                    <!-- SmartWizard html -->
+                    <div id="smartwizard" class="col-md-12">
+                        <ul class="nav nav-tabs step-anchor mb-3" style="border-bottom: 4px solid  #4285f4 ;">
+
+                            @if (Model.PgStudentStatus.Count == 4)
+                            {
+                            <li id="tab1"><a href="#step1">Step 1<br /><small>Proposal Defence</small></a></li>
+
+                            <li id="tab1"><a href="#step2">Step 2<br /><small>Faculty Defence</small></a></li>
+
+                            <li id="tab1"><a href="#step3">Step 3<br /><small>Final Defence</small></a></li>
+
+                            <li id="tab1"><a href="#step4">Step 4<br /><small>Finish Programme</small></a></li>
+                            }
+                            else if (Model.PgStudentStatus.Count == 5)
+                            {
+
+                            <li id="tab1"><a href="#step1">Step 1<br /><small>Proposal Defence</small></a></li>
+
+                            <li id="tab1"><a href="#step2">Step 2<br /><small>Topic Approval</small></a></li>
+
+                            <li id="tab1"><a href="#step3">Step 3<br /><small>Faculty Defence</small></a></li>
+
+                            <li id="tab1"><a href="#step4">Step 4<br /><small>Final Defence</small></a></li>
+
+                            <li id="tab1"><a href="#step5">Step 5<br /><small>Finish Programme</small></a></li>
+                            }
+else
+            {
+
+            }
+
+
+
+                        </ul>
+                        <div class="tab-content">
+                            @if (Model.PgStudentStatus.Count == 4)
+                            {
+                                <div class="tab-pane active p-0" id="step1" style="display: none">
+
+
+                                    <div id="remarks"></div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                            <p>Please follow the instructions below:</p>
+                                            <p>
+                                                Step 1: Pay for the application process by clicking generate invoice.
+                                                <a class="btn btn-success" href="~/PGStudent/Home/ApplyForStatusPayment?PersonId=@Model.Student.Id&feeTypeId=93">Generate Invoice</a>
+                                            </p>
+                                            <p>Step 2: Scan all documents.</p>
+                                            <p>
+                                                Step 3: Fill the form below for students admitted on this portal to apply or
+                                                upload the following documents and fill the form to apply.
+                                            </p>
+                                            <p>(A) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/053A-Appl.-for-Proposal-Defence.docx" download="Form 053A">Upload Spgs Form 053A(only for students not admitted on the portal).</a></p>
+                                            <p>(B) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/021-Students-Fees-Status-Form.docx" download="form 021">Spgs form 021(only for students not admitted on the portal).</a> </p>
+                                            <p>Step 4: Check your email for updates or open this page to see progress.</p>
+                                            <div id="previewContainer">
+                                                @if (Model.PgStudentStageRequestFiles != null)
+                                                {
+                                                    foreach (var item in Model.PgStudentStageRequestFiles)
+                                                    {
+                                                        <div>
+                                                            @item.FileName
+                                                            <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                            <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                        </div>
+
+                                                    }
+                                                }
+                                            </div>
+
+
+                                            <div class="form-group mt-6">
+
+                                                <label for="fileInput">Document Name:</label>
+                                                <input type="text" class="" id="filename" />
+
+                                                <div class="row">
+                                                    <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                    <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="remarks">
+                                                <h3>Apply For Proposal Defence </h3>
+                                               
+                                            </div>
+                                            @using (Html.BeginForm("ApplyForProposal", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                            {
+                                                @Html.HiddenFor(x => x.Student.Id)
+                                                @Html.HiddenFor(x=>x.Person.Id)
+                                                @Html.HiddenFor(x=> x.StudentLevel.Programme.Id)
+                                                <div class="form-group">
+                                                    <label for="reasons">Title of Thesis:</label>
+                                                    @Html.TextBoxFor(x => x.PgForms.Title, new
+                                                    {
+                                                        @class = "form-control",
+
+                                                        placeholder = ""
+                                                    })
+                                                    <label for="reasons">No Of Attempts:</label>
+                                                    @Html.TextBoxFor(x => x.PgForms.NoOfAttempts, new
+                                                    {
+                                                        @class = "form-control",Type="number",
+
+                                                        placeholder = ""
+                                                    })
+                                                    <label for="reasons">Supervisor's FullName:</label>
+                                                    @Html.TextBoxFor(x => x.PgForms.NameOfSupervisor, new
+                                                    {
+                                                        @class = "form-control",
+
+                                                        placeholder = ""
+                                                    })
+                                                    <label for="reasons">Supervisors NAU Email:</label>
+                                                    @Html.TextBoxFor(x => x.PgForms.SupervisorEmail, new
+                                                    {
+                                                        @class = "form-control",
+
+                                                        placeholder = ""
+                                                    })
+
+                                                </div>
+
+                                                <button type="submit" class="btn btn-primary">Apply</button>
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    <br><br>
+
+                                    @*  <a class="btn btn-success" href="~/PGStudent/Home/Apply?PersonId=@Model.Student.Id&programmeId=@Model.StudentLevel.Programme.Id">Apply</a>*@
+                                    <div class="col-md-6">
+                                                </div>
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step2" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                  <p>Please follow the instructions below:</p>
+                                                  <p>
+                                                      Step 1: Pay for the application process by clicking generate invoice.
+                                                      <a class="btn btn-success" href="~/PGStudent/Home/ApplyForStatusPayment?PersonId=@Model.Student.Id&feeTypeId=59">Generate Invoice</a>
+                                                  </p>
+                                                <p>Step 2: Scan all documents.</p>
+                                                <p>
+                                                    Step 3: Fill the form below for students admitted on this portal to apply or
+                                                    upload the following documents and fill the form to apply.
+                                                </p>
+                                                <p>(A) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/055B-Departmental-Defence-Report.docx" download="Form 055B">Upload Spgs Form 055B.</a></p>
+                                                <p>(B) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/021-Students-Fees-Status-Form.docx" download="form 021">Spgs form 021(only for students not admitted on the portal).</a> </p>
+                                                <p>Step 4: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Apply For Faculty Defence </h3>
+
+                                                </div>
+                                                @using (Html.BeginForm("ApplyForFaculty", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                {
+                                                    @Html.HiddenFor(x => x.Student.Id)
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.HiddenFor(x => x.StudentLevel.Programme.Id)
+                                                    <div class="form-group">
+                                                        <label for="reasons">Title of Thesis:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.Title, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">No Of Attempts:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NoOfAttempts, new
+                                                        {
+                                                            @class = "form-control",
+                                                            Type = "number",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisor's FullName:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NameOfSupervisor, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisors NAU Email:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.SupervisorEmail, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                                }
+
+
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                       
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step3" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <p>Please follow the instructions below:</p>
+                                                <p>
+                                                    Step 1: Pay for the application process by clicking generate invoice.
+                                                    <a class="btn btn-success" href="~/PGStudent/Home/ApplyForStatusPayment?PersonId=@Model.Student.Id&feeTypeId=60">Generate Invoice</a>
+                                                </p>
+                                                <p>Step 2: Scan all documents.</p>
+                                                <p>
+                                                    Step 3: Fill the form below for students admitted on this portal to apply or
+                                                    upload the following documents and fill the form to apply.
+                                                </p>
+                                                  <p>(A) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/023-Students-Fees-Clearance-Form.docx" download="form 023">Spgs form 023(only for students not admitted on the portal).</a> </p>
+                                                <p>(B) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/031-Faculty-Internal-Defence-Evaluation.docx" download="form 031">Spgs form 031(only for students not admitted on the portal).</a> </p>
+
+                                                <p>Step 4: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Apply For Final Defence </h3>
+
+                                                </div>
+                                                @using (Html.BeginForm("ApplyForFinal", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                {
+                                                    @Html.HiddenFor(x => x.Student.Id)
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.HiddenFor(x => x.StudentLevel.Programme.Id)
+                                                    <div class="form-group">
+                                                        <label for="reasons">Title of Thesis:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.Title, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">No Of Attempts:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NoOfAttempts, new
+                                                        {
+                                                            @class = "form-control",
+                                                            Type = "number",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisor's FullName:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NameOfSupervisor, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisors NAU Email:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.SupervisorEmail, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                                }
+
+
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <a class="btn btn-success" href="~/PGStudent/Home/Apply?PersonId=@Model.Student.Id&programmeId=@Model.StudentLevel.Programme.Id">Apply</a>
+
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step4" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <p>Please follow the instructions below:</p>
+
+                                                <p>Step 1: Scan all documents.</p>
+
+                                                <p>Step 2: Upload documents to start application process.</p>
+                                                <p>Step 3: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Remarks From Account Officer</h3>
+                                                    @if (Model.PgStageRequestRemarks != null && Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 4).Any())
+                                                    {
+
+                                                        foreach (var item in Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 4).ToList())
+                                                        {
+                                                            <p>@item.User.Username Remarks: @item.Remark .</p>
+                                                            if (item.Response != null)
+                                                            {<div class="text-right">
+                                                                    <span>Response:@item.Response</span>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        if (Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 4 && x.Request.RaisedRemark == true).Any())
+                                                        {
+                                                            @*<a class="btn btn-success" href="~/PGStudent/Home/ResolveRemark?RequestId=@Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 4).ToList().FirstOrDefault().Request.Id">Resolve Remark </a>*@
+                                                            using (Html.BeginForm("ResolveRemark", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                            {
+                                                                @Html.HiddenFor(x => x.Student.Id)
+                                                                @Html.HiddenFor(v => v.RequestId == Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 4).ToList().FirstOrDefault().Request.Id)
+                                                                <div class="form-group">
+                                                                    <label for="reasons">Response:</label>
+                                                                    @Html.TextAreaFor(x => x.Response, new
+                                                                    {
+                                                                        @class = "form-control",
+                                                                    rows = "3",
+                                                                        placeholder = "Enter your Response"
+                                                                    })
+
+                                                                </div>
+
+                                                                <button type="submit" class="btn btn-primary">Resolve</button>
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <a class="btn btn-success" href="~/PGStudent/Home/Apply?PersonId=@Model.Student.Id&programmeId=@Model.StudentLevel.Programme.Id">Apply</a>
+
+                                    </div>
+
+
+                                    }
+                                    else if (Model.PgStudentStatus.Count == 5)
+                                    {
+
+                                    <div class="tab-pane active p-0" id="step1" style="display: none">
+
+
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <p>Please follow the instructions below:</p>
+                                                <p>
+                                                    Step 1: Pay for the application process by clicking generate invoice.
+                                                    <a class="btn btn-success" href="~/PGStudent/Home/ApplyForStatusPayment?PersonId=@Model.Student.Id&feeTypeId=93">Generate Invoice</a>
+                                                </p>
+                                                <p>Step 2: Scan all documents.</p>
+                                                <p>
+                                                    Step 3: Fill the form below for students admitted on this portal to apply or
+                                                    upload the following documents and fill the form to apply.
+                                                </p>
+                                                <p>(A) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/053A-Appl.-for-Proposal-Defence.docx" download="Form 053A">Upload Spgs Form 053A(only for students not admitted on the portal).</a></p>
+                                                <p>(B) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/021-Students-Fees-Status-Form.docx" download="form 021">Spgs form 021(only for students not admitted on the portal).</a> </p>
+                                                <p>Step 4: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Apply For Proposal Defence </h3>
+
+                                                </div>
+                                                @using (Html.BeginForm("ApplyForProposal", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                {
+                                                    @Html.HiddenFor(x => x.Student.Id)
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.HiddenFor(x => x.StudentLevel.Programme.Id)
+                                                    <div class="form-group">
+                                                        <label for="reasons">Title of Thesis:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.Title, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">No Of Attempts:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NoOfAttempts, new
+                                                        {
+                                                            @class = "form-control",
+                                                            Type = "number",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisor's FullName:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NameOfSupervisor, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisors NAU Email:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.SupervisorEmail, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                      
+
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step2" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <p>Please follow the instructions below:</p>
+
+                                                <p>Step 1: Provide Your Topic and click submit.</p>
+
+
+                                                <div id="previewContainer">
+                                                    @using (Html.BeginForm("ApplyForProposalTopic", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                    {
+                                                        @Html.HiddenFor(x => x.Student.Id)
+                                                        <div class="form-group">
+                                                            <label for="reasons">Topic For Citation:</label>
+                                                            @Html.TextAreaFor(x => x.Topic, new
+                                                            {
+                                                                @class = "form-control",
+                                                            rows = "3",
+                                                                placeholder = "Enter your Topic"
+                                                            })
+
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                    }
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <br><br>
+
+                                        @*   <a class="btn btn-success" href="~/PGStudent/Home/Apply?PersonId=@Model.Student.Id&programmeId=@Model.StudentLevel.Programme.Id">Apply</a>*@
+
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step3" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p>Please follow the instructions below:</p>
+                                                <p>
+                                                    Step 1: Pay for the application process by clicking generate invoice.
+                                                    <a class="btn btn-success" href="~/PGStudent/Home/ApplyForStatusPayment?PersonId=@Model.Student.Id&feeTypeId=59">Generate Invoice</a>
+                                                </p>
+                                                <p>Step 2: Scan all documents.</p>
+                                                <p>
+                                                    Step 3: Fill the form below for students admitted on this portal to apply or
+                                                    upload the following documents and fill the form to apply.
+                                                </p>
+                                                <p>(A) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/055B-Departmental-Defence-Report.docx" download="Form 055B">Upload Spgs Form 055B.</a></p>
+                                                <p>(B) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/021-Students-Fees-Status-Form.docx" download="form 021">Spgs form 021(only for students not admitted on the portal).</a> </p>
+                                                <p>Step 4: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Apply For Faculty Defence </h3>
+
+                                                </div>
+                                                @using (Html.BeginForm("ApplyForFaculty", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                {
+                                                    @Html.HiddenFor(x => x.Student.Id)
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.HiddenFor(x => x.StudentLevel.Programme.Id)
+                                                    <div class="form-group">
+                                                        <label for="reasons">Title of Thesis:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.Title, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">No Of Attempts:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NoOfAttempts, new
+                                                        {
+                                                            @class = "form-control",
+                                                            Type = "number",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisor's FullName:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NameOfSupervisor, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisors NAU Email:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.SupervisorEmail, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                                }
+
+
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                       
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step4" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <p>Please follow the instructions below:</p>
+                                                <p>
+                                                    Step 1: Pay for the application process by clicking generate invoice.
+                                                    <a class="btn btn-success" href="~/PGStudent/Home/ApplyForStatusPayment?PersonId=@Model.Student.Id&feeTypeId=60">Generate Invoice</a>
+                                                </p>
+                                                <p>Step 2: Scan all documents.</p>
+                                                <p>
+                                                    Step 3: Fill the form below for students admitted on this portal to apply or
+                                                    upload the following documents and fill the form to apply.
+                                                </p>
+                                                <p>(A) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/023-Students-Fees-Clearance-Form.docx" download="form 023">Spgs form 023(only for students not admitted on the portal).</a> </p>
+                                                <p>(B) <a href="https://unizik.edu.ng/wp-content/uploads/2023/01/031-Faculty-Internal-Defence-Evaluation.docx" download="form 031">Spgs form 031(only for students not admitted on the portal).</a> </p>
+
+                                                <p>Step 4: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Apply For Final Defence </h3>
+
+                                                </div>
+                                                @using (Html.BeginForm("ApplyForFinal", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                {
+                                                    @Html.HiddenFor(x => x.Student.Id)
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.HiddenFor(x => x.StudentLevel.Programme.Id)
+                                                    <div class="form-group">
+                                                        <label for="reasons">Title of Thesis:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.Title, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">No Of Attempts:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NoOfAttempts, new
+                                                        {
+                                                            @class = "form-control",
+                                                            Type = "number",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisor's FullName:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.NameOfSupervisor, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+                                                        <label for="reasons">Supervisors NAU Email:</label>
+                                                        @Html.TextBoxFor(x => x.PgForms.SupervisorEmail, new
+                                                        {
+                                                            @class = "form-control",
+
+                                                            placeholder = ""
+                                                        })
+
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-primary">Apply</button>
+                                                }
+
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                    </div>
+
+                                    <div class="tab-pane p-0" id="step5" style="display: none">
+                                        <div id="remarks"></div> <!-- Display user remarks here -->
+
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <p>Please follow the instructions below:</p>
+
+                                                <p>Step 1: Scan all documents.</p>
+
+                                                <p>Step 2: Upload documents to start application process.</p>
+                                                <p>Step 3: Check your email for updates or open this page to see progress.</p>
+                                                <div id="previewContainer">
+                                                    @if (Model.PgStudentStageRequestFiles != null)
+                                                    {
+                                                        foreach (var item in Model.PgStudentStageRequestFiles)
+                                                        {
+                                                            <div>
+                                                                @item.FileName
+                                                                <a class="deleteBtn btn btn-danager" data-filename="" href="~/PGStudent/Home/Delete?fileId=@item.Id">Delete</a>
+                                                                <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@item.FileUrl)">Preview</a>
+                                                            </div>
+
+                                                        }
+                                                    }
+                                                </div>
+
+
+                                                <div class="form-group mt-6">
+
+                                                    <label for="fileInput">Document Name:</label>
+                                                    <input type="text" class="" id="filename" />
+
+                                                    <div class="row">
+                                                        <input type="file" class="col-md-5" id="fileInput" name="applicationFile" accept=".pdf,.doc,.docx">
+                                                        <button class="btn btn-success mt-3 col-md-2" type="button" id="uploadBtn">Upload</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="remarks">
+                                                    <h3>Remarks From Account Officer</h3>
+                                                    @if (Model.PgStageRequestRemarks != null && Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 5).Any())
+                                                    {
+
+                                                        foreach (var item in Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 5).ToList())
+                                                        {
+                                                            <p>@item.User.Username Remarks: @item.Remark .</p>
+                                                            if (item.Response != null)
+                                                            {<div class="text-right">
+                                                                    <span>Response:@item.Response</span>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        if (Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 5 && x.Request.RaisedRemark == true).Any())
+                                                        {
+                                                            @*<a class="btn btn-success" href="~/PGStudent/Home/ResolveRemark?RequestId=@Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 5).ToList().FirstOrDefault().Request.Id">Resolve Remark </a>*@
+                                                            using (Html.BeginForm("ResolveRemark", "Home", new { Area = "PGStudent" }, FormMethod.Post, new { @class = "form-horizontal" }))
+                                                            {
+                                                                @Html.HiddenFor(x => x.Student.Id)
+                                                                @Html.HiddenFor(v => v.RequestId == Model.PgStageRequestRemarks.Where(x => x.Request.Status.CurrentOrder == 5).ToList().FirstOrDefault().Request.Id)
+                                                                <div class="form-group">
+                                                                    <label for="reasons">Response:</label>
+                                                                    @Html.TextAreaFor(x => x.Response, new
+                                                                    {
+                                                                        @class = "form-control",
+                                                                    rows = "3",
+                                                                        placeholder = "Enter your Response"
+                                                                    })
+
+                                                                </div>
+
+                                                                <button type="submit" class="btn btn-primary">Resolve</button>
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br><br>
+
+                                        <a class="btn btn-success" href="~/PGStudent/Home/Apply?PersonId=@Model.Student.Id&programmeId=@Model.StudentLevel.Programme.Id">Apply</a>
+
+                                    </div>
+
+                                    }
+                                    else { }
+
+
+
+
+
+                                </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+
+    <input type="hidden" name="hd" id="hd">
+    <br />
+</div>
+
+
+
+

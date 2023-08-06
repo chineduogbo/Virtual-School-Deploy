@@ -1,0 +1,657 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.AdmissionViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "::Acknowlegment Slip::";
+}
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#aPrint").click(function () {
+            $("#aPrint").hide();
+            $("#printable").show();
+            window.print();
+            $("#aPrint").show();
+        });
+
+    });
+</script>
+
+<div>
+    <div id="printable" class="container">
+        <div class="col-xs-12">
+
+            @*<div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12 ">
+                                <div class="row">
+                                    <div class="col-xs-2 pull-left">
+                                        <img class="img-responsive" src="@Url.Content("~/Content/Images/school_logo.jpg")" width="100px" height="100px" alt="School Logo" />
+                                    </div>
+                                    <div class="col-xs-8 text-left text-bold">
+
+                                        <h4>ABIA STATE UNIVERSITY, UTURU</h4>
+                                        <h5>@Model.Payment.Session.Name POSTGRADUATE APPLICATION</h5>
+                                        <h5>ACKNOWLEDGMENT SLIP</h5>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-4">
+                                                        <img class="img-responsive" src="@Url.Content('~' + Model.Person.ImageFileUrl)" width="100px" height="100px" alt="Student Passport" />
+                                                    </div>
+                                                    <div class="col-xs-8 text-bold" style="font-size: x-small">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-6">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-4">
+                                                    </div>
+                                                    <div class="col-xs-8 text-bold" style="font-size: x-small">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.Person.FullName, "Fullname:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.Person.FullName)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.Person.MobilePhone, "Mobile No:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.Person.MobilePhone)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.Person.FullName, "Application Number:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.ApplicationForm.SerialNumber)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.Person.FullName, "Department:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.AppliedCourse.Department.Name)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.AppliedCourse.Programme.Name, "Programme:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.AppliedCourse.Programme.Name)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.Person.FullName, "Field Of Study:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.AppliedCourse.Option.Name)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.AppliedCourse.Programme.Id, "Mode Of Study:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.AppliedCourse.Programme.Name)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-7">
+                                                <div class="form-group margin-bottom-0">
+                                                    <div class="col-xs-5">
+
+                                                        @Html.LabelFor(model => model.Person.FullName, "Date Submitted:", new { @class = "", @style = "font-size:small" })
+                                                    </div>
+                                                    <div class="col-xs-6 text-bold" style="font-size: small">
+                                                        @Html.DisplayFor(model => model.ApplicationForm.DateSubmitted)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class=" col-xs-12 text-bold text-danger">
+                                                <p class="text-bold">
+                                                    NB :
+                                                    Please ensure that you instruct your former institution(s) to forward transcript(s) of your academic work direct to : The Secretary School of Post­Graduate Studies, Abia State University PMB 2000 Uturu, Abia State, Nigeria
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class=" col-xs-12 text-bold text-danger">
+                                                <p class="text-bold text-center">
+                                                    <a href="@Url.Action("BuildReport","PostGraduateForm",new { studentId=@Model.Person.Id ,type = 1 })">Click Here to Download Referee Form</a><br />
+                                                    <a href="@Url.Action("BuildReport","PostGraduateForm",new { studentId = @Model.Person.Id,type = 2 })">Click Here to Download Transcript Request Form</a><br />
+                                                    Print and Keep this slip
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button id="aPrint" class="btn btn-primary btn-lg ">Print Slip</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+
+
+            <!doctype html>
+            <html class="no-js" lang="">
+            <head>
+                <meta charset="utf-8">
+                <title></title>
+                <meta name="description" content="">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <style>
+                    .d-inline-block {
+                        display: inline-block;
+                    }
+
+                    .justify-content-center {
+                        justify-content: center
+                    }
+
+                    .justify-content-between {
+                        justify-content: space-between
+                    }
+
+                    .d-flex {
+                        display: flex
+                    }
+
+                    .flex-wrap {
+                        flex-wrap: wrap;
+                    }
+
+                    .text-center {
+                        text-align: center !important
+                    }
+
+                    .mt-4 {
+                        margin-top: 1rem
+                    }
+
+                    .mt-0 {
+                        margin-top: 0 !important
+                    }
+
+                    .border-top {
+                        border-top: 1px solid #eee
+                    }
+
+                    .border-bottom {
+                        border-bottom: 1px solid #eee
+                    }
+
+                    .border-bottom-bold {
+                        border-bottom: 1px solid #000;
+                    }
+
+                    .mr-20px {
+                        margin-right: 20px !important;
+                    }
+
+                    .mb-30px {
+                        margin-bottom: 30px !important;
+                    }
+
+                    .mb-20px {
+                        margin-bottom: 20px !important;
+                    }
+
+                    .mt-30px {
+                        margin-top: 30px !important;
+                    }
+
+                    .mt-20px {
+                        margin-top: 20px !important;
+                    }
+
+                    .font-weight-bold {
+                        font-weight: bolder;
+                    }
+
+                    .my-auto {
+                        margin-top: auto;
+                        margin-bottom: auto;
+                    }
+
+                    .text-italic {
+                        font-style: italic;
+                    }
+
+                    .text-underline {
+                        text-decoration: underline;
+                    }
+
+                    .list-mb {
+                        margin-bottom: 15px;
+                    }
+
+                    .px-10px {
+                        padding-left: 10px;
+                        padding-right: 10px;
+                    }
+
+                    .ml-20px {
+                        margin-left: 20px;
+                    }
+
+                    @@media only screen and (min-device-width: 576px) {
+                        .container {
+                            max-width: 540px;
+                        }
+                    }
+
+                    @@media only screen and (min-device-width: 768px) {
+                        .container {
+                            max-width: 720px;
+                        }
+                    }
+
+                    @@media only screen and (min-device-width: 992px) {
+                        .container {
+                            max-width: 960px;
+                        }
+                    }
+
+                    @@media only screen and (min-device-width: 1200px) {
+                        .container {
+                            max-width: 1140px;
+                        }
+                    }
+
+                    @@media print {
+                        .noprint {
+                            display: none;
+                        }
+                    }
+
+                    .container {
+                        width: 100%;
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        margin-right: auto;
+                        margin-left: auto;
+                    }
+
+                    .grid-left {
+                        grid-area: left;
+                    }
+
+                    .grid-right {
+                        grid-area: right;
+                    }
+
+                    .grid-container {
+                        display: grid;
+                        grid-template-areas: "left left right right";
+                        grid-gap: 10px;
+                        padding: 10px;
+                    }
+
+                    .mr-30px {
+                        margin-right: 200px;
+                    }
+
+                    .mt-50px {
+                        margin-top: 50px
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="container" id="printarea">
+                    <div class="row justify-content-center mb-20px">
+                        <div class="col-lg-12">
+                            <div class="d-flex text-center justify-content-center mt-4">
+                                <img class="d-inline mr-20px" src="@Url.Content("~/Content/Images/school_logo.jpg")" width="100px" height="auto" />
+                                <div class="my-auto">
+                                    <h2 class="d-inline mt-0 font-weight-bold">NNAMDI AZIKIWE UNIVERSITY, AWKA</h2>
+                                    <h4>@Model.admissionList.Form.Setting.Session.Name POSTGRADUATE E-CLEARANCE FORM SLIP</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-top mt-50px">
+                        <h3 class="d-inline-block">Application Form Information</h3>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="mr-30px">
+
+                            <p class="mt-20px"><span class="font-weight-bold"> Application Number: </span>  @Model.PgAdmissionFix.FORMNUMBER</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Email </span>  @Model.Person.Email</p>
+                        </div>
+
+                    </div>
+                    <div class="border border-top ">
+                        <h3 class="d-inline-block">Personal Information</h3>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        @if (Model.Person.ImageFileUrl != null)
+                        {
+                            <img class="d-inline mr-20px" src="@Url.Content(Model.Person.ImageFileUrl)" height="200px" />
+                        }
+                        <div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Surname: </p>
+                                </div>
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.LastName</p>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Name: </p>
+                                </div>
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.FirstName</p>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Other Names: </p>
+                                </div>
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.OtherName</p>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Date of Birth: </p>
+                                </div>
+                                @if (Model.Person.DateOfBirth != null)
+                                {
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.DateOfBirth.Value.ToLongDateString()</p>
+                                </div>
+                                }
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Sex: </p>
+                                </div>
+                                <div class="grid-right">
+                                    @if (Model.Person.Sex != null)
+                                    {
+                                    <p class="mt-0">@Model.Person.Sex.Name</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">State: </p>
+                                </div>
+                                <div class="grid-right">
+                                    @if(Model.Person.State != null)
+                                    {
+                                    <p class="mt-0">@Model.Person.State.Name</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">LGA: </p>
+                                </div>
+                                <div class="grid-right">
+                                    @if (Model.Person.LocalGovernment != null)
+                                    {
+                                    <p class="mt-0">@Model.Person.LocalGovernment.Name</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Nationality: </p>
+                                </div>
+                                <div class="grid-right">
+                                    @if (Model.Person.Nationality != null)
+                                    {
+                                    <p class="mt-0">@Model.Person.Nationality.Name</p>
+                                    }
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Residential Address: </p>
+                                </div>
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.ContactAddress</p>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Phone No: </p>
+                                </div>
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.MobilePhone</p>
+                                </div>
+                            </div>
+                            <div class="grid-container">
+                                <div class="grid-left">
+                                    <p class="font-weight-bold mt-0">Email: </p>
+                                </div>
+                                <div class="grid-right">
+                                    <p class="mt-0">@Model.Person.Email</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="border border-top mt-50px">
+                        <h3 class="d-inline-block">Academic Program Admitted Into</h3>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="mr-30px">
+
+                            <p class="mt-20px"><span class="font-weight-bold"> Faculty: </span>  @Model.admissionList.Deprtment.Faculty.Name</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Department: </span>  @Model.admissionList.Deprtment.Name</p>
+                        </div>
+                        <div>
+
+                            <p class="mt-20px"><span class="font-weight-bold"> Programme: </span> @Model.admissionList.Programme.Name</p>
+                            @if (Model.admissionList.DepartmentOption != null)
+                            {<p class="mt-20px">
+                                    <span class="font-weight-bold"> Specialization: </span>@Model.admissionList.DepartmentOption.Name
+                                </p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="border border-top mt-50px">
+                        <h3 class="d-inline-block">Next of kin information</h3>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="mr-30px">
+                            @if (Model.NextOfKin != null)
+                            {
+                            <p class="mt-20px"><span class="font-weight-bold"> Name of Next Of Kin: </span>  @Model.NextOfKin.Name</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Address of Next of kin </span>  @Model.NextOfKin.ContactAddress</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Phone number of Next of kin </span>  @Model.NextOfKin.MobilePhone</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Relationship  </span>  @Model.NextOfKin.Relationship.Name</p>
+                            }
+                            @*<p class="mt-20px"><span class="font-weight-bold"> Address of sponsor </span>  @Model.Person.Email</p>
+                <p class="mt-20px"><span class="font-weight-bold"> Phone number of sponsor </span>  @Model.Person.Email</p>*@
+                        </div>
+
+                    </div>
+                    <div class="border border-top mt-50px">
+                        <h3 class="d-inline-block">Sponsor</h3>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div class="mr-30px">
+                            @if (Model.Sponsor != null)
+                            {
+                            <p class="mt-20px"><span class="font-weight-bold"> Name of Next Of Kin: </span>  @Model.Sponsor.Name</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Address of Next of kin </span>  @Model.Sponsor.ContactAddress</p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Phone number of Next of kin </span>  @Model.Sponsor.MobilePhone</p>
+                            }
+                            @*<p class="mt-20px"><span class="font-weight-bold"> Relationship  </span>  @Model.Sponsor.Relationship.Name</p>*@
+                            @*<p class="mt-20px"><span class="font-weight-bold"> Address of sponsor </span>  @Model.Person.Email</p>
+                <p class="mt-20px"><span class="font-weight-bold"> Phone number of sponsor </span>  @Model.Person.Email</p>*@
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="border border-top mt-50px">
+                        <h3 class="d-inline-block">Institutions Attended with Date(s) And Certificate(s) Obtained</h3>
+                    </div>
+                    <div class="mb-30px">
+
+                        <table class="table-responsive">
+                            <tr>
+                                <th class="col-md-3">Name of Institution</th>
+                                <th class="col-md-3">From</th>
+                                <th class="col-md-3">To</th>
+                                <th class="col-md-3">Certificate Obtained</th>
+                            </tr>
+                            @if (Model.previousEducations.Count() > 0)
+                            {
+                            foreach (var item in Model.previousEducations)
+                            {
+                            <tr>
+                                <th>  <p class="mt-20px"><span class="">@item.SchoolName</span></p></th>
+                                <th>  <p class="mt-20px"><span class="">@item.StartDate.Year</span></p></th>
+                                <th>  <p class="mt-20px"><span class="">@item.EndDate.Year</span></p></th>
+                                <th>  <p class="mt-20px"><span class="">@item.Qualification.Name</span></p></th>
+                            </tr>
+                            }
+                            }
+                        </table>
+
+
+
+                    </div>
+
+                    <div class="border border-top mt-50px">
+                        <h3 class="d-inline-block">Work Experience</h3>
+                    </div>
+                    <div class="mb-30px">
+
+                        <table class="table-responsive">
+                            <tr>
+                                <th class="col-md-3">Place of Work</th>
+                                <th class="col-md-3">From</th>
+                                <th class="col-md-3">To</th>
+                            </tr>
+                            <tr>
+                                @if (Model.ApplicantWorkExperience1 != null)
+                                {
+                                <th>  <p class="mt-20px"><span class="">@Model.ApplicantWorkExperience1.PlaceOfWork</span></p></th>
+                                <th>  <p class="mt-20px"><span class="">@Model.ApplicantWorkExperience1.From</span></p></th>
+                                <th>  <p class="mt-20px"><span class="">@Model.ApplicantWorkExperience1.To</span></p></th>
+                                }
+                            </tr>
+                            @if (Model.ApplicantWorkExperience2 != null)
+                            {
+                                <tr>
+                                    <th> <p class="mt-20px"><span class=""> @Model.ApplicantWorkExperience2.PlaceOfWork</span></p></th>
+                                    <th> <p class="mt-20px"><span class=""> @Model.ApplicantWorkExperience2.From</span></p></th>
+                                    <th> <p class="mt-20px"><span class=""> @Model.ApplicantWorkExperience2.To</span></p></th>
+                                </tr>
+                            }
+                        </table>
+
+
+
+                    </div>
+
+                    <div class="border border-top mt-50px">
+
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        @Html.Partial("_OLevelResultPreview", Model)
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <hr />
+
+
+                </div>
+                <div>
+                    <button id="aPrint" class="btn btn-primary btn-lg ">Print Slip</button>
+                </div>
+
+    </div>
+
+
+    </body>
+    </html>
+
+</div>
+</div>

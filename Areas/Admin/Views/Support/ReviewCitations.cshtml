@@ -1,0 +1,100 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@{
+    ViewBag.Title = "ReviewCitations";
+}
+
+
+<style>
+    .topic-container {
+        margin-top: 50px;
+    }
+
+    .remarks-container {
+        margin-top: 20px;
+    }
+
+    .add-remark {
+        margin-top: 20px;
+    }
+
+    .approval-button {
+        margin-top: 20px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="topic-container">
+                    <h2>Topic</h2>
+                    <p>@Model.PgStudentRequests.Topic .</p>
+                </div>
+                <div class="add-remark">
+                    <h3>Add Remark</h3>
+                    @using (Html.BeginForm("ReviewComment", "Support", new { area = "Admin" }, FormMethod.Post))
+                    {
+                        @Html.HiddenFor(x => x.PgUserPermissions.CanApprove)
+                        @Html.HiddenFor(x => x.PgUserPermissions.User.Id)
+                        @Html.HiddenFor(x => x.PgStudentRequests.Id)
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="remark-input">Select Next User To Review:</label>
+
+                                @Html.DropDownListFor(model => model.StaffId, (IEnumerable<SelectListItem>)ViewBag.Staffs, new { @class = "form-control", @id = "Session", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.StaffId, null, new { @class = "text-danger" })
+
+                            </div>
+                            <label for="remark-input">Enter your remark:</label>
+                            @Html.TextAreaFor(model => model.Remark, new
+                       {
+                           @class = "form-control",
+                           rows = "5",
+                           cols = "40",
+                           placeholder = "Enter your remark",
+                           required = true
+                       })
+
+                        </div>
+                        if (Model.PgUserPermissions.CanApprove)
+                        {
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary">Recommend</button>
+                        }
+
+                    }
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="remarks-container">
+                    <div class="topic-container">
+                        <h2>Previous Remarks</h2>
+
+                    </div>
+
+                    <ul class="list-group">
+                        @if (Model.pgStudentApprovalHistories != null)
+                        {
+                            foreach (var item in Model.pgStudentApprovalHistories)
+                            {
+                            <li class="list-group-item">
+                                <strong>@item.User.Username</strong> - @item.Date.ToShortDateString()<br>
+                               @item.Remark
+                            </li>
+                            }
+                        }
+                            
+                    </ul>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
+
+</body>
+

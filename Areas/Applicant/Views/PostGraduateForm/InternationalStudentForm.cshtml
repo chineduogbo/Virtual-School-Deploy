@@ -1,0 +1,2343 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJambViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<script src="~/Scripts/jquery-1.11.1.min.js"></script>*@
+<link href="~/Scripts/DropZone/dropzone.css" rel="stylesheet" />
+@*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+<script src="~/Scripts/DropZone/dropzone.js"></script>
+<style>
+    .d-inline-block {
+        display: inline-block;
+    }
+
+    .justify-content-center {
+        justify-content: center
+    }
+
+    .justify-content-between {
+        justify-content: space-between
+    }
+
+    .d-flex {
+        display: flex
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .text-center {
+        text-align: center !important
+    }
+
+    .mt-4 {
+        margin-top: 1rem
+    }
+
+    .mt-0 {
+        margin-top: 0 !important
+    }
+
+    .border-top {
+        border-top: 1px solid #eee
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid #eee
+    }
+
+    .border-bottom-bold {
+        border-bottom: 1px solid #000;
+    }
+
+    .mr-20px {
+        margin-right: 20px !important;
+    }
+
+    .mb-30px {
+        margin-bottom: 30px !important;
+    }
+
+    .mb-20px {
+        margin-bottom: 20px !important;
+    }
+
+    .mt-30px {
+        margin-top: 30px !important;
+    }
+
+    .mt-20px {
+        margin-top: 20px !important;
+    }
+
+    .font-weight-bold {
+        font-weight: bolder;
+    }
+
+    .my-auto {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .text-italic {
+        font-style: italic;
+    }
+
+    .text-underline {
+        text-decoration: underline;
+    }
+
+    .list-mb {
+        margin-bottom: 15px;
+    }
+
+    .px-10px {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .ml-20px {
+        margin-left: 20px;
+    }
+
+    @@media only screen and (min-device-width: 576px) {
+        .container {
+            max-width: 540px;
+        }
+    }
+
+    @@media only screen and (min-device-width: 768px) {
+        .container {
+            max-width: 720px;
+        }
+    }
+
+    @@media only screen and (min-device-width: 992px) {
+        .container {
+            max-width: 960px;
+        }
+    }
+
+    @@media only screen and (min-device-width: 1200px) {
+        .container {
+            max-width: 1140px;
+        }
+    }
+
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .grid-left {
+        grid-area: left;
+    }
+
+    .grid-right {
+        grid-area: right;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas: "left left right right";
+        grid-gap: 10px;
+        padding: 10px;
+    }
+
+    .mr-30px {
+        margin-right: 200px;
+    }
+
+    .mt-50px {
+        margin-top: 50px
+    }
+
+    .required {
+        color: red;
+    }
+</style>
+<div>
+    @section Scripts
+        {
+
+        @Scripts.Render("~/bundles/jquery")
+        <script type="text/javascript" src="~/Scripts/jquery.print.js"></script>
+        <script type="text/javascript" src="~/Scripts/file-upload/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/file-upload/jquery-ui-1.9.2.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload-ui.js"></script>
+        <script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload.js"></script>
+        <script type="text/javascript" src="~/Scripts/file-upload/jquery.iframe-transport.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+
+        <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+        <script src="~/Scripts/bootstrap-datepicker.js"></script>
+
+        <script type="text/javascript">
+            var jqXHRData;
+            let AttachmentFile = null;
+            let firstSittingResult, secondSittingResult = [];
+
+            $(document).ready(function () {
+               // disablepage1();
+                $("#documenttypeidoption[value=30]").remove();
+                var src = $('#passport').attr('src');
+                if (src == undefined) {
+                    $('#passport').attr('src', '/Content/Images/default_avatar.png');
+                }
+
+                $("#Person_State_Id").change(function () {
+                    $("#Person_LocalGovernment_Id").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetLocalGovernmentsByState")', //we are calling json method
+                        dataType: 'json',
+                        data: { id: $("#Person_State_Id").val() },
+                        success: function (lgas) {
+                            $("#Person_LocalGovernment_Id").append('<option value="' + 0 + '">-- Select --</option>');
+
+                            $.each(lgas, function (i, lga) {
+                                $("#Person_LocalGovernment_Id").append('<option value="' + lga.Value + '">' + lga.Text + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve lgas.' + ex);
+                        }
+                    });
+
+                    return false;
+                });
+                $("#Person_MonthOfBirth_Id").change(function () {
+                    $("#Person_DayOfBirth_Id").empty();
+                    var selectedMonth = $("#Person_MonthOfBirth_Id").val();
+                    var selectedYear = $("#Person_YearOfBirth_Id").val();
+
+                    if (selectedYear == '') {
+                        alert('Please select Year of Birth!');
+                        return;
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetDayOfBirthBy")', // we are calling json method
+                        dataType: 'json',
+                        data: { monthId: selectedMonth, yearId: selectedYear },
+                        success: function (days) {
+                            $("#Person_DayOfBirth_Id").append('<option value="' + 0 + '">--DD--</option>');
+
+                            $.each(days, function (i, day) {
+                                $("#Person_DayOfBirth_Id").append('<option value="' + day.Value + '">' + day.Text + '</option>');
+                            });
+                        },
+
+                        beforeSend: function () {
+                            $('#spDob').show();
+                        },
+                        complete: function () {
+                            $('#spDob').hide();
+                        },
+
+                        error: function (ex) {
+                            if (selectedMonth == '') {
+                                return;
+                            } else {
+                                alert('Failed to retrieve days.' + ex);
+                            }
+                        }
+                    });
+
+                    return false;
+                });
+                $("#PreviousEducation_StartMonth_Id").change(function () {
+                    $("#PreviousEducation_StartDay_Id").empty();
+                    var selectedMonth = $("#PreviousEducation_StartMonth_Id").val();
+                    var selectedYear = $("#PreviousEducation_StartYear_Id").val();
+
+                    if (selectedYear == '') {
+                        alert('Please select Start Year!');
+                        return;
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetDayOfBirthBy", "Form")', //We are calling json method
+                        dataType: 'json',
+                        data: { monthId: selectedMonth, yearId: selectedYear },
+                        beforeSend: function () {
+                            $('#spSDate').show();
+                        },
+                        complete: function () {
+                            $('#spSDate').hide();
+                        },
+
+                        success: function (days) {
+                            $("#PreviousEducation_StartDay_Id").append('<option value="' + 0 + '">--DD--</option>');
+
+                            $.each(days, function (i, day) {
+                                $("#PreviousEducation_StartDay_Id").append('<option value="' + day.Value + '">' + day.Text + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            if (selectedMonth == '') {
+                                return;
+                            } else {
+                                alert('Failed to retrieve days.' + ex);
+                            }
+                        }
+                    });
+
+                    return false;
+                });
+
+                $("#PreviousEducation_EndMonth_Id").change(function () {
+                    $("#PreviousEducation_EndDay_Id").empty();
+                    var selectedMonth = $("#PreviousEducation_EndMonth_Id").val();
+                    var selectedYear = $("#PreviousEducation_EndYear_Id").val();
+
+                    if (selectedYear == '') {
+                        alert('Please select End Year!');
+                        return;
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetDayOfBirthBy", "Form")', // we are calling json method
+                        dataType: 'json',
+                        data: { monthId: selectedMonth, yearId: selectedYear },
+                        beforeSend: function () {
+                            $('#spEDate').show();
+                        },
+                        complete: function () {
+                            $('#spEDate').hide();
+                        },
+                        success: function (days) {
+                            $("#PreviousEducation_EndDay_Id").append('<option value="' + 0 + '">--DD--</option>');
+
+                            $.each(days, function (i, day) {
+                                $("#PreviousEducation_EndDay_Id").append('<option value="' + day.Value + '">' + day.Text + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            if (selectedMonth == '') {
+                                return;
+                            } else {
+                                alert('Failed to retrieve days.' + ex);
+                            }
+                        }
+                    });
+
+                    return false;
+                });
+
+                initSimpleFileUpload();
+                $("#hl-start-upload").on('click', function () {
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                    return false;
+                });
+
+                $("#fu-my-simple-upload").on('change', function () {
+                    $("#tbx-file-path").val(this.files[0].name);
+                });
+
+                function initSimpleFileUpload() {
+                    'use strict';
+
+                    $('#fu-my-simple-upload').fileupload({
+                        url: '@Url.Content("~/Applicant/PostGraduateForm/UploadFile")',
+                        dataType: 'json',
+
+                        add: function (e, data) {
+                            jqXHRData = data;
+                        },
+                        send: function (e) {
+                            $('#fileUploadProgress').show();
+                        },
+                        done: function (event, data) {
+                            if (data.result.isUploaded) {
+                                //alert("success");
+                            } else {
+                                $("#tbx-file-path").val("");
+                                alert(data.result.message);
+                            }
+
+                            $('#passport').attr('src', data.result.imageUrl);
+                            $('#fileUploadProgress').hide();
+                        },
+                        fail: function (event, data) {
+                            if (data.files[0].error) {
+                                alert(data.files[0].error);
+                            }
+                        }
+                    });
+                }
+
+                //
+                initSimpleFileUploadForCredential();
+                $("#cr-start-upload").on('click', function () {
+                    if (jqXHRData) {
+                        jqXHRData.submit();
+                    }
+                    return false;
+                });
+
+                $("#cu-credential-simple-upload").on('change', function () {
+                    $("#crx-file-path").val(this.files[0].name);
+                });
+               
+
+                function initSimpleFileUploadForCredential() {
+                    'use strict';
+
+                    $('#cu-credential-simple-upload').fileupload({
+                        url: '@Url.Content("~/Applicant/Form/UploadCredentialFile")',
+                        dataType: 'json',
+
+                        add: function (e, data) {
+                            jqXHRData = data;
+                        },
+                        send: function (e) {
+                            $('#fileUploadProgress2').show();
+                        },
+                        done: function (event, data) {
+                            if (data.result.isUploaded) {
+                                //alert("success");
+                            } else {
+                                $("#crx-file-path").val("");
+                                alert(data.result.message);
+                            }
+
+                            $('#scannedCredential').attr('src', data.result.imageUrl.substring(1));
+                            $('#fileUploadProgress2').hide();
+                        },
+                        fail: function (event, data) {
+                            if (data.files[0].error) {
+                                alert(data.files[0].error);
+                            }
+                        }
+                    });
+                }
+
+
+                $('.firstSitting').on('change', function () {
+                    let selectedvalue = $(this).val();
+
+                    var count = 0;
+                    var firstsitting = document.getElementsByClassName('firstSitting');
+
+                    for (let i = 0; i < firstsitting.length; i++) {
+                        const grade = firstsitting[i].value;
+                        if (grade > 0) {
+                            if (grade == selectedvalue) {
+                                count++
+                            }
+                        }
+
+                        if (count > 1) {
+                            alert("Duplicate Subjects selected")
+                            return false;
+                        }
+                    }
+                }
+                );
+                $('.secondsitting').on('change', function () {
+                    let selectedvalue = $(this).val();
+
+                    var count = 0;
+                    var secondsitting = document.getElementsByClassName('secondsitting');
+
+                    for (let i = 0; i < secondsitting.length; i++) {
+                        const grade = secondsitting[i].value;
+                        if (grade > 0) {
+                            if (grade == selectedvalue) {
+                                count++
+                            }
+                        }
+
+                        if (count > 1) {
+                            alert("Duplicate Subjects selected")
+                            return false;
+                        }
+                    }
+                }
+                );
+
+
+
+
+            });
+
+
+           
+
+            function beginRequest() {
+                $("#busy").hide();
+            }
+
+            function endRequest(request, status) {
+                $("#busy").show();
+            }
+
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+            });
+
+            $(function () {
+                $('#rdYesRadio').click(function () {
+                    if ($(this).is(':checked')) {
+                        $('.olevel').attr('disabled', 'disabled');
+                    }
+                });
+            });
+
+            $(function () {
+                $('#rdNoRadio').click(function () {
+                    if ($(this).is(':checked')) {
+                        $('.olevel').removeAttr('disabled');
+                    }
+                });
+            });
+
+
+
+
+
+
+
+
+            //attach declaration document function
+            function attachFile(input) {
+                AttachmentFile = null;
+                let validType = new RegExp('^.*\.(jpg|jpeg|png|gif|pdf)$');
+                let fileType = input.files[0].type;
+                if (!validType.test(fileType.toLowerCase())) {
+
+                    //let fileTypeExt = fileType.split('/')[1];
+                    let message = `Invalid file format!! Acceptable file formats are: 'jpg', 'jpeg', 'png', 'gif', 'pdf'`;
+                    alert(message);
+                    $('#declaration').val('');
+                    $('#btnattachement').attr('disabled', true);
+                    return;
+
+
+                }
+                if (input.files[0].size > 2097152) {
+                    alert("Please upload file less than 2MB. Thanks!!");
+                    $('#declaration').val('');
+                    $('#btnattachement').attr('disabled', true);
+
+                }
+                else {
+                    AttachmentFile = input.files[0];
+                    $('#btnattachement').attr('disabled', false);
+                }
+            }
+
+
+             //rereander table items
+            function renderOptioanalDocumentTable() {
+
+                            let applicantThematicId=$('#ApplicantThematic_Id').val();
+                if (applicantThematicId > 0) {
+                    $.ajax({
+                                    type: 'POST',
+                                    url: '@Url.Action("GetOptionalDocuments", "Application")', // we are calling json method
+                                    dataType: 'json',
+                        data: { applicantThematicId },
+                                    success: function (result) {
+                                        if (!result.IsError) {
+                                            if (result.genericObject.length > 0) {
+                                                $("#displayOptionalDocumentTable").empty();
+                                                for (i = 0; i < result.genericObject.length; i++) {
+                                                    var sn = 1 + i;
+                                                    var displayName = result.genericObject[i].name.substring(0, 20) + "...";
+                                                    $("#displayOptionalDocumentTable").append('<tr Id =  ><td>' + sn + '</td>' + '<td>' + displayName + '</td>' + ' <td><button type="button" class="form-control btn btn-outline-success btn-sm" onclick="downloadAttachment(' + result.genericObject[i].id + ')"><i class="fa fa-download" aria-hidden="true"></button></td>' + ' <td><button type="button" class="form-control btn btn-danger btn-sm" onclick="deleteAttachment(' + result.genericObject[i].id + ')"><i class="fas fa-trash-alt"></i></button></td></tr>');
+
+                                                }
+                                                $('#displayOptionalDocumentDiv').show();
+                                            }
+                                            else {
+                                                $('#displayOptionalDocumentDiv').hide();
+                                            }
+                                        }
+
+                                    },
+                                    error: function (ex) {
+                                        alert('Error' + ex);
+                                    }
+                                });
+                }
+
+
+            }
+
+            function submit() {
+
+
+            }
+
+
+            function SaveCountinue(a) {
+                var check = true;
+
+                //var first = document.getElementsByClassName('.page1');
+                if (a == 2) {
+                    var first = $(".page1").map(function () {
+                        return this.value;
+                    }).get();
+
+                    for (let i = 0; i < first.length; i++) {
+                        const Option = first[i];
+                        if (Option == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    if (check == false) {
+                        alert('The Previous Page Did Not Save Because you did not fill a required field, Please go to the previous page and cross check entries.')
+                    }
+                } else if (a == 3) {
+
+
+                    //var nextkin = document.getElementsByClassName('.nextkin');
+                    var nextkin = $(".nextkin").map(function () {
+                        return this.value;
+                    }).get();
+
+                    for (let i = 0; i < nextkin.length; i++) {
+                        const Option2 = nextkin[i];
+                        if (Option2 == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    if (check == false) {
+                        alert('The Previous Page Did Not Save Because you did not fill a required field, Please go to the previous page and cross check entries.')
+                    }
+                }
+                else if (a == 4) {
+
+                    
+                }
+                 else if (a == 5 ) {
+
+
+                    var tertiaryedu = $(".tertiaryedu").map(function () {
+                        return this.value;
+                    }).get();
+                    for (let i = 0; i < tertiaryedu.length; i++) {
+                        const tert = tertiaryedu[i];
+                        if (tert == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    if (check == false) {
+                        alert('The Previous Page Did Not Save Because you did not fill a required field, Please go to the previous page and cross check entries.')
+                    }
+                }
+                else if (a == 6) {
+
+
+                    var ref = $(".refree").map(function () {
+                        return this.value;
+                    }).get();
+                    for (let i = 0; i < ref.length; i++) {
+                        const refre = ref[i];
+                        if (refre == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    if (check == false) {
+                        alert('The Previous Page Did Not Save Because you did not fill a required field, Please go to the previous page and cross check entries.')
+                    }
+                }
+                else if (a == 7) {
+
+                    var academic = $(".academic").map(function () {
+                        return this.value;
+                    }).get();
+                    for (let i = 0; i < academic.length; i++) {
+                        const acad = academic[i];
+                        if (acad == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+
+                    
+                }
+
+                if (a == 12) {
+
+
+                    var first = $(".page1").map(function () {
+                        return this.value;
+                    }).get();
+
+                    for (let i = 0; i < first.length; i++) {
+                        const Option = first[i];
+                        if (Option == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    ///////
+                    var nextkin = $(".nextkin").map(function () {
+                        return this.value;
+                    }).get();
+
+                    for (let i = 0; i < nextkin.length; i++) {
+                        const Option2 = nextkin[i];
+                        if (Option2 == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    
+                    /////////////////////
+                    var tertiaryedu = $(".tertiaryedu").map(function () {
+                        return this.value;
+                    }).get();
+                    for (let i = 0; i < tertiaryedu.length; i++) {
+                        const tert = tertiaryedu[i];
+                        if (tert == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    ///////////////////
+                    var ref = $(".refree").map(function () {
+                        return this.value;
+                    }).get();
+                    for (let i = 0; i < ref.length; i++) {
+                        const refre = ref[i];
+                        if (refre == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+                    /////////////////////
+                    var academic = $(".academic").map(function () {
+                        return this.value;
+                    }).get();
+                    for (let i = 0; i < academic.length; i++) {
+                        const acad = academic[i];
+                        if (acad == "") {
+                            check = false;
+                        }
+                        else {
+
+                        }
+                    }
+
+                    
+                }
+
+                if (check) {
+                    $('input').attr('required', false);
+                    $('select').attr('required', false);
+                    $('#savenumber').val(a);
+                   
+
+                    $.post('InternationalStudentForm', $('#frmPostJAMB').serialize());
+                    if (a == 12) {
+                        window.location.href = "/Applicant/Postgraduateform/InternationalStudentsFormPreview"
+                    }
+                }
+             
+            }
+
+
+            function nextTab(tabNumber) {
+                var check = true;              
+                    MoveNexttab(tabNumber);
+            }
+
+            function prevTab(tabNumber) {
+                document.querySelectorAll('.nav-tab-link').forEach(el => el.classList.remove('active'));
+                const prev = ".tab-link-" + tabNumber;
+                //console.log(prev);
+                document.querySelector(prev).classList.add('active')
+            }
+            function MoveNexttab(tabNumber) {
+                SaveCountinue(tabNumber);
+                document.querySelectorAll('.nav-tab-link').forEach(el => el.classList.remove('active'));
+                const next = ".tab-link-" + tabNumber;
+                //console.log(next);
+                document.querySelector(next).classList.add('active')
+            }
+
+
+
+        </script>
+
+    }
+
+<script type="text/javascript">
+
+
+    function Upload()
+    {
+        var AttachmentFile = null;
+        var cert = $('#certfile')[0];
+        if (cert != null && cert != undefined )
+        {
+            AttachmentFile = cert.files[0];
+        }
+
+                var personId = $('#PersonId').val();
+                var schoolname = $('#schoolnameId').val();
+                var documenttype = $('#documenttypeid').val();
+                var year = $('#yearId').val();
+
+        if (personId != null && schoolname != null && documenttype != null && year != null ) {
+
+                    const model = new FormData();
+                    model.append("DocumentTypeId", documenttype);
+                    model.append("DocumentUrl", AttachmentFile);
+                    model.append("SchoolName", schoolname);
+                    model.append("Year", year);
+                    model.append("PersonId", personId);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UploadApplicantFile", "PostGraduateForm")', // we are calling json method
+                //dataType:'json',
+                processData: false,
+                contentType: false,
+                data: model,
+                success: function (createdfile)
+                        {
+                    if (createdfile.Id > 0)
+                    {
+
+                        $("#displayDeclarationDocumentTable").append('<div class="row" id=' + createdfile.Id +'><div class= "col-md-5"><div class="form-group"><label class="uploadfilesclass" id="createdfile.Id">' + createdfile.SchoolName + '</label></div></div><div class="col-md-3"><div class="form-group"><label>' + createdfile.Document.Name + '</label></div></div><div class="col-md-2"><div class="form-group"><label>' + createdfile.Year +' </label></div></div><div class="col-md-2"><div class="form-group"><button  class="btn btn-danger " type="button"  onclick="deleteCert(' + createdfile.Id + ')"><i class="fas fa-trash-alt">Delete</i></button></div></div></div >');
+                        $('#attachementUploadedDiv').show();
+
+                        $('#schoolnameId').val("");
+                        $('#documenttypeid').val("");
+                     $('#yearId').val(" ");
+
+
+                     }
+
+                        },
+                        error: function (ex) {
+                            alert('Error' + ex);
+                        }
+                    });
+
+
+                }
+                else {
+                    alert("Please provide all details.")
+                }
+
+        }
+
+         function Upload2()
+         {
+             
+             
+        var AttachmentFile = null;
+             var cert = $('#idcardpicture')[0];
+        if (cert != null && cert != undefined )
+        {
+            AttachmentFile = cert.files[0];
+        }
+
+                var personId = $('#PersonId').val();
+             var schoolname = $('#idcardNumber').val();
+                var documenttype = 30;
+                var year = "2000";
+
+        if (personId != null && schoolname != null && documenttype != null && year != null ) {
+
+                    const model = new FormData();
+                    model.append("DocumentTypeId", documenttype);
+                    model.append("DocumentUrl", AttachmentFile);
+                    model.append("SchoolName", schoolname);
+                    model.append("Year", year);
+                    model.append("PersonId", personId);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UploadApplicantFile", "PostGraduateForm")', // we are calling json method
+                //dataType:'json',
+                processData: false,
+                contentType: false,
+                data: model,
+                success: function (createdfile)
+                        {
+                    if (createdfile.Id > 0)
+                    {
+
+                        $("#displayDeclarationDocumentTable2").append('<div class="row" id=' + createdfile.Id
+                            + '><div class="col-md-3"><div class="form-group"><label>'
+                            + 'STANDARD MEANS OF IDENTIFICATION'+ '</label><<div class="col-md-2"><div class="form-group"><button  class="btn btn-danger " type="button"  onclick="deleteCert(' + createdfile.Id + ')"><i class="fas fa-trash-alt">Delete</i></button></div></div></div >');
+                        $('#attachementUploadedDiv2').show();
+
+                        $('#idcardNumber').val("");
+                        
+
+
+                     }
+
+                        },
+                        error: function (ex) {
+                            alert('Error' + ex);
+                        }
+                    });
+
+
+                }
+                else {
+                    alert("Please provide all details.")
+                }
+
+        }
+
+        function proposalUpload()
+    {
+        var AttachmentFile = null;
+            var cert = $('#proposalfile')[0];
+        if (cert != null && cert != undefined )
+        {
+            AttachmentFile = cert.files[0];
+        }
+
+                var personId = $('#PersonId').val();
+                var schoolname = $('#proposalschoolnameId').val();
+
+                var year = $('#proposalyearId').val();
+
+            if (personId != null && schoolname != null && year != null)
+            {
+
+                    const model = new FormData();
+                    model.append("DocumentTypeId", 26);
+                    model.append("DocumentUrl", AttachmentFile);
+                    model.append("SchoolName", schoolname);
+                    model.append("Year", year);
+                    model.append("PersonId", personId);
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UploadApplicantFile", "PostGraduateForm")', // we are calling json method
+                //dataType:'json',
+                processData: false,
+                contentType: false,
+                data: model,
+                success: function (createdfile)
+                        {
+                    if (createdfile.Id > 0)
+                    {
+
+                        $("#proposaldisplayDeclarationDocumentTable").append('<div class="row" id=' + createdfile.Id +'><div class= "col-md-5"><div class="form-group"><label class="uploadfilesclass" id="createdfile.Id">' + createdfile.SchoolName + '</label></div></div> <div class="col-md-2"><div class="form-group"><label>' + createdfile.Year +' </label></div></div><div class="col-md-2"><div class="form-group"><button  class="btn btn-danger " type="button"  onclick="deleteCert(' + createdfile.Id + ')"><i class="fas fa-trash-alt">Delete</i></button></div></div></div >');
+                        $('#proposalattachementUploadedDiv').show();
+
+                        $('#proposalschoolnameId').val("");
+
+                     $('#proposalyearId').val(" ");
+                                    //$("#displayOptionalDocumentTable").empty();
+                                    //for (i = 0; i < result.genericObject.length; i++) {
+                                    //    var sn = 1 + i;
+                                    //    var displayName = result.genericObject[i].name.substring(0, 20) + "...";
+                                    //    $("#displayOptionalDocumentTable").append('<tr><td>' + sn + '</td>' + '<td>' + displayName + '</td>' + ' <td><button type="button" class="form-control btn btn-outline-success btn-sm" onclick="downloadAttachment(' + result.genericObject[i].id + ')"><i class="fa fa-download" aria-hidden="true"></button></td>' + ' <td><button type="button" class="form-control btn btn-outline-danger btn-sm" onclick="deleteAttachment(' + result.genericObject[i].id + ')"><i class="fas fa-trash-alt"></i></button></td></tr>');
+
+                                    //}
+                                    //$('#displayOptionalDocumentDiv').show();
+
+                     }
+
+                        },
+                        error: function (ex) {
+                            alert('Error' + ex);
+                        }
+                    });
+
+
+                }
+                else {
+                    alert("Please provide all details.")
+                }
+
+        }
+        let Id = 0;
+        function deleteCert(Id) {
+             $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteCertificate", "PostGraduateForm")', // we are calling json method
+                        dataType: 'json',
+                 data: { Id},
+                        success: function (result) {
+
+                            $(`#${Id}`).remove();
+                        },
+                        error: function (ex) {
+
+                        }
+                    });
+        }
+</script>
+
+
+    <script type="text/javascript">
+
+        var personId;
+        var formNumber;
+        var personImageUrl;
+        var hasPassport;
+        $(document).ready(function () {
+
+
+          
+
+
+
+
+            var src = $('#Person_ImageFileUrl').attr('src');
+            if (src == undefined) {
+                $('#Person_ImageFileUrl').attr('src', '/Content/Images/default_avatar.png');
+            }
+
+            $("#Person_State_Id").change(function () {
+                $("#Person_LocalGovernment_Id").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetLocalGovernmentsByState")', //we are calling json method
+                    dataType: 'json',
+                    data: { id: $("#Person_State_Id").val() },
+                    success: function (lgas) {
+                        $("#Person_LocalGovernment_Id").append('<option value="' + 0 + '">-- Select --</option>');
+
+                        $.each(lgas, function (i, lga) {
+                            $("#Person_LocalGovernment_Id").append('<option value="' + lga.Value + '">' + lga.Text + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve lgas.' + ex);
+                    }
+                });
+
+                return false;
+            });
+
+
+
+
+
+       $('#fieldId').change(function () {
+
+
+            var Field = $('#fieldId :selected').val();
+
+            $("#subjectcombination").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetSubjectCombination")', // we are calling json method
+                dataType: 'json',
+                data: { FieldId: Field, },
+                success: function (departments) {
+                    if (departments.length > 0) {
+                        $("#subjectcombination").append('<option value="' + 0 + '"> -- Select -- </option>');
+
+                        $.each(departments, function (i, department) {
+                            $("#subjectcombination").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                        });
+
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Combinations.' + ex);
+                }
+            });
+       });
+
+        });
+
+        (function ($) {
+
+            // Browser supports HTML5 multiple file?
+            var multipleSupport = typeof $('<input/>')[0].multiple !== 'undefined',
+                isIE = /msie/i.test(navigator.userAgent);
+
+            $.fn.customFile = function () {
+
+                return this.each(function () {
+
+                    var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
+                        $wrap = $('<div class="file-upload-wrapper">'),
+                        $input = $('<input type="text" class="file-upload-input" />'),
+                        // Button that will be used in non-IE browsers
+                        $button = $('<button type="button" class="file-upload-button">Select a File</button>'),
+                        // Hack for IE
+                        $label = $('<label class="file-upload-button" for="' + $file[0].id + '">Select a File</label>');
+
+                    // Hide by shifting to the left so we
+                    // can still trigger events
+                    $file.css({
+                        position: 'absolute',
+                        left: '-9999px'
+                    });
+
+                    $wrap.insertAfter($file)
+                        .append($file, $input, (isIE ? $label : $button));
+
+                    // Prevent focus
+                    $file.attr('tabIndex', -1);
+                    $button.attr('tabIndex', -1);
+
+                    $button.click(function () {
+                        $file.focus().click(); // Open dialog
+                    });
+
+                    $file.change(function () {
+
+                        var files = [], fileArr, filename;
+
+                        // If multiple is supported then extract
+                        // all filenames from the file array
+                        if (multipleSupport) {
+                            fileArr = $file[0].files;
+                            for (var i = 0, len = fileArr.length; i < len; i++) {
+                                files.push(fileArr[i].name);
+                            }
+                            filename = files.join(', ');
+
+                            // If not supported then just take the value
+                            // and remove the path to just show the filename
+                        } else {
+                            filename = $file.val().split('\\').pop();
+                        }
+
+                        $input.val(filename) // Set the value
+                            .attr('title', filename) // Show filename in title tootlip
+                            .focus(); // Regain focus
+
+                    });
+
+                    $input.on({
+                        blur: function () { $file.trigger('blur'); },
+                        keydown: function (e) {
+                            if (e.which === 13) { // Enter
+                                if (!isIE) { $file.trigger('click'); }
+                            } else if (e.which === 8 || e.which === 46) { // Backspace & Del
+                                // On some browsers the value is read-only
+                                // with this trick we remove the old input and add
+                                // a clean clone with all the original events attached
+                                $file.replaceWith($file = $file.clone(true));
+                                $file.trigger('change');
+                                $input.val('');
+                            } else if (e.which === 9) { // TAB
+                                return;
+                            } else { // All other keys
+                                return false;
+                            }
+                        }
+                    });
+
+                });
+
+            };
+
+            // Old browser fallback
+            if (!multipleSupport) {
+                $(document).on('change', 'input.customfile', function () {
+
+                    var $this = $(this),
+                        // Create a unique ID so we
+                        // can attach the label to the input
+                        uniqId = 'customfile_' + (new Date()).getTime(),
+                        $wrap = $this.parent(),
+
+                        // Filter empty input
+                        $inputs = $wrap.siblings().find('.file-upload-input')
+                            .filter(function () { return !this.value }),
+
+                        $file = $('<input type="file" id="' + uniqId + '" name="' + $this.attr('name') + '"/>');
+
+                    setTimeout(function () {
+                        // Add a new input
+                        if ($this.val()) {
+                            if (!$inputs.length) {
+                                $wrap.after($file);
+                                $file.customFile();
+                            }
+                            // Remove and reorganize inputs
+                        } else {
+                            $inputs.parent().remove();
+                            $wrap.appendTo($wrap.parent());
+                            $wrap.find('input').focus();
+                        }
+                    }, 1);
+
+                });
+            }
+
+        }(jQuery));
+        $('input[type=file]').customFile();
+
+     
+        function checkPhoneNumbers() {
+            if ($("#Sponsor_MobilePhone").val() != undefined || $("#Sponsor_MobilePhone").val() != "" || $("#Person_MobilePhone").val() != undefined || $("#Person_MobilePhone").val() != "") {
+                if ($("#Person_MobilePhone").val() == $("#Sponsor_MobilePhone").val()) {
+                    $("#submit").attr("disabled", "disabled");
+                    alert("Your phone number and the next of kin phone number cannot be the same.");
+                } else {
+                    $("#submit").attr("disabled", false);
+                }
+            }
+        }
+   
+        function showLoading() {
+            $('#loading').show();
+        }
+    </script>
+
+    @if (TempData["Message"] != null)
+    {
+        @Html.Partial("_Message", TempData["Message"])
+    }
+</div>
+
+
+<head>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+
+
+</head>
+
+
+
+<div class="wrapper">
+
+
+    <div class="main">
+
+
+
+        <div class="container-fluid p-0">
+
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="card">
+
+
+
+
+
+
+                        <div class="container">
+
+                            <div class="tab tab-custom">
+
+                                <center>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-success nomargin bg-warning">
+                                                <h2><b>@Model.AppliedCourse.Programme.Name.ToUpper()</b> <b>FORM</b></h2>
+                                                @*<h2><b>@Model.ApplicationFormSetting.Name</b></h2>*@
+                                                <p class="text-black">Kindly fill all the fields provided in this form before clicking the Submit button</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                </center>
+                                <div class=" mb-4 justify-content-center align-content-center">
+
+                                    <p class="text-black"> Note: Fields with <span class="required"> *</span> are compulsory</p>
+                                </div>
+                                <ul class="nav nav-tabs mb-4 justify-content-center" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-1 active" href="#primary-tab-1"
+                                           data-toggle="tab" role="tab" aria-selected="true">Page 1</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-2" href="#primary-tab-2"
+                                           data-toggle="tab" role="tab" aria-selected="false">Page 2</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-3" href="#primary-tab-3"
+                                           data-toggle="tab" role="tab" aria-selected="false">Page 3</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-4" href="#primary-tab-4"
+                                           data-toggle="tab" role="tab" aria-selected="false">Page 4</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-5" href="#primary-tab-5"
+                                           data-toggle="tab" role="tab" aria-selected="false">Page 5</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-6" href="#primary-tab-6"
+                                           data-toggle="tab" role="tab" aria-selected="false">Page 6</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link nav-tab-link tab-link-7" href="#primary-tab-7"
+                                           data-toggle="tab" role="tab" aria-selected="false">Page 7</a>
+                                    </li>
+
+
+
+                                </ul>
+                                @using (Ajax.BeginForm("InternationalStudentForm", "PostGraduateForm", FormMethod.Post, new AjaxOptions { UpdateTargetId = "frPostJAMB", OnSuccess = "getresult" }, new { id = "frmPostJAMB", enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true)
+                                    <div class="tab-content bg-light ">
+                                        <div class="tab-pane active card" id="primary-tab-1" role="tabpanel">
+
+                                            <div class="row justify-content-center">
+                                                <h4 class=" col-md-12 text-center">Bio-Data</h4>
+                                            </div>
+
+                                            <div class="col-md-12">
+
+
+                                                @if (Model.ApplicationForm != null && Model.ApplicationForm.Id > 0)
+                                                {
+                                                    @Html.HiddenFor(model => model.ApplicationForm.Id)
+                                                    @Html.HiddenFor(model => model.ApplicationForm.Number)
+                                                    @Html.HiddenFor(model => model.ApplicationForm.ExamNumber)
+                                                    @Html.HiddenFor(model => model.ApplicationForm.Rejected)
+                                                    @Html.HiddenFor(model => model.ApplicationForm.RejectReason)
+                                                }
+
+                                                @Html.HiddenFor(model => model.Session.Id)
+                                                @Html.HiddenFor(model => model.Session.Name)
+
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.Id)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.PaymentMode.Id)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.PaymentType.Id)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.PersonType.Id)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.Session.Id)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.ExamDate)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.ExamVenue)
+                                                @Html.HiddenFor(model => model.ApplicationFormSetting.ExamTime)
+
+                                                @Html.HiddenFor(model => model.ApplicationProgrammeFee.FeeType.Id)
+                                                @Html.HiddenFor(model => model.ApplicationProgrammeFee.Id)
+
+                                                @Html.HiddenFor(model => model.Programme.Id)
+                                                @Html.HiddenFor(model => model.Programme.Name)
+                                                @Html.HiddenFor(model => model.Programme.ShortName)
+
+                                                @Html.HiddenFor(model => model.AppliedCourse.Programme.Id)
+                                                @Html.HiddenFor(model => model.AppliedCourse.Programme.Name)
+                                                @Html.HiddenFor(model => model.AppliedCourse.Department.Id)
+                                                @Html.HiddenFor(model => model.AppliedCourse.Department.Name)
+                                                @Html.HiddenFor(model => model.AppliedCourse.Department.Code)
+                                                @Html.HiddenFor(model => model.Person.Id, new { @id = "PersonId" })
+                                                @Html.HiddenFor(model => model.Payment.Id)
+                                                @Html.HiddenFor(model => model.remitaPyament.payment.Id)
+
+                                                @Html.HiddenFor(model => model.Person.DateEntered)
+                                                @Html.HiddenFor(model => model.Person.FullName)
+
+                                                @Html.HiddenFor(model => model.ApplicationAlreadyExist)
+                                                @Html.HiddenFor(model => model.SaveAndCountinue, new { @id = "savenumber" })
+
+
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.LastName)<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.LastName, new { @class = "form-control page1", @readonly = "readonly" })
+                                                            @Html.ValidationMessageFor(model => model.Person.LastName)
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.FirstName)<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control page1", @readonly = "readonly" })
+                                                            @Html.ValidationMessageFor(model => model.Person.FirstName)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.OtherName, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.OtherName, new { @class = "form-control", @readonly = "readonly" })
+                                                            @Html.ValidationMessageFor(model => model.Person.OtherName)
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.Sex.Id, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.DropDownListFor(f => f.Person.Sex.Id, (IEnumerable<SelectListItem>)ViewBag.SexId, new
+                                                            {
+                                                                @class = "form-control page1",
+                                                           required = true,
+                                                                @id = "sexid"
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.Person.Sex.Id)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="form-inline">
+                                                                <div class="form-inline" style="color: black">Date of Birth<span class="required"> *</span> <span id="spDob" style="color: green; display: none; font-weight: bold;">...Loading</span></div>
+                                                                @Html.DropDownListFor(m => m.Person.YearOfBirth.Id, (IEnumerable<SelectListItem>)ViewBag.YearOfBirthId, new { @class = "form-control page1", required = true })
+                                                                @Html.DropDownListFor(m => m.Person.MonthOfBirth.Id, (IEnumerable<SelectListItem>)ViewBag.MonthOfBirthId, new { @class = "form-control page1", required = true })
+                                                                @Html.DropDownListFor(m => m.Person.DayOfBirth.Id, (IEnumerable<SelectListItem>)ViewBag.DayOfBirthId, new { @class = "form-control page1", required = true })
+                                                                <div>
+                                                                    <div class="form-group">
+                                                                        @*@Html.ValidationMessageFor(m => m.Person.YearOfBirth.Id, "The Year of Birth Field is required!", new { @class = "text-danger" })
+                                                                            @Html.ValidationMessageFor(m => m.Person.MonthOfBirth.Id, "The Month of Birth Field is required!", new { @class = "text-danger" })
+                                                                            @Html.ValidationMessageFor(m => m.Person.DayOfBirth.Id, "The Day of Birth Field is required!", new { @class = "text-danger" })*@
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.State.Id,"Nationality" ,new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.DropDownListFor(f => f.Person.State.Id, (IEnumerable<SelectListItem>)ViewBag.StateId, new
+                                                            {
+                                                                @class =
+                                                           "form-control page1",
+                                                                @readonly = "readonly",
+                                                                required = true
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.Person.State.Id)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    @*<div class="col-md-6">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.Person.LocalGovernment.Id, new { @class = "control-label " })<span class="required"> *</span>
+                                                                @Html.DropDownListFor(f => f.Person.LocalGovernment.Id, (IEnumerable<SelectListItem>)ViewBag.LgaId, new { @class = "form-control page1", required = true ,
+                                                           @id= "lgaid"})
+                                                                @Html.ValidationMessageFor(model => model.Person.LocalGovernment.Id)
+                                                            </div>
+                                                        </div>*@
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.HomeTown, "City",new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.HomeTown, new
+                                                            {
+                                                                @class = "form-control page1",
+                                                                required = true,
+                                                       @id = "hometownid"
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.Person.HomeTown)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.MobilePhone, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.MobilePhone, new { @class = "form-control page1", @readonly = "readonly", required = true })
+                                                            @Html.ValidationMessageFor(model => model.Person.MobilePhone)
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.Email, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control page1", @readonly = "readonly", required = true })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.Religion.Id, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.DropDownListFor(model => model.Person.Religion.Id, (IEnumerable<SelectListItem>)ViewBag.ReligionId, new
+                                                            {
+                                                                @class = "form-control page1",
+                                                       @id = "religionid"
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.Person.Religion.Id)
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Person.HomeAddress, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Person.HomeAddress, new { @class = "form-control page1", required = true, @id = "homeaddressid" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Applicant.Ability.Id, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.DropDownListFor(model => model.Applicant.Ability.Id, (IEnumerable<SelectListItem>)ViewBag.AbilityId, new
+                                                            {
+                                                                @class = "form-control page1",
+                                                           required = true,
+                                                                @id = "applicantabilityid"
+                                                            })
+                                                            @*@Html.ValidationMessageFor(model => model.Sponsor.Ability.Id)*@
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Applicant.OtherAbility)
+                                                            @Html.TextBoxFor(model => model.Applicant.OtherAbility, new { @class = "form-control", @id = "otherabilityid" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Applicant.ExtraCurricullarActivities)<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Applicant.ExtraCurricullarActivities, new { @class = "form-control page1", required = true, @id = "extracurricullaractivitiesid" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Applicant.ModeOfStudy, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.DropDownListFor(model => model.Applicant.ModeOfStudy, (IEnumerable<SelectListItem>)ViewBag.ModeOfStudy, new
+                                                       {
+                                                           @class = "form-control page1",
+                                                           required = true,
+                                                           @id = "applicantmodeofstudy",
+                                                                 @readonly = "readonly"
+                                                       })
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <hr />
+                                            <div class="row justify-content-end col-md-12">
+                                                <a class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-2" data-toggle="tab" role="tab" aria-selected="false" id="page1button" onclick="nextTab(2)">Save And Continue</a>
+                                            </div>
+                                            <br />
+                                        </div>
+
+                                        <div class="tab-pane card" id="primary-tab-2" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="row justify-content-center">
+                                                    <h4 class=" col-lg-12 text-center">Next of Kin</h4>
+
+
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.Name)<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Sponsor.Name, new { @class = "form-control nextkin", required = true, @id = "sponsornameid" })
+                                                            @Html.ValidationMessageFor(model => model.Sponsor.Name)
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.ContactAddress, new { @class = "control-label" })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Sponsor.ContactAddress, new
+                                                            {
+                                                                @class = "form-control nextkin",
+                                                                required = true,
+                                                       @id = "sponsorcontactaddressid"
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.Sponsor.ContactAddress)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.Relationship.Id, new { @class = "control-label" })<span class="required"> *</span>
+                                                            @Html.DropDownListFor(model => model.Sponsor.Relationship.Id, (IEnumerable<SelectListItem>)ViewBag.RelationshipId,
+                                                           new { @class = "form-control nextkin", required = true, @id = "sponsorrelationshipid" })
+                                                            @Html.ValidationMessageFor(model => model.Sponsor.Relationship.Id)
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(model => model.Sponsor.MobilePhone, new { @class = "control-label " })<span class="required"> *</span>
+                                                            @Html.TextBoxFor(model => model.Sponsor.MobilePhone, new
+                                                            {
+                                                                @class = "form-control nextkin",
+                                                                required = true,
+                                                       @id = "sponsormobilephoneid"
+                                                            })
+                                                            @Html.ValidationMessageFor(model => model.Sponsor.MobilePhone)
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <hr />
+                                                <div class="row justify-content-between col-md-12">
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-1"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="prevTab(1)">
+                                                        Previous
+                                                    </button>
+
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-3"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="nextTab(3)">
+                                                        Save And Continue
+                                                    </button>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <disv class="tab-pane card" id="primary-tab-3" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="row justify-content-center">
+                                                    <h4 class=" col-lg-12 text-center"></h4>
+
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="row justify-content-center">
+                                                        <h4 class=" col-lg-12 text-center">Verification Documents & Certificates Upload</h4>
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 pl-0">
+
+
+
+                                                            <div class="panel panel-default p-4">
+
+                                                                <div class="panel-heading">
+                                                                    <div style="font-size: x-large">Upload Standard Means Of Identification </div>
+                                                                </div><hr /><br />
+                                                                            <div class="panel-body">
+                                                                                <div class="row">
+
+                                                                                    <div class="col-md-5">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label">Identification Card Number (National ID, Government ID, Unique ID, Cardholder ID, Personal ID)</label>
+
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                    <div class="col-md-2">
+                                                                                        <div class="form-group">
+                                                                                            <label class="control-label">File</label>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                @foreach (var item in Model.ApplicantUploadedFiles)
+                                                                                {
+                                                                                    if (item.DocumentTypeId == 30)
+                                                                                    {
+                                                                                        <div class="row" id="@item.Id">
+
+                                                                                            
+
+                                                                                            <div class="col-md-3">
+                                                                                                <div class="form-group">
+                                                                                                    <label class="control-label">@item.Document.Name</label>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+                                                                                            <div class="col-md-2">
+                                                                                                <div class="form-group">
+                                                                                                    <button class="btn btn-danger " type="button" onclick="deleteCert(@item.Id)"><i class="fas fa-trash-alt">Delete</i></button>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    }
+                                                                                }
+                                                                                <div style="display:none" id="attachementUploadedDiv2">
+
+                                                                                    @*<div class="table-responsive">*@
+                                                                                    @*<table class="table table-bordered table-striped table-responsive">*@
+                                                                                    <div id="displayDeclarationDocumentTable2"></div>
+                                                                                    @*</table>*@
+                                                                                    @*</div>*@
+
+
+                                                                                </div>
+
+
+
+                                                                                <div class="count">
+                                                                                    <div class="row">
+
+                                                                                        <div class="col-md-5">
+                                                                                            <div class="form-group">
+
+                                                                                                <input class="form-control uploadfilesclass" id="idcardNumber" />
+                                                                                            </div>
+                                                                                        </div>
+
+
+                                                                                        <div class="col-md-2">
+                                                                                            <div class="form-group">
+                                                                                                <input type="file" accept="image/jpeg, image/png" id="idcardpicture" class="form-control" />
+                                                                                                <div class="col-md-4">
+                                                                                                    <a class="btn btn-outline-success" onclick="Upload2()">Upload</a>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                            </div>
+
+
+
+                                                            <div class="panel panel-default p-4">
+
+                                                                <div class="panel-heading">
+                                                                    <div style="font-size: x-large">Certificates Upload</div>
+                                                                </div><hr /><br />
+                                                                <div class="panel-body">
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-5">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Document Name</label>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Document Type</label>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Year Obtained</label>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">File</label>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    @foreach (var item in Model.ApplicantUploadedFiles)
+                                                                    {if (item.DocumentTypeId != 30)
+                                                                        {
+                                                                        <div class="row" id="@item.Id">
+
+                                                                            <div class="col-md-5">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">@item.SchoolName</label>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">@item.Document.Name</label>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">@item.Year</label>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="form-group">
+                                                                                    <button class="btn btn-danger " type="button" onclick="deleteCert(@item.Id)"><i class="fas fa-trash-alt">Delete</i></button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        }
+                                                                    }
+
+                                                                    <div style="display:none" id="attachementUploadedDiv">
+
+                                                                        @*<div class="table-responsive">*@
+                                                                        @*<table class="table table-bordered table-striped table-responsive">*@
+                                                                        <div id="displayDeclarationDocumentTable"></div>
+                                                                        @*</table>*@
+                                                                        @*</div>*@
+
+
+                                                                    </div>
+
+                                                                    <div id="addmore" class="count">
+                                                                        <div class="row">
+
+                                                                            <div class="col-md-5">
+                                                                                <div class="form-group">
+
+                                                                                    @Html.TextBoxFor(model => model.UploadedFiles[0].SchoolName, new { @class = "form-control uploadfilesclass", @id = "schoolnameId" })
+                                                                                    @Html.ValidationMessageFor(model => model.UploadedFiles[0].SchoolName)
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-md-3">
+                                                                                <div class="form-group">
+
+                                                                                    @Html.DropDownListFor(model => model.UploadedFiles[0].DocumentTypeId, (IEnumerable<SelectListItem>)ViewBag.DocumentType, new { @class = "form-control", @id = "documenttypeid" })
+                                                                                    @Html.ValidationMessageFor(model => model.UploadedFiles[0].DocumentTypeId)
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="form-group">
+
+                                                                                    @Html.TextBoxFor(model => model.UploadedFiles[0].Year, new { @class = "form-control uploadfiles", @id = "yearId" })
+                                                                                    @Html.ValidationMessageFor(model => model.UploadedFiles[0].Year)
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="form-group">
+                                                                                    <input type="file" accept="application/pdf" id="certfile" @*onchange="attachFile(this)"*@ class="form-control" />
+                                                                                    <div class="col-md-4">
+                                                                                        <a class="btn btn-outline-success" onclick="Upload()">Upload</a>
+                                                                                    </div>
+                                                                                    @*@Html.TextBoxFor(model => model.UploadedFiles[0].DocumentUrl, new { @class = "form-control", required = true })
+                                @Html.ValidationMessageFor(model => model.UploadedFiles[0].DocumentUrl)*@
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <hr />
+
+
+                                                    @if (Model.AppliedCourse.Programme.Id == 12)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-md-12 pl-0">
+
+
+
+
+                                                                <div class="panel panel-default p-4">
+
+                                                                    <div class="panel-heading">
+                                                                        <div style="font-size: x-large">Proposal Upload</div>
+                                                                    </div><hr /><br />
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+
+                                                                            <div class="col-md-5">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Proposal Topic</label>
+
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="col-md-2">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Year</label>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">File</label>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        @foreach (var item in Model.proposalUploadedFiles)
+                                                                        {
+                                                                            <div class="row" id="@item.Id">
+
+                                                                                <div class="col-md-5">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label">@item.SchoolName</label>
+
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="col-md-2">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label">@item.Year</label>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-2">
+                                                                                    <div class="form-group">
+                                                                                        <button class="btn btn-danger " type="button" onclick="proposaldeleteCert(@item.Id)"><i class="fas fa-trash-alt">Delete</i></button>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        }
+
+                                                                        <div style="display:none" id="proposalattachementUploadedDiv">
+
+                                                                            @*<div class="table-responsive">*@
+                                                                            @*<table class="table table-bordered table-striped table-responsive">*@
+                                                                            <div id="proposaldisplayDeclarationDocumentTable"></div>
+                                                                            @*</table>*@
+                                                                            @*</div>*@
+
+
+                                                                        </div>
+
+                                                                        <div id="proposaladdmore" class="count">
+                                                                            <div class="row">
+
+                                                                                <div class="col-md-5">
+                                                                                    <div class="form-group">
+
+                                                                                        @Html.TextBoxFor(model => model.UploadedFiles[0].SchoolName, new { @class = "form-control uploadfilesclass", @id = "proposalschoolnameId" })
+                                                                                        @Html.ValidationMessageFor(model => model.UploadedFiles[0].SchoolName)
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div class="col-md-2">
+                                                                                    <div class="form-group">
+
+                                                                                        @Html.TextBoxFor(model => model.UploadedFiles[0].Year, new { @class = "form-control uploadfiles", @id = "proposalyearId" })
+                                                                                        @Html.ValidationMessageFor(model => model.UploadedFiles[0].Year)
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-md-2">
+                                                                                    <div class="form-group">
+                                                                                        <input type="file" accept="application/pdf" id="proposalfile" @*onchange="attachFile(this)"*@ class="form-control" />
+                                                                                        <div class="col-md-4">
+                                                                                            <a class="btn btn-outline-success" onclick="proposalUpload()">Upload</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <hr />
+                                                    <div class="row justify-content-between col-md-12">
+                                                        <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-2"
+                                                                data-toggle="tab" role="tab" aria-selected="false" onclick="prevTab(2)">
+                                                            Previous
+                                                        </button>
+
+                                                        <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-4"
+                                                                data-toggle="tab" role="tab" aria-selected="false" onclick="nextTab(4)">
+                                                            Save And Continue
+                                                        </button>
+                                                    </div>
+                                                    <br />
+                                                </div>
+
+
+
+                                            </div>
+                                        </disv>
+                                        <div class="tab-pane card" id="primary-tab-4" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="row justify-content-center">
+                                                    <h4 class=" col-lg-12 text-center"></h4>
+
+
+                                                </div>
+                                                @*<div class="row">*@
+                                                <div class="panel panel-default p-4">
+                                                    @Html.Partial("_TertiaryEducation", Model)
+                                                </div>
+
+                                                @*</div>*@
+
+
+                                                <hr />
+                                                <div class="row justify-content-between col-md-12">
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-3"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="prevTab(3)">
+                                                        Previous
+                                                    </button>
+
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-5"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="nextTab(5)">
+                                                        Save And Continue
+                                                    </button>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane card" id="primary-tab-5" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="row justify-content-center">
+                                                    <h4 class=" col-lg-12 text-center"></h4>
+
+
+                                                </div>
+                                                <div class="">
+
+                                                    @if (Model != null)
+                                                    {
+                                                        @Html.Partial("_Referee", Model)
+                                                    }
+
+                                                </div>
+
+
+                                                <hr />
+                                                <div class="row justify-content-between col-md-12">
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-4"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="prevTab(4)">
+                                                        Previous
+                                                    </button>
+
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-6"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="nextTab(6)">
+                                                        Save And Continue
+                                                    </button>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane card" id="primary-tab-6" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="row justify-content-center">
+                                                    <h4 class=" col-lg-12 text-center">
+                                                        Academic Details  <button type="button" class="btn btn-primary" id="showprofile" data-toggle="modal" data-target="#myModal">View Supervisor Profile</button>
+                                                    </h4>
+                                                   
+
+                                                </div>
+                                                <div class="">
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.AppliedCourse.Programme.Name, new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.AppliedCourse.Programme.Name, new { @class = "form-control academic", @readonly = "readonly" })
+                                                                @Html.ValidationMessageFor(model => model.AppliedCourse.Programme.Name)
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.AppliedCourse.Department.Faculty.Name, new { @class = "control-label" })
+                                                                @Html.TextBoxFor(model => model.AppliedCourse.Department.Faculty.Name, new { @class = "form-control academic", @readonly = "readonly" })
+                                                                @Html.ValidationMessageFor(model => model.AppliedCourse.Department.Faculty.Name)
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                @Html.LabelFor(model => model.AppliedCourse.Department.Name, new { @class = "control-label " })
+                                                                @Html.TextBoxFor(model => model.AppliedCourse.Department.Name, new { @class = "form-control academic", @readonly = "readonly" })
+                                                                @Html.ValidationMessageFor(model => model.AppliedCourse.Department.Name)
+                                                            </div>
+                                                        </div>
+                                                        @if (ViewBag.DepartmentOptionId != null)
+                                                        {
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.AppliedCourse.Option.Name, new { @class = "control-label " })<span class="required"> *</span>
+                                                                    @Html.DropDownListFor(model => model.AppliedCourse.Option.Id, (IEnumerable<SelectListItem>)ViewBag.DepartmentOptionId,
+                                                                   new { @class = "form-control " })
+                                                                    @Html.ValidationMessageFor(model => model.AppliedCourse.Option.Name)
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    @if (Model.AppliedCourse.Programme.Id != 10)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    @Html.LabelFor(model => model.PgApplicantSupervisorSelection.Id, "Most Preffered Supervisor", new { @class = "control-label" })
+                                                                    @Html.DropDownListFor(model => model.PgApplicantSupervisorSelection.Supervisor.Id, (IEnumerable<SelectListItem>)ViewBag.Supervisors,
+                                                                    new { @class = "form-control " })
+                                                                    @Html.ValidationMessageFor(model => model.PgApplicantSupervisorSelection.Supervisor.Id)
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6">
+
+
+                                                            </div>
+                                                        </div>
+                                                    }
+
+
+
+
+                                                </div>
+
+
+                                                <hr />
+                                                <div class="row justify-content-between col-md-12">
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-5"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="prevTab(5)">
+                                                        Previous
+                                                    </button>
+
+                                                    <button class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-7"
+                                                            data-toggle="tab" role="tab" aria-selected="false" onclick="nextTab(7)">
+                                                        Save And Continue
+                                                    </button>
+                                                </div>
+                                                <br />
+                                            </div>
+                                        </div>
+                                        @*<div class="tab-pane card" id="primary-tab-7" role="tabpanel">
+
+                                            </div>*@
+
+                                        <div class="tab-pane card" id="primary-tab-7" role="tabpanel">
+                                            <div class="col-md-12">
+                                                <div class="row justify-content-center">
+                                                    <h4 class=" col-lg-12 text-center">Passport Photograph </h4>
+                                                </div>
+                                                <div class="row col-md-12">
+
+
+                                                    <div class="col-md-6 ">
+                                                    </div>
+                                                    <div class="col-md-6 ">
+
+                                                        <div class="row">
+                                                            <div class="col-md-12 padding-bottom-3">
+                                                                <img id="passport" src="@Model.Person.ImageFileUrl" alt="" style="max-width: 150px" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row padding-bottom-5">
+                                                            <div class="col-md-6 ">
+                                                                @Html.HiddenFor(model => model.Person.ImageFileUrl, new { id = "hfPassportUrl", name = "hfPassportUrl" })
+                                                                <input type="text" id="tbx-file-path" readonly="readonly" />
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                @Html.TextBoxFor(m => m.MyFile, new { id = "fu-my-simple-upload", type = "file", style = "color:transparent;" })
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row padding-bottom-10">
+                                                            <div class="col-md-12">
+                                                                <input class="btn btn-default btn-metro" type="button" name="hl-start-upload" id="hl-start-upload" value="Upload Passport" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div id="fileUploadProgress" style="display: none">
+                                                                    <img src="@Url.Content("~/Content/Images/bx_loader.gif")" />
+                                                                    <span>Uploading ...</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <blockquote>
+                                                                <i class="fa fa-quote-left"></i>
+                                                                <p>
+                                                                    To upload your passport, scan and save the passport in the computer file
+                                                                    system. Click on the Choose File button shown above to display the file dialog box. Select
+                                                                    the passport file from the saved location. Then click on the Upload Passport button above to upload your passport to the system.
+                                                                </p>
+                                                                <small>Please note that the passport photo background should be plain (white or clear) and passport size should not be more than 50kb. The file format must be in either .gif, .jpeg, .jpg or .bmp file format.<cite title="Source Title"></cite></small>
+                                                            </blockquote>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-actions no-color col-md-12">
+                                                        @*<button class="btn btn-primary btn-lg float-left" type="submit" onclick="SaveCountinue()">Save & Countinue</button>*@
+                                                        @*<button class="btn btn-primary btn-lg float-right" type="submit" name="submit" id="submit" onclick="SaveCountinue(1)">Submit  @*<i class="fa fa-chevron-right mr5"></i><i class="fa fa-chevron-right mr5"></i>*@
+                                                        <div id="busy" style="display: none">Processing ...</div>
+                                                        <div id="result"></div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <hr />
+                                                <div class="row justify-content-between col-md-12">
+                                                    <a class="nav-link nav-tab-link btn btn-primary" href="#primary-tab-6"
+                                                       data-toggle="tab" role="tab" aria-selected="false" onclick="prevTab(6)">Previous</a>
+
+                                                    <button class="nav-link nav-tab-link btn btn-primary" type="submit" onclick="SaveCountinue(12)">Preview</button>
+                                                </div>
+                                                <br />
+                                            </div>
+
+                                        </div>
+
+
+                                        <br />
+
+
+                                    </div>
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@*<script src="../assets/js/app.js"></script>*@
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        if (!window.Quill) {
+            return $("#quill-editor,#quill-toolbar,#quill-bubble-editor,#quill-bubble-toolbar").remove();
+        }
+        var editor = new Quill("#quill-editor", {
+            modules: {
+                toolbar: "#quill-toolbar"
+            },
+            placeholder: "Type something",
+            theme: "snow"
+        });
+
+    });
+</script>
+
+
+
+<script>
+
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalerror" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Oops</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2>Please fill the compulsory fields before proceeding </h2>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" id="completebutton" href="">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Button to trigger the modal -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Available Supervisor</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <p>Click to view supervisor profiles for the department and programme selected:</p>
+                <ul>
+                   @if (Model.SupervisorStaffProfile != null)
+                   {
+
+                            foreach (var item in Model.SupervisorStaffProfile)
+                            {
+                        <li> <a target="_blank" href="https://profile.unizik.edu.ng/@item.CIrmsNumber">@item.SupervisorName </a></li>
+                            }
+                   }
+                        </ul>
+            </div>
+        </div>
+    </div>
+</div>

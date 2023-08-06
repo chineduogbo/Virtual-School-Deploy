@@ -1,0 +1,312 @@
+﻿@using Abundance_Nk.Web.Models
+@model Abundance_Nk.Web.Areas.Applicant.ViewModels.AdmissionViewModel
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script src="~/Scripts/jquery-migrate-1.2.1.min.js"></script>
+<link href="~/Content/pretty-menu.css" rel="stylesheet" />
+<script src="~/Scripts/prettify.js"></script>
+<script src="~/Scripts/custom.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        alert("");
+        window.print();
+    });
+    $("#aPrint").on('click', function () {
+        //$(".printarea").print();
+        // return false;
+        window.print();
+    });
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Institution Based Research Platform for Tetfund">
+    <meta name="author" content="Lloydant">
+
+    <title>Unizik Medical Form</title>
+
+    <link rel="canonical" href="medicalform.html" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+    <!--    <link href="../assets/css/light-style.css" rel="stylesheet">-->
+
+    <style type="text/css">
+        a {
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+
+<body style="margin:10px; background: #f8f8f8; ">
+    <div width="100%" style="background: #f8f8f8; padding: 0px 0px; font-family:'Poppins', sans-serif; line-height:28px; height:100%;  width: 100%; color: #514d6a;">
+        <div style="max-width: 1400px; padding:50px 0;  margin: 0px auto; font-size: 14px">
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="text-align: center">
+                            <p style="font-size: 24px; font-weight: 700; font-family:'Times New Roman'; color: #000 !important; margin-bottom: 0px">
+                                NNAMDI AZIKIWE UNIVERSITY, AWKA
+                            </p>
+                            <p style="font-size: 20px; font-weight: 600; font-family:'Times New Roman'; color: #000 !important; margin-top: 0">
+                                UNIZIK BUSINESS SCHOOL (UBS)
+                            </p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="text-align: center">
+                            <p style="margin-bottom: 0; margin-top: 0">
+                                (Complete and Return to Director, UNIZIK Business School)
+                            </p>
+
+                            <p>
+                                You are required to supply the information required in Section A below. Thereafter, you should take the
+                                form to the Medical Director in the University Medical Centre to conduct the Medical Examination.
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td width="100%">
+                            <p style="text-decoration: underline; text-align: center">SECTION A</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td width="10%">SURNAME: </td>
+                        <td width="35%" style="border-bottom: 1px solid #1a252f;">@Model.ApplicationForm.Person.LastName</td>
+                        <td width="15%" style="padding-left: 50px">OTHER NAMES: </td>
+                        <td width="45%" style="border-bottom: 1px solid #1a252f">@Model.ApplicationForm.Person.FirstName @Model.ApplicationForm.Person.OtherName</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px" width="10%">FACULTY: </td>
+                        <td width="35%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;">@Model.AppliedCourse.Department.Faculty.Name</td>
+                        <td width="15%" style="padding-left: 50px; padding-top: 20px;">DEPARTMENT: </td>
+                        <td width="45%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;">@Model.AppliedCourse.Department.Name</td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px" width="10%">MARITAL STATUS: </td>
+                        <td width="35%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                        <td width="15%" style="padding-left: 50px; padding-top: 20px;">NO. OF CHILDREN: </td>
+                        <td width="45%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px" width="10%">AGE: </td>
+                        <td width="35%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                        <td width="15%" style="padding-left: 50px; padding-top: 20px;">SEX: </td>
+                        <td width="45%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="padding-top: 20px" width="12%">PRESENT OCCUPATION: </td>
+                        <td width="100%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px" width="12%">FAMILY OCCUPATION: </td>
+                        <td width="100%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td style="padding-top: 60px" width="100%">Has anyone in your immediate family suffered from/died of any of (a) below. If so which? </td>
+                </tr>
+                <tr>
+                    <td style="padding-top: 30px" width="100%">Previous Health: </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td style="padding-top: 5px; width: 10%;">(a) </td>
+                    <td style="padding-top: 5px">Have you suffered from or do you suffer from any of the followings: </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; margin-left: 10%;">
+                <tr>
+                    <td style="width: 5%;"><p>(1)</p></td>
+                    <td style="width: 45%; display: flex;">
+                        <p style="margin-right: 30px">Tuberculosis</p>
+                        <p>Yes/No</p>
+                    </td>
+                    <td style="width: 5%;"><p>(6)</p></td>
+                    <td style="width: 35%; display: flex;">
+                        <p style="margin-right: 30px">Diabetics</p>
+                        <p>Yes/No</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 5%;"><p>(2)</p></td>
+                    <td style="width: 45%; display: flex;">
+                        <p style="margin-right: 30px">Hypertension</p>
+                        <p>Yes/No</p>
+                    </td>
+                    <td style="width: 5%;"><p>(7)</p></td>
+                    <td style="width: 55%; display: flex;">
+                        <p style="margin-right: 30px">Peptic Ulcer</p>
+                        <p>Yes/No</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 5%;"><p>(3)</p></td>
+                    <td style="width: 45%; display: flex;">
+                        <p style="margin-right: 30px">Epilepsy</p>
+                        <p>Yes/No</p>
+                    </td>
+                    <td style="width: 5%;"><p>(8)</p></td>
+                    <td style="width: 85%; display: flex;">
+                        <p style="margin-right: 30px">Piles (haemorrhoids)</p>
+                        <p>Yes/No</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 5%;"><p>(4)</p></td>
+                    <td style="width: 65%; display: flex;">
+                        <p style="margin-right: 30px">Mental Illness</p>
+                        <p>Yes/No</p>
+                    </td>
+                    <td style="width: 5%;"><p>(9)</p></td>
+                    <td style="width: 85%; display: flex;">
+                        <p style="margin-right: 30px">Gonorrhea or Syphilis</p>
+                        <p>Yes/No</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 5%;"><p>(5)</p></td>
+                    <td style="width: 85%; display: flex;">
+                        <p style="margin-right: 30px">Heat in the heart or body</p>
+                        <p>Yes/No</p>
+                    </td>
+                    <td style="width: 5%;"><p>(10)</p></td>
+                    <td style="width: 85%; display: flex;">
+                        <p style="margin-right: 30px">Heart Disease</p>
+                        <p>Yes/No</p>
+                    </td>
+                </tr>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td style="padding-top: 5px; width: 10%;">(b) </td>
+                    <td style="padding-top: 5px">If the answer to any is yes, please give further particulars below and include other illness not mentioned above</td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td style="padding-top: 20px" width="30%">WHICH ILLNESS: </td>
+                    <td width="5%"></td>
+                    <td style="padding-top: 20px" width="30%">DATE & DURATION & HOSPITAL: </td>
+                    <td width="5%"></td>
+                    <td style="padding-top: 20px" width="30%">NAME & ADDRESS OF DOCTOR: </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                    <td width="5%"></td>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                    <td width="5%"></td>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                </tr>
+                <tr>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                    <td width="5%"></td>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                    <td width="5%"></td>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                </tr>
+                <tr>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                    <td width="5%"></td>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                    <td width="5%"></td>
+                    <td width="30%" style="border-bottom: 1px dotted #1a252f; padding-top: 20px;"></td>
+                </tr>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td width="100%">
+                            <p style="text-decoration: underline; text-align: center; padding-top: 20px">SECTION B (FOR THE DOCTOR)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left; margin-bottom: 20px;">
+                            <p>Please complete this form and send it to the Director, UNIZIK Business School, Nnamdi Azikiwe University, P.M.B. 5025, Awka.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="100%">
+                            <p style="text-decoration: underline; text-align: center; padding-top: 20px">RELEVANT INFORMATION</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td style="padding-top: 30px" width="100%">General: </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td width="50%">Height in metres/cm metres/cm (without shoes): </td>
+                    <td width="5%" style="border-bottom: 1px dotted #1a252f;"></td>
+                    <td width="50%" style="padding-left: 20px">Weight in Kilograms (Indoor close): </td>
+                    <td width="80%" style="border-bottom: 1px dotted #1a252f"></td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td style="padding-top: 30px" width="100%">Visual acuity: </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tr>
+                    <td width="50%">With Glasses R/6 L/6: </td>
+                </tr>
+                <tr>
+                    <td width="50%">Without Glasses R/6 + Snellen Types: </td>
+                </tr>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="padding-top: 20px" width="12%">Left: </td>
+                        <td width="100%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px" width="12%">Right: </td>
+                        <td width="100%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 20px" width="30%">Condition of Ear Drum: </td>
+                        <td width="100%" style="border-bottom: 1px solid #1a252f; padding-top: 20px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+ <div class="col-md-12">
+        <button id="aPrint" class="print btn btn-primary-alt"><i class="fa fa-print mr5"></i> Print</button>
+
+    </div>

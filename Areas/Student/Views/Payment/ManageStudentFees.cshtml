@@ -1,0 +1,544 @@
+﻿
+@{
+    ViewBag.Title = "ManageStudentFees";
+}
+
+@model Abundance_Nk.Web.Areas.Student.ViewModels.PaymentViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery-ui-1.9.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload-ui.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.print.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.js"></script>
+
+<link href="~/Scripts/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<link href="~/Scripts/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+        $("#myTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+
+        $("#myTable1").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+    })
+
+
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div>
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", TempData["Message"])
+                    }
+                </div>
+            </div>
+            <div class="panel-title">
+                <p>Due Fees</p>
+            </div>
+            <div class="col-md-auto my-1 text-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add Previous Fees</button>
+
+
+
+            </div>
+
+            <br />
+
+            <table class="table table-bordered table-hover table-striped" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            SN
+                        </th>
+                        <th>
+                            Fee  Name
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Date Paid
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@for (int i = 0; i < Model.remitaSplitItems.Count; i++)
+                {
+                    int sn = i + 1;
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <td>
+                            @Model.remitaSplitItems[i].beneficiaryName
+                        </td>
+                        <td>
+                            @Model.remitaSplitItems[i].bankCode
+                        </td>
+                        <td>
+                            @Model.remitaSplitItems[i].beneficiaryAccount
+                        </td>
+                        <td>
+                            @Model.remitaSplitItems[i].beneficiaryAmount
+                        </td>
+
+
+
+                        @*<td>Active</td>
+                            <td><button class="btn btn-Secondary" onclick="DeleteCourse(@Model.remitaSplitItems[i].lineItemsId)">De-Activate</button></td>*@
+
+
+                    @*</tr>*@
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="col-md-1"></div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-auto my-1 text-right">
+
+                  
+                    <div class="panel-title">
+                        <p>Previous Fees</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <br />
+
+            
+            
+                <table class="table table-bordered table-hover table-striped" id="myTable1">
+                    <thead>
+                        <tr>
+                            <th>
+                                SN
+                            </th>
+                            <th>
+                                Fee  Name
+                            </th>
+                            <th>
+                               Amount
+                            </th>
+                            <th>
+                                Date Paid
+                            </th>
+                            
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.RemitaPayments.Count > 0) {
+                        for (int i = 0; i < Model.RemitaPayments.Count; i++)
+                        {
+                            int sn = i + 1;
+                            <tr>
+                                <td>
+                                    @sn
+                                </td>
+                                <td>
+                                    @Model.RemitaPayments[i].payment.FeeType.Name
+                                </td>
+                                <td>
+                                    @Model.RemitaPayments[i].TransactionAmount
+                                </td>
+                                <td>
+                                    @Model.RemitaPayments[i].TransactionDate
+                                </td>
+                              
+
+
+                            </tr>
+                        }
+                        }
+                    </tbody>
+                </table>
+            
+        </div>
+    </div>
+
+    <div class="col-md-1"></div>
+</div>
+
+
+
+
+
+<!-- Modal-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Add Split Items
+                </h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="font-weight-light" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <div class="mt-3">
+                            <div class="card-body position-relative">
+                                <div class="row my-2">
+                                    <div class="col-md-6 my-2">
+                                        <label>Feetype Name</label>
+
+                                        @Html.DropDownListFor(model => model.FeetypeId, (IEnumerable<SelectListItem>)ViewBag.feetype, new { @class = "form-control", @id = "feetype" })
+                                    </div>
+
+                                    <div class="col-md-6 my-2">
+                                        <label>Session</label>
+
+                                        @Html.DropDownListFor(model => model.SessionId, (IEnumerable<SelectListItem>)ViewBag.Session, new { @class = "form-control", @id = "" })
+                                    </div>
+                                    <div class="col-md-6 my-2">
+                                        <label>Level</label>
+
+                                        @Html.DropDownListFor(model => model.LevelId, (IEnumerable<SelectListItem>)ViewBag.Level, new { @class = "form-control", @id = "" })
+                                    </div>
+                                  
+
+                                    <div class="col-md-6 my-2">
+                                        <label>RRR No</label>
+                                        <input type="text" class="form-control" id="SplitTo">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary btn-sm" type="button" id="addDepartmentBtn" onclick="addSplit()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete_title"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="font-weight-light" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="DeleteId" />
+                <h6>Are you sure you want to delete</h6><span class="font-weight-bold h5">?</span>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-danger btn-sm" type="button" onclick="SaveDelete()">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+    //save Add split
+    function addSplit() {
+
+        var Splitto = $('#SplitTo').val();
+        var Feetype = $('#feetype :selected').val();
+        var SplitId = $('#SplitId :selected').val();
+
+        var newdepartment = new FormData();
+        newdepartment.append("DeductFrom", Splitto);
+        newdepartment.append("FeeTypeId", Feetype);
+        newdepartment.append("RemitaSplitIemsId", SplitId);
+
+
+        if (Splitto != null && Feetype != null && SplitId != null) {
+            $('#addDepartmentBtn').attr('disabled', true);
+            let originalText = $('#addDepartmentBtn').text();
+            $('#addDepartmentBtn').text("Saving...");
+            $.ajax({
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                url: '@Url.Action("SaveItems", "Split")', // we are calling json method
+                data: newdepartment,
+                success: function (result) {
+                    if (!result.Id > 0) {
+                      //  swal('INFO', result.message, 'success');
+                        alert("Split Added Successfully")
+                        window.location.reload(true);
+                    }
+                    else {
+                        swal('INFO', result.message, 'success');
+                        window.location.reload(true);
+                    }
+
+
+                },
+                error: function (ex) {
+                    $(this).attr('disabled', false);
+                    $(this).text(originalText);
+                    alert('error' + ex);
+                }
+            });
+        }
+
+        }
+
+    let Id = 0;
+    let Name, Description, Code = '';
+    let FacultyId = 0;
+    let status = true;
+
+
+
+
+
+    function Delete(Id) {
+        if (Id != null && Id != "" && Id != undefined) {
+
+
+            $('#DeleteId').val(Id);
+
+
+            $('#deleteModal').modal('show');
+
+        }
+    }
+
+
+
+     //Edit Department
+    function SaveDelete() {
+
+        Id = $('#DeleteId').val();
+
+        var newdepartment = new FormData();
+        newdepartment.append("Id", Id);
+
+
+
+        if (Id != null) {
+            $('#addDepartmentBtn').attr('disabled', true);
+            let originalText = $('#addDepartmentBtn').text();
+            $('#addDepartmentBtn').text("Saving...");
+            $.ajax({
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                url: '@Url.Action("DeleteItems", "Split")', // we are calling json method
+                data: newdepartment,
+                success: function (result) {
+                    if (!result) {
+                        //swal('INFO', result.message, 'success');
+                        alert("Delete successful");
+                        window.location.reload(true);
+                    }
+                    else {
+                        swal('INFO', result.message, 'success');
+                        window.location.reload(true);
+                    }
+
+
+                },
+                error: function (ex) {
+                    $(this).attr('disabled', false);
+                    $(this).text(originalText);
+                    alert('error' + ex);
+                }
+            });
+        }
+
+        }
+
+</script>

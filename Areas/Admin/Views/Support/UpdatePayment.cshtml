@@ -1,0 +1,133 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+
+@{
+    ViewBag.Title = "UpdatePayment";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Message", TempData["Message"])
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div style="font-size: x-large">Update Payment</div>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("UpdatePayment", "Support", new {area = "Admin"}, FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.RemitaPayment.ConfirmationNo, "RRR Number", new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.RemitaPayment.ConfirmationNo, new {@class = "form-control", @placeholder = "Enter RRR Number ", @required = "required"})
+                                @Html.ValidationMessageFor(model => model.RemitaPayment.ConfirmationNo, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FeeType.Id, "Fee Type", new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.FeeType.Id, (IEnumerable<SelectListItem>) ViewBag.FeeTypeId, new {@class = "form-control"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Session.Id, "Session", new {@class = "control-label col-md-2"})
+                            <div class="col-md-6">
+                                @Html.DropDownListFor(model => model.Session.Id, (IEnumerable<SelectListItem>) ViewBag.SessionId, new {@class = "form-control"})
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Submit" class="btn btn-success mr5" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @if (Model == null || Model.RemitaPayment == null)
+        {
+            return;
+        }
+        @if (Model.RemitaPayment.RRR != null )
+        {
+            using (Html.BeginForm("SavePayment", "Support", new {area = "Admin"}, FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.RemitaPayment.BankCode)
+                @Html.HiddenFor(model => model.RemitaPayment.RRR)
+                @Html.HiddenFor(model => model.RemitaPayment.ConfirmationNo)
+                @Html.HiddenFor(model => model.RemitaPayment.Status)
+                @Html.HiddenFor(model => model.RemitaPayment.TransactionDate)
+                @Html.HiddenFor(model => model.RemitaPayment.Description)
+                @Html.HiddenFor(model => model.RemitaPayment.payment.Id)
+                @Html.HiddenFor(model => model.RemitaPayment.OrderId)
+                @Html.HiddenFor(model => model.RemitaPayment.TransactionAmount)
+                <div class="row">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RemitaPayment.RRR, "RRR Number", new {@class = "control-label col-md-6"})
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.RemitaPayment.RRR, new {@class = "form-control", @placeholder = "Receipt Number", @disabled = "disabled"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RemitaPayment.payment.InvoiceNumber, "Confirmation Order", new {@class = "control-label col-md-6"})
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.RemitaPayment.payment.InvoiceNumber, new {@class = "form-control", @placeholder = "Confirmation Order Number", @disabled = "disabled"})
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RemitaPayment.TransactionAmount, "Amount Paid", new {@class = "control-label col-md-6"})
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.RemitaPayment.TransactionAmount, new {@class = "form-control", @placeholder = ""})
+                        </div>
+                    </div>
+                   
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.RemitaPayment.payment.FeeType.Id,"FeeType",new { @class = "control-label col-md-6" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.RemitaPayment.payment.FeeType.Id,(IEnumerable<SelectListItem>)ViewBag.FeeTypeId,new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Payment.Session.Id,"Session",new { @class = "control-label col-md-6" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.Payment.Session.Id,(IEnumerable<SelectListItem>)ViewBag.SessionId,new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Payment.PaymentMode.Id,"Payment Mode",new { @class = "control-label col-md-6" })
+                        <div class="col-md-6">
+                            @Html.DropDownListFor(model => model.Payment.PaymentMode.Id,(IEnumerable<SelectListItem>)ViewBag.PaymentModeId,new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-success mr5" />
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

@@ -1,0 +1,309 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        overflow-x: hidden !important;
+        font-family: 'Noto Sans', sans-serif !important;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background-color: #d2462f !important;
+        border-color: #2c1e8c !important;
+        color: ghostwhite !important
+    }
+
+    .table-responsive {
+        height: 400px !important;
+        overflow-y: scroll !important
+    }
+</style>
+
+
+
+
+
+
+@*<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/file-upload/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/file-upload/jquery-ui-1.9.2.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload-ui.js"></script>
+    <script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="~/Scripts/file-upload/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.print.js"></script>
+
+    <script src="~/Scripts/DataTables-1.10.15/media/js/jquery.js"></script>
+
+    <link href="~/Scripts/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+    <link href="~/Scripts/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>*@
+
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/bootstrap/bootstrap.min.js"></script>
+
+<script src="~/Scripts/dataTables.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/momentjs/moment.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+<script src="~/Scripts/bootstrap.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $.noConflict();
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+        $('#studentTable0').DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+
+
+
+
+    });
+
+</script>
+
+
+
+
+
+
+<div class="col-md-12" style="min-height:1000px">
+
+
+
+
+    @using (Html.BeginForm("CreateUserPermission", "Support", new { area = "Admin" }, FormMethod.Post))
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-fw fa-toggle-left"></i>Assign Permissions</h3>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StaffId, "Staff Email", new { @class = "col-sm-2 control-label " })
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(model => model.StaffId, (IEnumerable<SelectListItem>)ViewBag.Staffs, new { @class = "form-control", @id = "Session", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.StaffId, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CanApprove, "Can Approve Documents", new { @class = "col-sm-2 control-label " })
+                    <div class="col-sm-10">
+                        @Html.CheckBoxFor(model => model.CanApprove, new { @class = "", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.CanApprove, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <input class="btn btn-success mr5 " type="submit" name="submit" id="submit" value="Assign" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+
+        <div>
+            @*@if (Model != null && Model.StatusMessage == true)
+                {
+                   <div class="alert alert-danger">
+                       <p>@ViewBag.ResponseMessage</p>
+                   </div>
+                }*@
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-dark-head">
+
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @*<div class="btn-group btn-group-lg">
+                            <button type="button" style="font-size:12px" class="btn btn-primary active">Application Form</button>
+                            <button type="button" style="font-size:12px" class="btn btn-primary">School Fees</button>
+                        </div>*@
+
+
+                    <hr />
+
+                    @if (Model != null && Model.Permissions != null)
+                    {
+
+
+                        <div style="margin-top:30px">
+                            <p style="font-size:15px"><b>User Permissions</b></p>
+                        </div>
+
+
+                        <hr />
+
+
+
+
+
+                        <div class="col-md-12 table-responsive">
+
+
+                            <table class="table table-bordered table-hover table-striped" id="studentTable0">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Username</th>
+                                        <th>Permission Type</th>
+
+                                        <th></th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody style="color: black;">
+                                    @for (int i = 0; i < Model.Permissions.Count; i++)
+                                    {
+                                        var SN = i + 1;
+                                        <tr>
+                                            <td>@SN</td>
+                                            <td>@Html.DisplayTextFor(m => m.Permissions[i].User.Username) @Html.DisplayTextFor(m => m.Permissions[i].)</td>
+                                            <td>@(Model.Permissions[i].CanApprove ? "Can Approve" : "Can Recommend")</td>
+                                            <td>
+                                                <a class="btn btn-success" href="~/Admin/Support/DeletePermission?UserId=@Model.Permissions[i].User.Id">Remove</a>
+
+
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    }
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+
+

@@ -1,0 +1,122 @@
+﻿@model Abundance_Nk.Web.Models.LoginViewModel
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+    <head>
+        <!-- META SECTION -->
+        <title>Virtual School - Nnamdi Azikiwe University</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="~/Content/favicon/favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        <!-- CSS INCLUDE -->
+        <link href="~/Content/theme-default.css" rel="stylesheet" />
+        <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- EOF CSS INCLUDE -->
+    </head>
+<body class="" style="background: url(/Content/assets/img/academic.jpg); background-size: cover; background-repeat: no-repeat;">
+    <div class="login-container">
+        <div class="login-box animated fadeInDown mt-5">
+
+            <div class="login-logo mb-3">
+                <div class="profile-image text-center">
+                    <a href="~/">
+                        <img class="img-" src="@Url.Content("~/Content/Images/school_logo.jpg")"
+                             alt="school logo" height="60px" width="60px" style="border-radius:50%" />
+                    </a>
+                </div>
+            </div>
+
+            <h4 class="text-center mt-5 mb-5 text-white">
+                Nnamdi Azikiwe University Portal
+            </h4>
+
+            <div class="login-body">
+                @using(Html.BeginForm("Login","Account",new { Area = "Security",ViewBag.ReturnUrl },FormMethod.Post,new { @class = "form-horizontal",role = "form" }))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    <div class="login-title"><strong>Welcome</strong>, Please login</div>
+
+                    if (TempData["Message"] != null)
+                    {
+                        <div class="my-2">
+                            @Html.Partial("_Message", TempData["Message"])
+                        </div>   
+                    }
+
+                    <form action="@Url.Action("Home", "Account", new {Area = "Security"})" class="form-horizontal" method="post">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(m => m.UserName,new { @class = "form-control",@placeholder = "Username" })
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.PasswordFor(m => m.Password,new { @class = "form-control",@placeholder = "Password" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <a href="~/Security/Account/ForgotPassword" class="btn btn-link btn-block">Forgot your password?</a>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-block">Log In</button>
+                            </div>
+                        </div>
+                    </form>
+                }
+            </div>
+            <div class="login-footer">
+                <div class="pull-left">
+                    &copy; @DateTime.Now.Year All Rights reserved.
+                </div>
+                <div class="pull-right">
+                    <p>Powered by <a href="http://www.lloydant.com"><img src="~/Content/Images/lloydant.png" /></a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Important Information</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        All students are expected to login to their accounts to generate invoices, print receipt and perform all portal functions.<br />
+                        Please use your matric number as the user name and 1234567 as the default password. <strong>Remember to change your password once you login to avoid compromise of your profile</strong>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#infoModal').modal('show');
+
+        });
+
+    </script>
+</body>
+
+</html>

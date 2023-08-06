@@ -1,0 +1,70 @@
+﻿@model Abundance_Nk.Web.Areas.PGApplicant.ViewModels.PGPaymentViewModel
+
+@{
+    ViewBag.Title = "PostGraduate Application Form";
+}
+
+<div class="container">
+
+
+    <h4 class="text-center font-weight-bold">Generate Change Of Mode</h4>
+    <div class="col-md-12 card p-5">
+
+        @using (Html.BeginForm("GenerateModeOfStudyToOnline", "Form", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    @*<h3 style="color: #b78825">Application Form</h3>*@
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <div class="well" style="margin-bottom: 15px">
+                                        <blockquote>
+                                            <p>
+                                                Kindly enter your Remita Number to proceed to generate invoice to change mode of
+                                                study.
+                                            </p>
+                                            <p>
+                                                After Payment Use RRR for change of mode of study to confirm change by  using the RRR No here 
+                                                and press next.
+                                            </p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+                                        @if (TempData["Message"] != null)
+                                        {
+                                            @Html.Partial("_Message", TempData["Message"])
+                                        }
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label style="font-size: 10pt" class=" custom-text-white"> Please enter your RRR Number.</label>
+                                        @Html.TextBoxFor(model => model.rrrNo, new { @class = "form-control", @required = true })
+                                        @Html.ValidationMessageFor(model => model.rrrNo, null, new { @class = "text-danger" })
+                                    </div>
+
+                                    <button class="btn btn-primary pull-right" type="submit" name="submit" id="submit" value="Next"> Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer ">
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

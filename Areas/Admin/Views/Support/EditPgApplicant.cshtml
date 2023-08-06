@@ -1,0 +1,189 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@{
+    ViewBag.Title = "EditPgApplicant";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        var selectedProgramme = $("#studentLevel_Programme_Id").val();
+
+        $("#studentLevel_Programme_Id").change(function() {
+
+            var programme = $("#studentLevel_Programme_Id").val();
+
+            $("#studentLevel_Department_Id").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartmentByProgrammeId")', // we are calling json method
+                dataType: 'json',
+                data: { id: programme },
+                success: function(departments) {
+                    $("#studentLevel_Department_Id").append('<option value="' + 0 + '"> -- Select -- </option>');
+
+                    $.each(departments, function(i, department) {
+                        $("#studentLevel_Department_Id").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function(ex) {
+                    alert('Failed to retrieve departments.' + ex);
+                }
+            });
+        });
+   
+    $("#studentLevel_Department_Id").change(function () {
+
+        var programme = $("#studentLevel_Programme_Id :selected").val();
+        var dept = $('#studentLevel_Department_Id :selected').val();
+
+            $("#departmentoption").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartmentByProgrammeAndDepartment")', // we are calling json method
+                dataType: 'json',
+                data: { id: programme, deptId: dept },
+                success: function (departments) {
+                    if (departments.length > 0) {
+                        $("#departmentoption").append('<option value="' + 0 + '"> -- Select -- </option>');
+
+                        $.each(departments, function (i, department) {
+                            $("#departmentoption").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                        });
+                        $('#divDepartmentOption').show();
+                    }
+                    else {
+                        $('#divDepartmentOption').hide();
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve departments.' + ex);
+                }
+            });
+    });
+    })
+
+</script>
+
+
+@using (Html.BeginForm("EditPgApplicant", "Support", new { area = "Admin" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fa fa-fw fa-download"></i>Edit Applicant Details</h3>
+        </div>
+        <div class="card-body">
+
+            @Html.HiddenFor(model => model.PgAdmissionFix.Id)
+            @Html.HiddenFor(model => model.PgAdmissionFix.FormId)
+            @if (Model.PgAdmissionFix.ApplicationForm != null)
+            {
+                @Html.HiddenFor(model => model.PgAdmissionFix.ApplicationForm.Person.Id)
+            }
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.FORMNUMBER, "Form Number", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.PgAdmissionFix.FORMNUMBER, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.FORMNUMBER, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.SUPERVISOR, "Supervisor", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.PgAdmissionFix.SUPERVISOR, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.SUPERVISOR, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            &nbsp;
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.ApplicationForm.Person.FirstName, new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.PgAdmissionFix.ApplicationForm.Person.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.ApplicationForm.Person.FirstName, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.ApplicationForm.Person.OtherName, new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.PgAdmissionFix.ApplicationForm.Person.OtherName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.ApplicationForm.Person.OtherName, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.ApplicationForm.Person.LastName, new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.PgAdmissionFix.ApplicationForm.Person.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.ApplicationForm.Person.LastName, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            &nbsp;
+
+
+
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.EntryTierId, "Entry Tier", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.PgAdmissionFix.EntryTierId, (IEnumerable<SelectListItem>)ViewBag.EntryTier, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.EntryTierId)
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.ProgrammeId, "Programme", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.PgAdmissionFix.ProgrammeId, (IEnumerable<SelectListItem>)ViewBag.Programme, 
+                   new { @class = "form-control", id = "studentLevel_Programme_Id" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.ProgrammeId)
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.DepartmentId, "Department", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.PgAdmissionFix.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.Department,
+                   new { @class = "form-control",Id = "studentLevel_Department_Id" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.DepartmentId)
+                </div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.DepartmentOptionId, "Department Option", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.PgAdmissionFix.DepartmentOptionId, (IEnumerable<SelectListItem>
+    )ViewBag.Options, new { @class = "form-control",Id="departmentoption" })
+    @Html.ValidationMessageFor(model => model.PgAdmissionFix.DepartmentOptionId)
+</div>
+            </div>
+            &nbsp;
+            <div class="form-group">
+                @Html.LabelFor(model => model.PgAdmissionFix.ModeId, "Mode of Study", new { @class = "col-sm-2 control-label " })
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(model => model.PgAdmissionFix.ModeId, (IEnumerable<SelectListItem>)ViewBag.ModeOfStudy, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PgAdmissionFix.ModeId)
+                </div>
+            </div>
+            &nbsp;
+
+
+
+
+            <div class="form-group">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                    <input class="btn btn-primary mr5 " type="submit" name="submit" id="submit" value="Edit" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

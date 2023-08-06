@@ -1,0 +1,244 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        overflow-x: hidden !important;
+        font-family: 'Noto Sans', sans-serif !important;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background-color: #d2462f !important;
+        border-color: #2c1e8c !important;
+        color: ghostwhite !important
+    }
+
+    .table-responsive {
+        height: 400px !important;
+        overflow-y: scroll !important
+    }
+</style>
+
+
+
+
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/bootstrap/bootstrap.min.js"></script>
+
+<script src="~/Scripts/dataTables.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/momentjs/moment.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+<script src="~/Scripts/bootstrap.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $.noConflict();
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+        $('#studentTable0').DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+
+
+
+
+    });
+
+</script>
+
+
+
+
+
+
+<div class="col-md-12" style="min-height:1000px">
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+
+        <div>
+            @*@if (Model != null && Model.StatusMessage == true)
+                {
+                   <div class="alert alert-danger">
+                       <p>@ViewBag.ResponseMessage</p>
+                   </div>
+                }*@
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-dark-head">
+
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @*<div class="btn-group btn-group-lg">
+                            <button type="button" style="font-size:12px" class="btn btn-primary active">Application Form</button>
+                            <button type="button" style="font-size:12px" class="btn btn-primary">School Fees</button>
+                        </div>*@
+
+
+                    <hr />
+
+                    @if (Model != null && Model.PgStudentStageRequests != null)
+                    {
+
+
+                        <div style="margin-top:30px">
+                            <p style="font-size:15px"><b>New Requests</b></p>
+                        </div>
+
+
+                        <hr />
+
+
+
+
+
+                        <div class="col-md-12 table-responsive">
+
+
+                            <table class="table table-bordered table-hover table-striped" id="studentTable0">
+                                <thead>
+                                    <tr>
+                                        <th>SN</th>
+                                        <th>Student Name</th>
+                                        <th>Stage Requested</th>
+                                        <th>Date Requested</th>
+                                        <th>Matric Number</th>
+                                        <th></th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody style="color: black;">
+                                    @for (int i = 0; i < Model.PgStudentStageRequests.Count; i++)
+                                    {
+                                        var SN = i + 1;
+                                        <tr>
+                                            <td>@SN</td>
+                                            <td>@Html.DisplayTextFor(m => m.PgStudentStageRequests[i].Student.FullName)</td>
+                                            <td>@Html.DisplayTextFor(m => m.PgStudentStageRequests[i].Status.Name)</td>
+                                            <td>@Html.DisplayTextFor(m => m.PgStudentStageRequests[i].DateRequested)</td>
+                                            <td>@Html.DisplayTextFor(m => m.PgStudentStageRequests[i].Student.MatricNumber)</td>
+                                            <td><a class="btn btn-success" href="/Admin/Support/ViewRequest?RequestId=@Model.PgStudentStageRequests[i].Id">View Request</a></td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    }
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+
+

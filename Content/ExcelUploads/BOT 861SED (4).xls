@@ -1,0 +1,9 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+		<tr>
+			<th scope="col">SN</th><th scope="col">MatricNo</th><th scope="col">Fullname</th><th scope="col">Department</th><th scope="col">CA</th><th scope="col">Exam</th><th scope="col">CourseCode</th>
+		</tr><tr>
+			<td>1</td><td>2022606002FA</td><td>OCHIAGHA OGECHUKWU CHINAZA</td><td>Science Education </td><td>20.00</td><td>30.00</td><td>BOT 861</td>
+		</tr>
+	</table>
+</div>

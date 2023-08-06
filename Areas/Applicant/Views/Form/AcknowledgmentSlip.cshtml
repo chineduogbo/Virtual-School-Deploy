@@ -1,0 +1,1201 @@
+﻿
+@using Abundance_Nk.Model.Model
+@using Abundance_Nk.Web.Models
+@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJambViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "::Acknowlegment Slip::";
+}
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/putme/css/bootstrap.min.css">
+    <!-- Now-ui-kit CSS -->
+    <link rel="stylesheet" href="~/Content/putme/css/now-ui-kit.css">
+
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Include the above in your HEAD tag -->
+
+    <title>NAU post utme form</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#aPrint").click(function () {
+                $("#aPrint").hide();
+                $("#printable").show();
+                window.print();
+                $("#aPrint").show();
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    @{var applicationFormHeader = Model.ApplicationForm.Setting.Session.Name + " " + Model.ApplicationForm.Setting.Name;}
+    @{var applicationFormHeaderForIceProgramme = Model.ApplicationForm.Setting.Session.Name + " " + Model.AppliedCourse.Programme.Name.ToUpper(); }
+
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row pt-4">
+                <div class="col-md-12 pl-0 pr-0">
+                    <div class="card printable">
+
+                        <!doctype html>
+                        <html class="no-js" lang="">
+                        <head>
+                            <meta charset="utf-8">
+                            <title></title>
+                            <meta name="description" content="">
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <style>
+                                .d-inline-block {
+                                    display: inline-block;
+                                }
+
+                                .justify-content-center {
+                                    justify-content: center
+                                }
+
+                                .justify-content-between {
+                                    justify-content: space-between
+                                }
+
+                                .d-flex {
+                                    display: flex
+                                }
+
+                                .flex-wrap {
+                                    flex-wrap: wrap;
+                                }
+
+                                .text-center {
+                                    text-align: center !important
+                                }
+
+                                .mt-4 {
+                                    margin-top: 1rem
+                                }
+
+                                .mt-0 {
+                                    margin-top: 0 !important
+                                }
+
+                                .border-top {
+                                    border-top: 1px solid #eee
+                                }
+
+                                .border-bottom {
+                                    border-bottom: 1px solid #eee
+                                }
+
+                                .border-bottom-bold {
+                                    border-bottom: 1px solid #000;
+                                }
+
+                                .mr-20px {
+                                    margin-right: 20px !important;
+                                }
+
+                                .mb-30px {
+                                    margin-bottom: 30px !important;
+                                }
+
+                                .mb-20px {
+                                    margin-bottom: 20px !important;
+                                }
+
+                                .mt-30px {
+                                    margin-top: 30px !important;
+                                }
+
+                                .mt-20px {
+                                    margin-top: 20px !important;
+                                }
+
+                                .font-weight-bold {
+                                    font-weight: bolder;
+                                }
+
+                                .my-auto {
+                                    margin-top: auto;
+                                    margin-bottom: auto;
+                                }
+
+                                .text-italic {
+                                    font-style: italic;
+                                }
+
+                                .text-underline {
+                                    text-decoration: underline;
+                                }
+
+                                .list-mb {
+                                    margin-bottom: 15px;
+                                }
+
+                                .px-10px {
+                                    padding-left: 10px;
+                                    padding-right: 10px;
+                                }
+
+                                .ml-20px {
+                                    margin-left: 20px;
+                                }
+
+                                @@media only screen and (min-device-width: 576px) {
+                                    .container {
+                                        max-width: 540px;
+                                    }
+                                }
+
+                                @@media only screen and (min-device-width: 768px) {
+                                    .container {
+                                        max-width: 720px;
+                                    }
+                                }
+
+                                @@media only screen and (min-device-width: 992px) {
+                                    .container {
+                                        max-width: 960px;
+                                    }
+                                }
+
+                                @@media only screen and (min-device-width: 1200px) {
+                                    .container {
+                                        max-width: 1140px;
+                                    }
+                                }
+
+                                .container {
+                                    width: 100%;
+                                    padding-right: 15px;
+                                    padding-left: 15px;
+                                    margin-right: auto;
+                                    margin-left: auto;
+                                }
+
+                                .grid-left {
+                                    grid-area: left;
+                                }
+
+                                .grid-right {
+                                    grid-area: right;
+                                }
+
+                                .grid-container {
+                                    display: grid;
+                                    grid-template-areas: "left left right right";
+                                    grid-gap: 10px;
+                                    padding: 10px;
+                                }
+
+                                .mr-30px {
+                                    margin-right: 200px;
+                                }
+
+                                .mt-50px {
+                                    margin-top: 50px
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="container" id="printarea">
+                                <div class="row justify-content-center mb-20px">
+                                    <div class="col-lg-12">
+                                        <div class="d-flex text-center justify-content-center mt-4">
+                                            <img class="d-inline mr-20px" src="@Url.Content("~/Content/Images/school_logo.jpg")" width="100px" height="auto" />
+
+                                            <div class="my-auto">
+                                                <h2 class="d-inline mt-0 font-weight-bold">NNAMDI AZIKIWE UNIVERSITY, AWKA</h2>
+                                                <h4>@applicationFormHeaderForIceProgramme</h4>
+                                            </div>
+
+                                            <img class="ml-20px mr-20px my-auto" src="@Url.Content(Model.Person.ImageFileUrl)" width="120px" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center mb-20px">
+                                    <div class="col-lg-12">
+                                        <div class="d-flex text-center justify-content-center">
+
+                                            <div class="my-auto">
+                                                <h5 class="d-inline mt-0 font-weight-bold">@Model.Person.FullName your Application is complete</h5>
+                                                <h5>Application Form No: @Html.DisplayFor(model => model.ApplicationForm.Number)</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border border-top ">
+                                    <h4 class="d-inline-block my-auto ml-2 ">Personal Information</h4>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Surname: <span class="font-weight-normal">@Model.Person.LastName</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">First Name: <span class="font-weight-normal">@Model.Person.FirstName</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Other names: <span class="font-weight-normal">@Model.Person.OtherName</span></p>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">
+                                            Date of Birth:
+                                            @if (Model.Person.DateOfBirth != null)
+                                            {
+                                                <span class="font-weight-normal">
+                                                    @Model.Person.DateOfBirth.Value.ToLongDateString()
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="font-weight-normal">  </span>
+                                            }
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Sex: <span class="font-weight-normal">@Model.Person.Sex.Name</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">State: <span class="font-weight-normal">@Model.Person.State.Name</span></p>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">LGA: <span class="font-weight-normal">@Model.Person.LocalGovernment.Name</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Nationality: <span class="font-weight-normal">@Model.Person.Nationality.Name</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Residential Address: <span class="font-weight-normal">@Model.Person.ContactAddress</span></p>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Phone No: <span class="font-weight-normal">@Model.Person.MobilePhone</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Email: <span class="font-weight-normal">@Model.Person.Email</span></p>
+                                    </div>
+
+
+                                </div>
+
+
+
+
+
+                                @*<div class="d-flex flex-wrap justify-content-around">
+            <div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Surname: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.LastName</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Name: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.FirstName</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Other Names: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.OtherName</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Date of Birth: </p>
+                    </div>
+                    <div class="grid-right">
+                        @if (Model.Person.DateOfBirth != null)
+                        {
+                            <p class="mt-0">@Model.Person.DateOfBirth.Value.ToLongDateString()</p>
+                        }
+                        else
+                        {
+                            <p class="mt-0"></p>
+                        }
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Sex: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.Sex.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">State: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.State.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">LGA: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.LocalGovernment.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Nationality: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.Nationality.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Residential Address: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.ContactAddress</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Phone No: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.MobilePhone</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Email: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Person.Email</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>*@
+
+                                <div class="border border-top my-2">
+                                    <h4 class="d-inline-block my-auto ml-2">Academic Program</h4>
+                                </div>
+                                @*<div class="d-flex flex-wrap">*@
+
+
+                                @*<div class="mr-30px">*@
+                                <h6>First Choice Course</h6>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <p class="font-weight-bold mt-0">Faculty: <span class="font-weight-normal"> @Model.AppliedCourse.Department.Faculty.Name</span></p>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p class="font-weight-bold mt-0">Department: <span class="font-weight-normal"> @Model.AppliedCourse.Department.Name</span></p>
+                                    </div>
+                                    @if (Model.AppliedCourse.Option != null)
+                                    {
+                                        <div class="col-md-6">
+                                            <p class="font-weight-bold mt-0">Department Option: <span class="font-weight-normal"> @Model.AppliedCourse.Option.Name</span></p>
+                                        </div>
+                                    }
+                                </div>
+                                @*</div>*@
+                                @if (Model.JupebDepartmentChoice != null)
+                                {<h6>Second Choice Course</h6>
+                                    <div class="row mt-3">
+
+                                        <div class="col-md-6">
+                                            <p class="font-weight-bold mt-0"><span class="font-weight-bold"> Faculty: @Model.JupebDepartmentChoice.SecondChoiceDepartment.Faculty.Name</span> </p>
+                                        </div><div class="col-md-6">
+                                            <p class="font-weight-bold mt-0"><span class="font-weight-bold"> Department:@Model.JupebDepartmentChoice.SecondChoiceDepartment.Name </span> </p>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.DepartmentOptionModelSecond != null)
+                                {
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <p class="font-weight-bold mt-0">Faculty: <span class="font-weight-normal"> @Model.DepartmentOptionModelSecond.Department.Faculty.Name</span></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class="font-weight-bold mt-0">Department: <span class="font-weight-normal"> @Model.DepartmentOptionModelSecond.Department.Name</span></p>
+                                        </div>
+
+                                    </div>
+                                }
+                                @if (Model.AdditionalCourseChoice != null)
+                                {
+                                    <h6>Second Choice Course</h6>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <p class="font-weight-bold mt-0">Faculty: <span class="font-weight-normal"> @Model.AdditionalCourseChoice.Department.Faculty.Name</span></p>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <p class="font-weight-bold mt-0">Department: <span class="font-weight-normal"> @Model.AdditionalCourseChoice.Department.Name</span></p>
+                                        </div>
+
+
+                                        @if (Model.AdditionalCourseChoice.DepartmentOption != null)
+                                        {
+                                            <div class="col-md-6">
+                                                <p class="font-weight-bold mt-0">Department Option: <span class="font-weight-normal"> @Model.AdditionalCourseChoice.DepartmentOption.Name</span></p>
+                                            </div>
+                                        }
+
+                                    </div>
+                                }
+
+                                @*</div>*@
+
+                                <div class="border border-top my-2">
+                                    <h4 class="d-inline-block my-auto ml-2">Next of Kin/sponsor Information </h4>
+                                </div>
+
+
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Name of Next of Kin: <span class="font-weight-normal">@Model.ApplicantSponsor.Name</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Address of Next of Kin: <span class="font-weight-normal">@Model.ApplicantSponsor.ContactAddress</span></p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="font-weight-bold mt-0">Phone number of Next of Kin: <span class="font-weight-normal">@Model.ApplicantSponsor.MobilePhone</span></p>
+                                    </div>
+                                </div>
+                                @*<div class="d-flex flex-wrap">*@
+
+                                @*<div>
+            <div class="grid-container">
+                <div class="grid-left">
+                    <p class="font-weight-bold mt-0">Name of Next of Kin: </p>
+                </div>
+                <div class="grid-right">
+                    <p class="mt-0">@Model.ApplicantSponsor.Name</p>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div class="grid-left">
+                    <p class="font-weight-bold mt-0">Address of Next of Kin: </p>
+                </div>
+                <div class="grid-right">
+                    <p class="mt-0">@Model.ApplicantSponsor.ContactAddress</p>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div class="grid-left">
+                    <p class="font-weight-bold mt-0">Phone number of Next of Kin: </p>
+                </div>
+                <div class="grid-right">
+                    <p class="mt-0">@Model.ApplicantSponsor.MobilePhone</p>
+                </div>
+            </div>
+        </div>*@
+                                @*</div>*@
+
+
+
+
+
+
+
+
+
+                                @if (Model.Programme.Id == (int)Programmes.JUPEB)
+                                {
+
+                                    @*<div class="border border-top mt-50px">
+                <h3 class="d-inline-block">Jubep Subject Combination</h3>
+            </div>*@
+                                    <div class="border border-top my-2">
+                                        <h4 class="d-inline-block my-auto ml-2">Jubep Subject Combination </h4>
+                                    </div>
+                                    @*<div class="d-flex flex-wrap">*@
+                                    @*<div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0"> Subject Combination</p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub1.Description.Substring(0, 1)@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub2.Description.Substring(0, 1)@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub3.Description.Substring(0, 1)</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0"> Field </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0"> @Model.JupebDepartmentChoice.JupebSubjectCombination.Option_FieldId.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Subject One </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub1.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0"> Subject Two</p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub2.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Subject Three </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub3.Name</p>
+                    </div>
+                </div>
+            </div>*@
+
+                                    @*</div>*@
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <p class="font-weight-bold mt-0"> Subject Combination:<span class="font-weight-normal">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub1.Description.Substring(0, 1)@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub2.Description.Substring(0, 1)@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub3.Description.Substring(0, 1)</span></p>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <p class="font-weight-bold mt-0"> Field:<span class="font-weight-normal"> @Model.JupebDepartmentChoice.JupebSubjectCombination.Option_FieldId.Name</span></p>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <p class="font-weight-bold mt-0"> Subject One:<span class="font-weight-normal">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub1.Name</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-4">
+                                            <p class="font-weight-bold mt-0"> Subject Two:<span class="font-weight-normal">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub2.Name</span></p>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <p class="font-weight-bold mt-0"> Subject Three:<span class="font-weight-normal">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub3.Name</span></p>
+                                        </div>
+
+
+                                    </div>
+                                }
+
+                                @*<div class="border border-top mt-50px">
+            <h3 class="d-inline-block">Olevel  Result(s)</h3>
+        </div>*@
+                                <div class="border border-top my-2">
+                                    <h4 class="d-inline-block my-auto ml-2">Olevel  Result(s)</h4>
+                                </div>
+                                <div class="mb-30px">
+
+                                    <div class="col-md-12 p-0">
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.FirstSittingOLevelResult.Type.Id, "Type", new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.FirstSittingOLevelResult.Type.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                                <div class="col-md-12 form-group">
+                                                    @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+                                                @for (int i = 0; i < Model.FirstSittingOLevelResultDetails.Count; i++)
+                                                {
+                                                    if (Model.FirstSittingOLevelResultDetails[i].Subject != null)
+                                                    {
+                                                        <div class="col-md-12">
+                                                            <div class="row">
+                                                                <div class="col-md-8 form-group">
+                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Id)
+                                                                    @Html.TextBoxFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                </div>
+
+                                                                <div class="col-md-4 form-group">
+                                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Id)
+                                                                    @Html.TextBoxFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <!--col-md-6 end form 1-->
+                                            <!-- beginning of form 2-->
+                                            @if (Model.SecondSittingOLevelResultDetails != null && Model.SecondSittingOLevelResultDetails.Count > 0 && Model.SecondSittingOLevelResult != null)
+                                            {
+
+                                                <div class="col-md-6">
+                                                    <div class="col-md-12 form-group">
+                                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "control-label" })
+                                                        @Html.TextBoxFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                    </div>
+                                                    <div class="col-md-12 form-group">
+                                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.Type.Id, "Type", new { @class = "control-label" })
+                                                        @Html.TextBoxFor(model => model.SecondSittingOLevelResult.Type.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                    </div>
+
+                                                    <div class="col-md-12 form-group">
+                                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "control-label" })
+                                                        @Html.TextBoxFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                    </div>
+                                                    @for (int i = 0; i < Model.SecondSittingOLevelResultDetails.Count; i++)
+                                                    {
+                                                        if (Model.SecondSittingOLevelResultDetails[i].Subject != null)
+                                                        {
+                                                            <div class="col-md-12">
+                                                                <div class="row">
+                                                                    <div class="col-md-8 form-group">
+                                                                        @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Id)
+                                                                        @Html.TextBoxFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                    </div>
+
+                                                                    <div class="col-md-4 form-group">
+                                                                        @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Id)
+                                                                        @Html.TextBoxFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                </div>
+
+
+                                            }
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @if (Model.AllPreviousEducation.Count() > 0)
+                                {
+                                    @*<div class="border border-top mt-50px">
+                <h3 class="d-inline-block">Applicant Previous Education </h3>
+            </div>*@
+                                    <div class="border border-top my-2">
+                                        <h4 class="d-inline-block my-auto ml-2">Applicant Previous Education</h4>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap">
+
+                                        <div>
+                                            <div class="grid-container">
+                                                <table class="table table-responsive">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name of Institution</th>
+                                                            <th>Course</th>
+                                                            <th>Grade</th>
+                                                            <th>From</th>
+                                                            <th>To</th>
+                                                            <th>Certificates Obtained</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var items in Model.AllPreviousEducation)
+                                                        {
+                                                            <tr>
+                                                                <td>@items.SchoolName</td>
+                                                                <td>@items.Course</td>
+                                                                <td>@items.ResultGrade.LevelOfPass</td>
+                                                                <td>@items.StartDate.ToString("yyyy")</td>
+                                                                <td>@items.EndDate.ToString("yyyy")</td>
+                                                                <td>@items.Qualification.Name</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+
+                                @*@if (Model.Programme.Id == 4)
+        {
+            <div class="col-md-12">
+                <hr class="bg-warning">
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0"> School Name:<span class="font-weight-normal"> @Model.PreviousEducation.SchoolName</span></p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0"> Course:<span class="font-weight-normal"> @Model.PreviousEducation.Course </span></p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0"> Start Year<span class="font-weight-normal"> @Model.PreviousEducation.StartDate.Year</span></p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0">End Year:<span class="font-weight-normal"> @Model.PreviousEducation.EndDate.Year</span></p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0"> Qualification:<span class="font-weight-normal"> @Model.PreviousEducation.Qualification.Name </span></p>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0"> Result Grade:<span class="font-weight-normal"> @Model.PreviousEducation.ResultGrade.LevelOfPass</span></p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <p class="font-weight-bold mt-0"> Duration:<span class="font-weight-normal"> @Model.PreviousEducation.ITDuration.Name</span></p>
+                </div>
+
+
+            </div>
+
+
+
+
+        }*@
+
+                                <div class="pull-right">
+                                    @Html.GenerateQrCode(Model.QRVerification)
+                                </div>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                            <div class="col-md-12 pl-4 mt-2">
+                                <button class="btn btn-warning" id="aPrint">PRINT</button>
+                            </div>
+
+                            @*<div class="row justify-content-center mb-20px">
+                <div class="col-lg-12">
+                    <div class="d-flex text-center justify-content-center mt-4">
+                        <img class="d-inline mr-20px" src="@Url.Content("~/Content/Images/school_logo.jpg")" width="100px" height="auto" />
+                        <div class="my-auto">
+                            <h2 class="d-inline mt-0 font-weight-bold">NNAMDI AZIKIWE UNIVERSITY, AWKA</h2>
+                            <h4>@applicationFormHeaderForIceProgramme</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="row justify-content-center mb-20px">
+                <div class="col-lg-12">
+                    <div class="d-flex text-center justify-content-center mt-4">
+
+                        <div class="my-auto">
+                            <h4 class="d-inline mt-0 font-weight-bold">@Model.Person.FullName your Application is completed</h4>
+                            <h4>Application Form No: @Html.DisplayFor(model => model.ApplicationForm.Number)</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="border border-top ">
+                <h3 class="d-inline-block">Personal Information</h3>
+            </div>
+
+            <div class="d-flex flex-wrap ">
+
+                    <img class="mr-20px" src="@Url.Content(Model.Person.ImageFileUrl)" height="200px"/>
+
+
+                    <div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Surname: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.LastName</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Name: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.FirstName</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Other Names: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.OtherName</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Date of Birth: </p>
+                            </div>
+                            <div class="grid-right">
+                                @if (Model.Person.DateOfBirth != null)
+                                {
+                                    <p class="mt-0">@Model.Person.DateOfBirth.Value.ToLongDateString()</p>
+                                }
+                                else
+                                {
+                                    <p class="mt-0"></p>
+                                }
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Sex: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.Sex.Name</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">State: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.State.Name</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">LGA: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.LocalGovernment.Name</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Nationality: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.Nationality.Name</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Residential Address: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.ContactAddress</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Phone No: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.MobilePhone</p>
+                            </div>
+                        </div>
+                        <div class="grid-container">
+                            <div class="grid-left">
+                                <p class="font-weight-bold mt-0">Email: </p>
+                            </div>
+                            <div class="grid-right">
+                                <p class="mt-0">@Model.Person.Email</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            <div class="d-flex flex-wrap">
+                <div class="border border-top mt-50px">
+                    <h3 class="d-inline-block">Academic Program</h3>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <div class="mr-30px">
+                        <h4>First Choice Course</h4>
+                        <p class="mt-20px"><span class="font-weight-bold"> Faculty: </span>  @Model.AppliedCourse.Department.Faculty.Name</p>
+                        <p class="mt-20px"><span class="font-weight-bold"> Department: </span>  @Model.AppliedCourse.Department.Name</p>
+                    </div>
+                    @if (Model.JupebDepartmentChoice != null)
+                    {
+                        <div>
+                            <h4>Second Choice Course</h4>
+                            <p class="mt-20px"><span class="font-weight-bold"> Faculty: @Model.JupebDepartmentChoice.SecondChoiceDepartment.Faculty.Name</span> </p>
+                            <p class="mt-20px"><span class="font-weight-bold"> Department:@Model.JupebDepartmentChoice.SecondChoiceDepartment.Name </span> </p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="d-flex flex-wrap">
+                <div class="border border-top mt-50px">
+                    <h3 class="d-inline-block">Next of Kin/sponsor Information </h3>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Name of Next of Kin: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Sponsor.Name</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Address of Next of Kin: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Sponsor.ContactAddress</p>
+                    </div>
+                </div>
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0">Phone number of Next of Kin: </p>
+                    </div>
+                    <div class="grid-right">
+                        <p class="mt-0">@Model.Sponsor.MobilePhone</p>
+                    </div>
+                </div>
+            </div>
+            @if (Model.Programme.Id == (int)Programmes.JUPEB)
+            {
+                <div class="d-flex flex-wrap">
+                    <div class="grid-container">
+                        <div class="grid-left">
+                            <p class="font-weight-bold mt-0"> Subject Combination</p>
+                        </div>
+                        <div class="grid-right">
+                            <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub1.Description@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub2.Description@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub3.Description</p>
+                        </div>
+                    </div>
+                    <div class="grid-container">
+                        <div class="grid-left">
+                            <p class="font-weight-bold mt-0"> Field </p>
+                        </div>
+                        <div class="grid-right">
+                            <p class="mt-0"> @Model.JupebDepartmentChoice.JupebSubjectCombination.Option_FieldId.Name</p>
+                        </div>
+                    </div>
+                    <div class="grid-container">
+                        <div class="grid-left">
+                            <p class="font-weight-bold mt-0">Subject One </p>
+                        </div>
+                        <div class="grid-right">
+                            <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub1.Name</p>
+                        </div>
+                    </div>
+                    <div class="grid-container">
+                        <div class="grid-left">
+                            <p class="font-weight-bold mt-0"> Subject Two</p>
+                        </div>
+                        <div class="grid-right">
+                            <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub2.Name</p>
+                        </div>
+                    </div>
+                    <div class="grid-container">
+                        <div class="grid-left">
+                            <p class="font-weight-bold mt-0">Subject Three </p>
+                        </div>
+                        <div class="grid-right">
+                            <p class="mt-0">@Model.JupebDepartmentChoice.JupebSubjectCombination.Sub3.Name</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+
+
+            <div class="d-flex flex-wrap">
+                <div class="grid-container">
+                    <div class="grid-left">
+                        <p class="font-weight-bold mt-0"> O Level Result(s)</p>
+                    </div>
+                    <div class="col-md-12 p-0">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="col-md-12 form-group">
+                                    @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "control-label" })
+                                    @Html.DisplayFor(model => model.FirstSittingOLevelResult.ExamNumber, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    @Html.LabelFor(model => model.FirstSittingOLevelResult.Type.Id, "Type", new { @class = "control-label" })
+                                    @Html.DisplayFor(model => model.FirstSittingOLevelResult.Type.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                </div>
+
+                                <div class="col-md-12 form-group">
+                                    @Html.LabelFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "control-label" })
+                                    @Html.DisplayFor(model => model.FirstSittingOLevelResult.ExamYear, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                </div>
+                                @for (int i = 0; i < Model.FirstSittingOLevelResultDetails.Count; i++)
+                                {
+                                    if (Model.FirstSittingOLevelResultDetails[i].Subject != null)
+                                    {
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-8 form-group">
+                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Id)
+                                                    @Html.DisplayFor(model => model.FirstSittingOLevelResultDetails[i].Subject.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                                <div class="col-md-4 form-group">
+                                                    @Html.HiddenFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Id)
+                                                    @Html.DisplayFor(model => model.FirstSittingOLevelResultDetails[i].Grade.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <!--col-md-6 end form 1-->
+                            <!-- beginning of form 2-->
+                            @if (Model.SecondSittingOLevelResultDetails != null && Model.SecondSittingOLevelResultDetails.Count > 0 && Model.SecondSittingOLevelResult != null)
+                            {
+
+                                <div class="col-md-6">
+                                    <div class="col-md-12 form-group">
+                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "control-label" })
+                                        @Html.DisplayFor(model => model.SecondSittingOLevelResult.ExamNumber, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.Type.Id, "Type", new { @class = "control-label" })
+                                        @Html.DisplayFor(model => model.SecondSittingOLevelResult.Type.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        @Html.LabelFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "control-label" })
+                                        @Html.DisplayFor(model => model.SecondSittingOLevelResult.ExamYear, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                    </div>
+                                    @for (int i = 0; i < Model.SecondSittingOLevelResultDetails.Count; i++)
+                                    {
+                                        if (Model.SecondSittingOLevelResultDetails[i].Subject != null)
+                                        {
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-8 form-group">
+                                                        @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Id)
+                                                        @Html.DisplayFor(model => model.SecondSittingOLevelResultDetails[i].Subject.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                    </div>
+
+                                                    <div class="col-md-4 form-group">
+                                                        @Html.HiddenFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Id)
+                                                        @Html.DisplayFor(model => model.SecondSittingOLevelResultDetails[i].Grade.Name, new { @class = "form-control", disabled = true, @style = "color: black" })
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+
+
+                            }
+
+
+                            <div class="clearfix"></div>
+                            <div class="col-md-12 pl-4 mt-2">
+                                <button class="btn btn-warning" id="aPrint">PRINT</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                </div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                    </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+</html>

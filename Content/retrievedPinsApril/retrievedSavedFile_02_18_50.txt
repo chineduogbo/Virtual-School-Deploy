@@ -1,0 +1,13 @@
+ReceiptNo = 500851841650644736619
+PaymentCode = 5002204222575
+ConfirmationNo = 500851841650644736619
+MerchantCode = 7006025719
+TransactionAmount = 10322.5
+BankCode = 500
+BranchCode = 001
+CustomerName = ::1
+CustomerAddress = FETCEDUCATION-ADULT EDUCATION
+CustomerID = nau220000161639
+TransactionDate = 22/04/2022 4:25:42 PM
+Used = False
+UsedBy = 0

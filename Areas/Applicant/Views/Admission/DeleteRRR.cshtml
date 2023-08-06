@@ -1,0 +1,85 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.AdmissionViewModel
+
+@{
+    ViewBag.Title = "Reset Student Password";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Message", TempData["Message"])
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div style="font-size: x-large">Fix Unable to Generate Fees</div>
+            </div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("DeleteRRR", "Admission", new { area = "Applicant" }, FormMethod.Post))
+                {
+
+                    <div class="row">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AcceptanceConfirmationOrderNumber, "RRR Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.AcceptanceConfirmationOrderNumber, new { @class = "form-control", @placeholder = "Enter RRR Number", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.AcceptanceConfirmationOrderNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="View" class="btn btn-success mr5" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+
+
+
+                @if (Model.remitaPayment != null)
+                {
+                    using (Html.BeginForm("DeletePayments", "Admission", new { area = "Applicant" }, FormMethod.Post))
+                    {
+                        @Html.HiddenFor(x=>x.AcceptanceConfirmationOrderNumber)
+                        <div class="row">
+                            <div class="form-group">
+                                @Model.remitaPayment.payment.Person.FullName
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                Payment For:   @Model.remitaPayment.Description
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                Payment Date:   @Model.remitaPayment.TransactionDate.ToShortDateString()
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Delete" class="btn btn-success mr5" />
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    }
+                </div>
+        </div>
+
+
+    </div>
+</div>

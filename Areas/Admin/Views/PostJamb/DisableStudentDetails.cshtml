@@ -1,0 +1,226 @@
+﻿@using Abundance_Nk.Web.Models
+@model Abundance_Nk.Web.Areas.Admin.ViewModels.StudentCourseRegistrationViewModel
+@{
+    ViewBag.Title = "StudentDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        HideEditables();
+        NonEditableStudentDetail();
+    })
+    function RemoveCourse(courseRegDetail) {
+        $("#loading").show();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("RemoveCourse", "StudentCourseRegistration")', // Calling json method
+            dataType: 'json',
+            data: { id: courseRegDetail },
+            success: function (response) {
+                if (response != null && response.success) {
+                    alert(response.responseText);
+                    window.location.reload(true);
+                }
+                else {
+                    alert(response.responseText);
+                }
+            },
+            error: function (ex) {
+                alert('Operation failed!.' + ex);
+            }
+        });
+        return false;
+    }
+
+    function DeleteStudentLevel(studentLevelId) {
+        $("#loading").show();
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteStudentLevel", "StudentCourseRegistration")', // Calling json method
+            dataType: 'json',
+            data: { id: studentLevelId },
+            success: function (result) {
+                if (result == "Success") {
+                    alert('Record was Removed!');
+                    window.location.reload(true);
+                }
+            },
+            error: function (ex) {
+                alert('Operation Failed.' + ex);
+            }
+        });
+        return false;
+    }
+    function NonEditableStudentDetail() {
+        var roleName = $('#@Html.IdFor(m=>m.User.Role.Name)').val()
+        if (roleName != "hod" && roleName != "Dean") {
+            $('.deleteStdLevel2').show();
+            $('.deleteStdLevel').show();
+            $('.editStdLevel').show();
+            $('.editStdLevel2').show();
+            $('.addSecondSemesterCourse').show();
+            $('.addFirstSemesterCourse').show();
+            $('.editSession').show();
+            $('.editSession2').show();
+            $('.deleteStdRegDetail').show();
+            $('.deleteStdRegDetail2').show();
+            $('.editSession2').show();
+
+        }
+    }
+        function HideEditables() {
+            $('.deleteStdLevel2').hide();
+            $('.deleteStdLevel').hide();
+            $('.editStdLevel').hide();
+            $('.editStdLevel2').hide();
+            $('.addSecondSemesterCourse').hide();
+            $('.addFirstSemesterCourse').hide();
+            $('.editSession').hide();
+            $('.editSession2').hide();
+            $('.deleteStdRegDetail').hide();
+            $('.deleteStdRegDetail2').hide();
+            $('.editSession2').hide();
+        }
+
+        
+
+</script>
+
+@if(TempData["Message"] != null)
+{
+    @Html.Partial("_Message",(Abundance_Nk.Model.Model.Message)TempData["Message"])
+}
+
+
+
+@if (Model != null)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div style="font-size: large">Student Details</div>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div>
+                    @Html.HiddenFor(model => model.User.Role.Name)
+                    <dl class="dl-horizontal">
+                        <dt>Matric Number: </dt>
+                        <dd>@Model.Student.MatricNumber.ToUpper()</dd>
+
+                        <dt>Name: </dt>
+                        <dd>@Model.Student.FullName.ToUpper()</dd>
+                        @if (Model.Student.Sex != null)
+                        {
+                            <dt>Sex: </dt>
+                            <dd>@Model.Student.Sex.Name</dd>
+                        }
+                        <dt>Mobile Phone: </dt>
+                        <dd>@Model.Student.MobilePhone</dd>
+
+                        <dt>Email Address: </dt>
+                        <dd>@Model.Student.Email</dd>
+
+                        @if (Model.Student.Nationality != null)
+                        {
+                            <dt>Nationality: </dt>
+                            <dd>@Model.Student.Nationality.Name.ToUpper()</dd>
+                        }
+                        @if (Model.Student.State != null)
+                        {
+                            <dt>State: </dt>
+                            <dd>@Model.Student.State.Name.ToUpper()</dd>
+                        }
+                        @if (Model.Student.HomeTown != null)
+                        {
+                            <dt>Home Town: </dt>
+                            <dd>@Model.Student.HomeTown.ToUpper()</dd>
+                        }
+                        @if (Model.Student.HomeAddress != null)
+                        {
+                            <dt>Home Address: </dt>
+                            <dd>@Model.Student.HomeAddress.ToUpper()</dd>
+                        }
+                        @if (Model.Student.SchoolContactAddress != null)
+                        {
+                            <dt>School Contact Address: </dt>
+                            <dd>@Model.Student.SchoolContactAddress.ToUpper()</dd>
+                        }
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div style="font-size: large">Student Durations</div>
+                </div>
+                <div class="panel-body">
+
+                    <table class="col-md-12 table table-bordered table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Programme</th>
+                                <th>Department</th>
+                                <th>Department Option</th>
+                                <th>Level</th>
+                                <th>Session</th>
+                               
+                            </tr>
+                        </thead>
+                        @for (int i = 0; i < Model.StudentLevelList.Count; i++)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td>@Model.StudentLevelList[i].Programme.Name</td>
+                                    <td>@Model.StudentLevelList[i].Department.Name</td>
+                                    @if (Model.StudentLevelList[i].DepartmentOption != null)
+                                    {
+                                        <td>@Model.StudentLevelList[i].DepartmentOption.Name</td>
+                                    }
+                                    else
+                                    {
+                                        <td>No Option</td>
+                                    }
+
+
+                                    @if (Model.StudentLevelList[i].Level.Id == 1)
+                                    {
+                                        <td> First And Semester</td>
+                                    }else if(Model.StudentLevelList[i].Level.Id == 2)
+                    {
+
+
+<td>Third Semester</td>
+}
+else
+                    {
+                                <td>Subsequent Semester</td>
+                    }
+                                          
+                                       
+                                        <td>@Model.StudentLevelList[i].Session.Name</td>
+
+                                    </tr>
+                            </tbody>
+                        }
+                    </table>
+
+                </div>
+            </div>
+
+            <div>
+                <a class="btn btn-lg btn-success" target="_blank" href="/Admin/PostJamb/DisableThisStudent?sId=@Model.Student.Id">Disable Student</a>
+            </div>
+        </div>
+
+    </div>
+
+  
+}

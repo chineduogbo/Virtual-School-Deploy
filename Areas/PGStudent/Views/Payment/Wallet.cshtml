@@ -1,0 +1,307 @@
+﻿@model Abundance_Nk.Web.Areas.PGStudent.ViewModels.PGPaymentViewModel
+@{
+    ViewBag.Title = "Wallet";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .bg--blue {
+        color: #1e429f;
+        background: #e1effe;
+    }
+
+    .bg--green {
+        color: #03543f;
+        background: #def7ec;
+    }
+
+    .bg--red {
+        color: #9b1c1c;
+        background: #fde8e8;
+    }
+
+    .containerr {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .butn {
+        justify-content: center;
+        align-items: center;
+        padding: 10px 24px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #3450b1;
+        border-radius: 100px;
+        border: none;
+    }
+        .butn:hover {
+            cursor: pointer;
+            background-color: #4f6bd0;
+        }
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 32px;
+        margin-bottom: 2rem;
+        /* identical to box height, or 133% */
+
+        color: #000000;
+    }
+
+    .header--text {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 200;
+        font-size: 24px;
+        line-height: 32px;
+        /* identical to box height, or 133% */
+
+        color: #000000;
+    }
+
+    .cards {
+        display: flex;
+        margin: 0 !important;
+        width: 100%;
+    }
+
+    .carrrd {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 20px 0;
+        width: 360px;
+        height: 188px;
+        background: #ffffff;
+        border: 1px solid #e6e1e5;
+        border-radius: 8px;
+        margin-right: 3rem;
+    }
+
+    .cards :nth-child(3) {
+        margin-right: 0 !important;
+    }
+
+    .carrrd p {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+        border-radius: 6px;
+        padding: 0.6rem 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .desc {
+        margin: 0 !important;
+        font-family: Roboto;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 40px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+</style>
+<script>
+    function Openmodal() {
+        $('#exampleModal').modal('show');
+    }
+    function closeModal() {
+        $('#exampleModal').modal('hide');
+    }
+    function OpenPayFees() {
+        $('#feespayment').modal('show');
+    }
+    function closePayFeesModal() {
+        $('#feespayment').modal('hide');
+    }
+</script>
+<div class="col-xl-12 ml-3 mt-3 mr-3">
+  
+
+    <div class="containerr">
+        <!-- Header section start -->
+        <div class="header">
+            <div>
+                <h4 class="header--text">My wallet</h4>
+            </div>
+            <span><button class="butn" onclick="Openmodal()">Fund wallet</button></span>
+        </div>
+
+        <div class="cards">
+            <!-- Card 1 -->
+            <div class="carrrd">
+                <p class="bg--blue">Total balance</p>
+
+                @if (@Model.paymentWalletDtos.Count > 0)
+                {
+                    <h3 class="desc"><span>&#8358;</span> @string.Format("{0:N}", @Model.paymentWalletDtos.Where(x => x.Ispaid == true).Sum(x => x.Amount))</h3>
+                }
+                else
+                {
+                    <h3 class="desc"><span>&#8358;</span>0.00</h3>
+                }
+            </div>
+
+            <!-- Card 2 -->
+            <div class="carrrd">
+                <p class="bg--green">Last Deposit</p>
+
+                @if (@Model.paymentWalletDtos.Where(x => x.FeetypeId == null && x.Ispaid == true).Any())
+                {
+                    <h3 class="desc">+<span>&#8358;</span>  @string.Format("{0:N}", @Model.paymentWalletDtos.Where(x => x.FeetypeId == null && x.Ispaid == true).FirstOrDefault().Amount)</h3>
+                }
+                else
+                {
+                    <h3 class="desc">+<span>&#8358;</span>0.00</h3>
+
+                }
+            </div>
+
+            <!-- Card 3 -->
+            <div class="carrrd">
+                <p class="bg--red">Last Withdrawal</p>
+                @if (Model.paymentWalletDtos.Where(x => x.FeetypeId != null).Any())
+                {
+                    <h3 class="desc">
+                        -<span>&#8358;</span>@string.Format("{0:N}", @Model.paymentWalletDtos.Where(x => x.FeetypeId != null).FirstOrDefault().Amount)
+                    </h3>
+                }
+                else
+                {
+                    <h3 class="desc">-<span>&#8358;</span>0.00</h3>
+                }
+            </div>
+        </div>
+        <div class="Transactionhistory mt-3">
+            <h3>Transaction History</h3>
+        </div>
+
+        <div class="table-container mt-3">
+            <div class="table-responsive mb-4">
+                <table class="table table-two mb-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Invoice No</th>
+                            <th>Status</th>
+                            <th>Payment Gateway</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.paymentWalletDtos)
+                        {
+
+
+                            <tr>
+                                @if (item.DateIsPaid == null)
+                                {
+                                    <td>Pending</td>
+                                }
+                                else
+                                {
+                                    <td>@item.DateIsPaid.Value.ToShortDateString()</td>
+                                }
+                                <td><span>&#8358;</span>@string.Format("{0:N}", @item.Amount)</td>
+                                <td class="text-success">@item.Payment.InvoiceNumber</td>
+                                @if (item.Ispaid == true)
+                                {
+                                    <td class="text-success">Successful</td>
+                                }
+                                else
+                                {
+                                    <td class="text-danger">Pending</td>
+                                }
+                                <td>@item.Payment.PaymentGateway.Payment_Gateway_Name</td>
+                                <td>@(item.FeetypeId == null ? "Added Fund" : item.FeetypeId.Name + "fees for " + item.Session.Name)</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div><!-- table-responsive -->
+        </div>
+    </div>
+
+               
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Fund Wallet</h1>
+
+            </div>
+            @using (Html.BeginForm("FundWallet", "Payment", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Amount</label>
+                        @*<input type="number" class="form-control" id="formGroupExampleInput" placeholder="Amount">*@
+                        @Html.TextBoxFor(x => x.Amount, new { @class = "form-control", id = "formGroupExampleInput", placeholder = "Amount", type = "number" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
+                    <button type="submit" class="btn btn-primary">Fund</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="feespayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Pay Fees</h1>
+
+            </div>
+            @using (Html.BeginForm("FundWallet", "Payment", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Session</label>
+                        @Html.DropDownListFor(model => model.Session.Id, (IEnumerable<SelectListItem>)ViewBag.Sessions, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Session.Id, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">No Of Session</label>
+                        @Html.DropDownListFor(model => model.StudentLevel.Level.Id, (IEnumerable<SelectListItem>)ViewBag.Levels, new
+                        {
+                            @class = "form-control",
+                            @id = "LevelId"@*, onchange = "myFunction()"*@})
+                        @Html.ValidationMessageFor(model => model.StudentLevel.Level.Id, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closePayFeesModal()">Close</button>
+                    <button type="submit" class="btn btn-primary">Pay</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

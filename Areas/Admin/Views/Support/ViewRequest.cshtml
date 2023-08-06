@@ -1,0 +1,518 @@
+﻿ ﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+
+@{
+    ViewBag.Title = "StudentRecord";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Message", (Abundance_Nk.Model.Model.Message)TempData["Message"])
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/core/jquery.3.2.1.min.js"></script>
+<script>
+    var jQueryVesrsion_1_11_1 = $.noConflict(true);
+    jQueryVesrsion_1_11_1(document).ready(function () {
+
+        $('#submitButton').click(function () {
+            // Get the value of the remark input field
+            var remark = $('#remark123').val();
+            var UserId = $('#UserId').val();
+            var requestId = $('#RequestId').val();
+            var userName = $('#UserName').val();
+            // Perform your desired actions here, such as sending data to the server
+            // Example: You can make an AJAX request to submit the form data
+            $.ajax({
+                url: '@Url.Action("AddRemark", "Support")',
+                method: 'POST',
+                data: { remark: remark, userId: UserId, requestId: requestId },
+                success: function (response) {
+                    var ptag = '<p>' + userName + "Remarks: " + remark + '</p>';
+                    $("#remarks").append(ptag);
+                    $('#remark123').val('');
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error('Remark submission failed');
+                }
+            });
+        });
+
+        $('#ApprovalButton').click(function () {
+            // Get the value of the remark input field
+            var remark = $('#approval1234').val();
+            var UserId = $('#UserId').val();
+            var requestId = $('#RequestId').val();
+            var userName = $('#UserName').val();
+            // Perform your desired actions here, such as sending data to the server
+            // Example: You can make an AJAX request to submit the form data
+            $.ajax({
+                url: '@Url.Action("ApproveStage", "Support")',
+                method: 'POST',
+                data: { remark: remark, userId: UserId, requestId: requestId },
+                success: function (response) {
+                    alert('Stage Approved')
+                    window.location.replace(@Url.Action("ViewProgressRequest", "Support"));
+
+                },
+                error: function (error) {
+                    // Handle the error response
+                    console.error('Remark submission failed');
+                }
+            });
+        });
+    });
+</script>
+<br />
+<br />
+<br />
+
+<br />
+@Html.HiddenFor(x => x.User.Id, new { Id = "UserId" })
+@Html.HiddenFor(x => x.User.Username, new { Id = "UserName" })
+@Html.HiddenFor(x => x.pgStudentRequestsView.Id, new { Id = "RequestId" })
+<div class="col-md-12">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div style="font-size: large"><b>Request For @Model.pgStudentRequestsView.Status.Name</b></div>
+
+            </div>
+
+
+        </div>
+
+        @if (Model == null || Model.Person == null) { return; }
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div style="margin-top: 40px">
+                    <ul class="nav nav-tabs">
+
+
+
+                        <li class="active"><a data-toggle="tab" href="#biodata">Biodata</a></li>
+
+                        <li><a data-toggle="tab" href="#application">Application Record</a></li>
+
+                      
+
+                        <li><a data-toggle="tab" href="#academic">Academic Record</a></li>
+
+                        <li><a data-toggle="tab" href="#payment">Payment Record</a></li>
+                        <li><a data-toggle="tab" href="#files">Files Uploaded</a></li>
+                       
+                        <li><a data-toggle="tab" href="#approval">Approval</a></li>
+
+
+
+                    </ul>
+
+                    <div class="tab-content" style="margin-top: 20px">
+                        <div id="biodata" class="tab-pane fade in active">
+                            @if (Model.Person != null)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <dl>
+                                            <dd><img src="@Model.Person.ImageFileUrl" alt="Passport" width="100px" height="100px" /></dd>
+                                            <dt>Name:</dt>
+                                            <dd>@Model.Person.FullName</dd>
+                                            <dt>Phone Number</dt>
+                                            <dd>@Model.Person.MobilePhone</dd>
+                                            <dt>Email</dt>
+                                            <dd>@Model.Person.Email</dd>
+                                            <dt>Sex</dt>
+                                            <dd>@Model.Person.Sex.Name</dd>
+                                            <dt>Contact Address</dt>
+                                            <dd>@Model.Person.ContactAddress</dd>
+                                            <dt>DOB</dt>
+                                            <dd>@Model.Person.DateOfBirth</dd>
+                                            <dt>State</dt>
+                                            <dd>@Model.Person.State.Name</dd>
+                                            <dt>Local Government</dt>
+                                            <dd>
+                                                @if (Model.Person.LocalGovernment != null)
+                                                {
+                                                    @Model.Person.LocalGovernment.Name
+                                                }
+                                            </dd>
+
+                                        </dl>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.Student != null)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <dl>
+
+                                            <dt>Matric Number:</dt>
+
+                                            <dd>@Model.Student.MatricNumber</dd>
+
+                                            <dt>School Contact Address</dt>
+
+                                            <dd>@Model.Student.SchoolContactAddress</dd>
+
+                                            <dt>Status</dt>
+                                            @if (Model.Student.Activated == null || !Model.Student.Activated.Value)
+                                            {
+                                                <dd>Not Active</dd>
+                                            }
+                                            else
+                                            {
+                                                <dd>Active</dd>
+                                            }
+                                        </dl>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div id="application" class="tab-pane fade">
+                            @if (Model.AppliedCourse != null)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <dl>
+                                            <dt>Applied Programme:</dt>
+                                            <dd>@Model.AppliedCourse.Programme.Name</dd>
+                                            <dt>Applied Department:</dt>
+                                            <dd>@Model.AppliedCourse.Department.Name</dd>
+                                            <dt>Applied Department Option:</dt>
+                                            @if (Model.AppliedCourse.Option == null)
+                                            {
+                                                <dd></dd>
+                                            }
+                                            else
+                                            {
+                                                <dd>@Model.AppliedCourse.Option.Name</dd>
+                                            }
+
+                                        </dl>
+                                    </div>
+                                </div>
+                            }
+                            @if (Model.ApplicationForm != null)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <dl>
+
+                                            <dt>Applcation Number:</dt>
+
+                                            <dd>@Model.ApplicationForm.Number</dd>
+
+                                            <dt>Exam Number:</dt>
+
+                                            <dd>@Model.ApplicationForm.ExamNumber</dd>
+
+                                            <dt>Form Type:</dt>
+
+                                            <dd>@Model.ApplicationForm.Setting.Name</dd>
+
+                                            <dt>Form Session:</dt>
+
+                                            <dd>@Model.ApplicationForm.Setting.Session.Name</dd>
+
+                                            <dt>Application Invoice:</dt>
+
+                                            <dd>@Model.ApplicationForm.Payment.InvoiceNumber</dd>
+
+                                            <dt>Date Applied:</dt>
+
+                                            <dd>@Model.ApplicationForm.DateSubmitted.ToLongDateString()</dd>
+
+                                        </dl>
+
+                                    </div>
+
+                                </div>
+                            }
+
+
+                        </div>
+                       
+                        <div id="academic" class="tab-pane fade">
+                            @if (Model.StudentLevels != null && Model.StudentLevels.Count > 0)
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        @foreach (var level in Model.StudentLevels)
+                                        {
+                                            <dl>
+                                                <dt>Programme:</dt>
+                                                <dd>@level.Programme.Name</dd>
+                                                <dt>Department:</dt>
+                                                <dd>@level.Department.Name</dd>
+                                                <dt>Department Option:</dt>
+                                                @if (level.DepartmentOption == null)
+                                                {
+                                                    <dd></dd>
+                                                }
+                                                else
+                                                {
+                                                    <dd>@level.DepartmentOption.Name</dd>
+                                                }
+
+                                                <dt>Level:</dt>
+                                                @if (level.Level.Name.Contains("100"))
+                                                {
+                                                    <dd>First And Second Semester</dd>
+                                                }
+                                                else if (level.Level.Name.Contains("200"))
+                                                {
+                                                    <dd>Third Semester</dd>
+                                                }
+                                                else
+                                                {
+                                                    <dd>Subsequent Semester</dd>
+                                                }
+                                                <dt>Session:</dt>
+                                                <dd>@level.Session.Name</dd>
+                                            </dl>
+                                            <hr />
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div id="payment" class="tab-pane fade">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 control-label"> Wallet Balance</label>
+                                        <div class="col-sm-6">
+
+                                            <h4 class="text">
+                                                <span>&#8358;</span> @string.Format("{0:N}",
+@Model.WalletBalance)
+                                            </h4>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <embed src='@("/Applicant/Admission/GetAllReceipt?personId=" + Model.Student.Id)'
+                                   type="application/pdf"
+                                   frameBorder="0"
+                                   scrolling="auto"
+                                   width="100%" height="1200px">
+                            </embed>
+
+
+
+                        </div>
+                        <div id="files" class="tab-pane fade">
+                            @if (Model.PgStudentStageRequestFiles != null)
+                            {
+                                for (int i=0;i< Model.PgStudentStageRequestFiles.Count();i++)
+                                {
+                                    int k = i + 1;
+                                    <div>
+                                      @k .@Model.PgStudentStageRequestFiles[i].FileName
+
+                                        <a class="previewBtn btn btn-outline" target="_blank" href="@Url.Content(@Model.PgStudentStageRequestFiles[i].FileUrl)">Preview</a>
+                                    </div>
+
+                                }
+                            }
+                            </div>
+
+                        @*<div id="remark" class="tab-pane fade">
+                            <div>
+                                <h3>Remarks From Account Officer</h3>
+                                <div id="remarks">
+
+                                </div>
+                                @foreach (var usersremark in Model.PgStageRequestRemarksHistory)
+                                {
+                                    <p>@usersremark.User.Username Remarks: @usersremark.Remark .</p>
+                                    if (usersremark.Response != null)
+                                    {
+                            <p style="color:red">Response:@usersremark.Response</p>
+                                      
+                                    }
+                                }
+
+                            </div>
+
+                            <form>
+                                <div class="form-group">
+                                    <label>Remark:</label>
+                                    <textarea type="text" class="form-control" id="remark123"
+                                              rows="5" cols="40"
+                                              placeholder="Enter your remark"></textarea>
+                                </div>
+                                <button type="button" id="submitButton" class="btn btn-primary">Add Remark</button>
+                            </form>
+                        </div>*@
+
+                        <div id="approval" class="tab-pane fade">
+                           
+                            <div class="form-group">
+                                @*<label>Final Remark:</label>
+            <textarea type="text" class="form-control" id="approval1234"
+                      rows="5" cols="40"
+                      placeholder="Enter your remark"></textarea>
+        </div>
+        <button type="button" id="ApprovalButton" class="btn btn-primary">Approved</button>*@
+
+                                <label>Instructions</label>
+
+                                <p>
+                                    1. Verify Accuracy: Review the information or details associated with the student carefully.
+                                </p>
+
+                                <p>
+                                    2. Check Preconditions: Ensure that all necessary conditions or requirements are met before proceeding.
+                                </p>
+
+                                <p>
+                                    3. Click "Approve": Once you have verified the accuracy and preconditions, click the "Approve" button.
+                                </p>
+
+                                @if (Model.ApprovalType == 1)
+                                {
+                                    <label>Supervisor Approval</label>
+                                    <a class="btn btn-success" href="/Admin/Support/ApproveStages?RequestId=@Model.pgStudentRequestsView.Id&Stage=1">Approve</a>
+
+                                }
+                                else if (Model.ApprovalType == 2)
+                                {
+                                    <label>HOD Approval</label>
+                                    <a class="btn btn-success" href="/Admin/Support/ApproveStages?RequestId=@Model.pgStudentRequestsView.Id&Stage=2">Approve</a>
+
+                                }
+                                else if (Model.ApprovalType == 3)
+                                {
+                                    <label>Faculty Approval</label>
+                                    <a class="btn btn-success" href="/Admin/Support/ApproveStages?RequestId=@Model.pgStudentRequestsView.Id&Stage=3">Approve</a>
+
+                                }
+                                else if (Model.ApprovalType == 4)
+                                {
+                                    <label>PG School Approval</label>
+                                    <a class="btn btn-success" href="/Admin/Support/ApproveStages?RequestId=@Model.pgStudentRequestsView.Id&Stage=4">Approve</a>
+
+                                }
+                                else if (Model.ApprovalType == 5)
+                                {
+                                    using (Html.BeginForm("AddResultOfStageAndSummary", "Support", new { area = "Admin" }, FormMethod.Post))
+                                    {
+                                        @Html.HiddenFor(x=>x.pgStudentRequestsView.Id)
+                                        <div class="form-group col-md-12 p-0 ml-0">
+                                            @Html.LabelFor(model => model.ResultOfStage, "Panel Decision", new { @class = "pl-0 ml-0 col-sm-12" })
+                                            <div class="col-sm-12 pl-0 ml-0" style="font-weight:bold">
+
+                                                @Html.DropDownListFor(model => model.ResultOfStage, new List<SelectListItem>
+                                                { new SelectListItem { Text = "Select Panel Decision", Value = "" },
+                                                  new SelectListItem { Text = "Successful", Value = "1" },
+                                                  new SelectListItem { Text = "Not Successful", Value = "0" }
+                                                }, new { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.ResultOfStage, null, new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 p-0 ml-0">
+                                            @Html.LabelFor(model => model.SummaryOfCorrections, "Summary of Corrections to be made", new { @class = "pl-0 ml-0 col-sm-12" })
+                                            <div class="col-sm-12 pl-0 ml-0" style="font-weight:bold">
+                                                @Html.TextAreaFor(model => model.SummaryOfCorrections, new
+                                           { @class = "form-control", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.SummaryOfCorrections, null, new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <input type="submit" value="Submit" class="btn btn-success mr5" />
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <hr />
+                                <hr />
+                                <label>Approval History</label>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Type</th>
+                                            <th>Date Approved</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SupervisorUser != null)
+                                        {
+                                            <tr>
+                                                <td>@Model.SupervisorUser.Person.FullName</td>
+                                                <td>Supervisor</td>
+                                                <td>@Model.pgStudentRequestsView.SupervisorApprovalDate.Value.ToShortDateString()</td>
+                                            </tr>
+                                        }
+                                        @if (Model.Hoduser != null)
+                                        {
+                                            <tr>
+                                                <td>@Model.Hoduser.Person.FullName</td>
+                                                <td>Department Approval</td>
+                                                <td>@Model.pgStudentRequestsView.DepartmentApprovalDate.Value.ToShortDateString()</td>
+                                            </tr>
+                                        }
+                                        @if (Model.FacultyUser != null)
+                                        {
+                                            <tr>
+                                                <td>@Model.FacultyUser.Person.FullName</td>
+                                                <td>Faculty Approval</td>
+                                                <td>@Model.pgStudentRequestsView.FacultyApprovalDate.Value.ToShortDateString()</td>
+                                            </tr>
+                                        }
+                                        @if (Model.PgUser != null)
+                                        {
+                                            <tr>
+                                                <td>@Model.PgUser.Person.FullName</td>
+                                                <td>Faculty Approval</td>
+                                                <td>@Model.pgStudentRequestsView.PgApprovalDate.Value.ToShortDateString()</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+
+</div>

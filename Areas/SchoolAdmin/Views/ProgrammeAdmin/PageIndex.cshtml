@@ -1,0 +1,203 @@
+﻿@model Abundance_Nk.Web.Areas.SchoolAdmin.Models.DashboardModel
+
+
+@{
+    ///Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    //Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@*@Styles.Render("~/Content/css")*@
+@Styles.Render("~/Content/dash/assets/css/style.css")
+
+
+@*<script src="~/dash/assets/js/config.navbar-vertical.min.js"></script>*@
+@*<link href="~/dash/assets/lib/datatables-bs4/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="~/dash/assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.css" rel="stylesheet">
+<link href="~/dash/assets/css/style.css" rel="stylesheet">*@
+
+<!-- ===============================================-->
+<!--    Main Content-->
+<!-- ===============================================-->
+<main class="main" id="top">
+
+    <div class="container-fluid-main" data-layout="container">
+
+
+        <div class="content">
+
+            <div class="card-deck">
+            </div>
+
+
+
+            <div class="row mt-20 mr-3 ml-3">
+
+                <div class="col-md-6 col-lg-5">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="dashboard-data-table">
+                                <h3>Applicant Summary</h3>
+                                <table class="table table table-dashboard fs--1 data-table border-bottom"
+                                       data-options='{"responsive":false,"pagingType":"simple","lengthChange":false,"searching":false,"pageLength":8,"columnDefs":[{"targets":[0,6],"orderable":false}],"language":{"info":"_START_ to _END_ Items of _TOTAL_ — <a href=https://prium.github.io/"#!\" class=\"font-weight-semi-bold\"> view all <span class=\"fas fa-angle-right\" data-fa-transform=\"down-1\"></span> </a>"},"buttons":["copy","excel"]}'>
+                                    <thead class="bg-200 text-900">
+                                        <tr>
+                                            <th class="sort pr-1 align-middle">Faculty Name</th>
+                                            <th class="sort pr-1 align-middle">Faculty Total Count</th>
+                                            @*<th class="sort pr-1 align-middle">Break Down</th>*@
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        @foreach (var app in Model.Applicants)
+                                        {
+                                            <tr class="btn-reveal-trigger">
+                                                <td class="align-middle">
+                                                    @app.FacultyName
+                                                </td>
+
+                                                <td class="align-middle text-primary">@app.Count</td>
+
+                                                @*<td class="align-middle">
+                                                        <table>
+                                                            @foreach (var sum in app.Departmentssummary)
+                                                            {
+                                                                <tr>
+                                                                    <td>@sum.Name</td>
+                                                                    <td>@sum.Count</td>
+                                                                </tr>
+                                                            }
+                                                        </table>
+                                                    </td>*@
+
+
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="dashboard-data-table">
+                                <h3>Student Summary</h3>
+                                <table class="table table table-dashboard fs--1 data-table border-bottom"
+                                       data-options='{"responsive":false,"pagingType":"simple","lengthChange":false,"searching":false,"pageLength":8,"columnDefs":[{"targets":[0,6],"orderable":false}],"language":{"info":"_START_ to _END_ Items of _TOTAL_ — <a href=https://prium.github.io/"#!\" class=\"font-weight-semi-bold\"> view all <span class=\"fas fa-angle-right\" data-fa-transform=\"down-1\"></span> </a>"},"buttons":["copy","excel"]}'>
+                                    <thead class="bg-200 text-900">
+                                        <tr>
+                                            <th class="sort pr-1 align-middle">Faculty Name</th>
+                                            <th class="sort pr-1 align-middle">Faculty Total Count</th>
+                                            @*<th class="sort pr-1 align-middle">Break Down</th>*@
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                        @foreach (var std in Model.Students)
+                                        {
+                                            <tr class="btn-reveal-trigger">
+                                                <td class="align-middle">
+                                                    @std.FacultyName
+                                                </td>
+
+                                                <td class="align-middle text-primary">@std.Count</td>
+
+                                                @*<td class="align-middle">
+                                                        <table>
+                                                            @foreach (var sum in std.Departmentssummary)
+                                                            {
+                                                                <tr>
+                                                                    <td>@sum.Name</td>
+                                                                    <td>@sum.Count</td>
+                                                                </tr>
+                                                            }
+                                                        </table>
+                                                    </td>*@
+
+
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-lg-2">
+
+
+                    <div class="card mb-3 ">
+                        <div class="card-header border-bottom">
+                            <h3 class=" mb-0">Student Count</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                                <div class="col-md-8 my-1">
+                                    <!--                            <label>Select Department</label>-->
+                                    <h2>@Model.StudentsCount</h2>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card mb-3">
+                        <div class="card-header border-bottom">
+                            <h3 class=" mb-0">Applicant Count</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+
+                                <div class="col-md-8 my-1">
+                                    <h2>@Model.ApplicantsCount</h2>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main><!-- ===============================================-->
+<!--    End of Main Content-->
+<!-- ===============================================-->
+
+
+@*<script src="~/dash/assets/js/jquery.min.js"></script>
+<script src="~/dash/assets/js/popper.min.js"></script>
+<script src="~/dash/assets/js/bootstrap.min.js"></script>
+<script src="~/dash/assets/lib/%40fortawesome/all.min.js"></script>
+<script src="~/dash/assets/lib/stickyfilljs/stickyfill.min.js"></script>
+<script src="~/dash/assets/lib/sticky-kit/sticky-kit.min.js"></script>
+<script src="~/dash/assets/lib/is_js/is.min.js"></script>
+<script src="~/dash/assets/lib/lodash/lodash.min.js"></script>
+<script src="~/dash/assets/lib/perfect-scrollbar/perfect-scrollbar.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet">
+<script src="~/dash/assets/lib/datatables/js/jquery.dataTables.min.js"></script>
+<script src="~/dash/assets/lib/datatables-bs4/dataTables.bootstrap4.min.js"></script>
+<script src="~/dash/assets/lib/datatables.net-responsive/dataTables.responsive.js"></script>
+<script src="~/dash/assets/lib/datatables.net-responsive-bs4/responsive.bootstrap4.js"></script>
+<script src="~/dash/assets/lib/leaflet/leaflet.js"></script>
+<script src="~/dash/assets/lib/leaflet.markercluster/leaflet.markercluster.js"></script>
+<script src="~/dash/assets/lib/leaflet.tilelayer.colorfilter/leaflet-tilelayer-colorfilter.min.js"></script>*@
+@*<script src="~/dash/assets/js/theme.min.js"></script>*@

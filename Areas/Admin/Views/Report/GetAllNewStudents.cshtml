@@ -1,0 +1,235 @@
+﻿
+@model Abundance_Nk.Web.Areas.Admin.ViewModels.ReportViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery-ui-1.9.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload-ui.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery.fileupload.js"></script>
+<script type="text/javascript" src="~/Scripts/file-upload/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.print.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.js"></script>
+
+<link href="~/Scripts/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<link href="~/Scripts/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+        $("#myTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+
+      
+    })
+
+
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div>
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", TempData["Message"])
+                    }
+                </div>
+            </div>
+            <div class="panel-title">
+                <p>Students </p>
+            </div>
+            <div class="col-md-auto my-1 text-right">
+              
+
+            </div>
+
+            <br />
+
+            <table class="table table-bordered table-hover table-striped" id="myTable">
+                <thead>
+                    <tr>
+                        <th>
+                            SN
+                        </th>
+                        <th>
+                            Matric no.
+                         
+                        </th>
+                        <th>
+                            Surname
+                        </th>
+                        <th>
+                            First name
+                        </th>
+                        <th>
+                            Othername
+                        </th>
+                        <th>
+                            Programme
+                        </th>
+                        <th>Course</th>
+                        <th>Course Option</th>
+                        <th>
+                            Session Admitted
+                        </th>
+
+                        <th>Current Level</th>
+                        <th>Passport Url</th>
+                        <th>Phone No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.studentsthathaspaids.Count; i++)
+                    {
+                        int sn = i + 1;
+                    <tr>
+                        <td>
+                            @sn
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Matric_Number
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Last_Name
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].First_Name
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Other_Name
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Programme_Name
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Department_Name
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Department_Option_Name
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].Year_Of_Admission
+                        </td>
+                        <td>
+                            @Model.studentsthathaspaids[i].CURREENT_LEVEL
+                        </td>
+
+                        <td>
+                            @Model.studentsthathaspaids[i].Image_File_Url
+                        </td>
+
+                        <td>
+                            @Model.studentsthathaspaids[i].Mobile_Phone
+                        </td>
+
+
+
+
+
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="col-md-1"></div>
+</div>
+
+
+
+
+
+
+

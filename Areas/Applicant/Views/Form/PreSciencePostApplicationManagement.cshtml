@@ -1,0 +1,282 @@
+﻿@using Abundance_Nk.Web.Models
+@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJAMBProgrammeViewModel
+
+@{
+    ViewBag.Title = "Pre Science Post Application";
+}
+
+<style>
+
+    label {
+        font-size: 12px !important;
+        text-transform: none !important;
+        font-weight: 600;
+        margin-left:0px!important
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif !important;
+        overflow-x: hidden !important;
+    }
+
+    .dropzone {
+        border: none !important
+    }
+
+    #other_disability {
+        display: none
+    }
+    
+</style>
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<link href="~/Scripts/DropZone/dropzone.css" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+<script src="~/Scripts/DropZone/dropzone.js"></script>
+<div>
+
+    <script type="text/javascript">
+
+        var personId;
+        var formNumber;
+        var personImageUrl;
+        var hasPassport;
+        $(document).ready(function () {
+
+            formNumber = $("#ApplicationForm_Number").val();
+            hasPassport = $("#HasJambPassport").val();
+            $('#loading').hide();
+
+         
+
+
+
+    
+        
+        });
+
+     
+
+    </script>
+    @if (TempData["Message"] != null)
+    {
+        @Html.Partial("_Message", TempData["Message"])
+    }
+</div>
+<div class="container">
+
+    <div class="row pt-4 justify-content-center">
+        <div class="col-md-12 pl-0 pr-0 text-center">
+            <p style="font-size:16px"><b> Pre-Science Post-Application Management</b></p>
+        </div>
+        <div class="col-md-10 pl-0 pr-0">
+            <div class="card">
+
+                <div class="container">
+                    <div class="row form-group">
+                        @*<div class="col-xs-12 pl-3 pt-3">
+                            <ul class="nav nav-tabs setup-panel">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#step-1">Bio-Data </a>
+                                </li>
+                                
+                               
+                            </ul>
+                        </div>*@
+                    </div>
+                    @using (Html.BeginForm("", "Form", FormMethod.Post, new { id = "frmPostJAMB", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="row setup-content pr-4 pl-4 pb-4 pt-0" id="step-1">
+                            <div class="col-xs-12">
+                                <div>
+                                    @if (Model.ApplicationForm != null && Model.ApplicationForm.Id > 0)
+                                    {
+                                        @Html.HiddenFor(model => model.ApplicationForm.Id)
+                                        @Html.HiddenFor(model => model.ApplicationForm.Number)
+                                        @Html.HiddenFor(model => model.ApplicationForm.ExamNumber)
+                                        @Html.HiddenFor(model => model.ApplicationForm.Rejected)
+                                        @Html.HiddenFor(model => model.ApplicationForm.RejectReason)
+                                    }
+
+                                    @Html.HiddenFor(model => model.Session.Id)
+                                    @Html.HiddenFor(model => model.Session.Name)
+
+                                    
+                                    @Html.HiddenFor(model => model.AppliedCourse.Programme.Id)
+                                    @Html.HiddenFor(model => model.AppliedCourse.Programme.Name)
+                                    @Html.HiddenFor(model => model.AppliedCourse.Department.Id)
+                                    @Html.HiddenFor(model => model.AppliedCourse.Department.Name)
+                                    @Html.HiddenFor(model => model.AppliedCourse.Department.Code)
+                                    
+                                    @Html.HiddenFor(model => model.PassportUrl, new { Id = "passportImageId" })
+
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12 mt-3">
+                                                <p style="font-size:16px"><b>Applicant Details</b></p>
+                                            </div>
+                                            <div class="col-md-12 mt-2 mb-3">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        @if (Model.Person.ImageFileUrl != null)
+                                                        {
+                                                            <div class="card-img">
+                                                                <img id="Person_ImageFileUrl" name="Person.ImageFileUrl" src="@Url.Content(Model.Person.ImageFileUrl)" height="100" width="100">
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <img id="Person_ImageFileUrl" name="Person.ImageFileUrl" height="100" width="100">
+
+                                                                </div>
+
+                                                               
+                                                            </div>
+
+                                                        }
+
+
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="label-control text-left">Full name</label><br />
+                                                                <b>@Model.Person.LastName @Model.Person.FirstName @Model.Person.OtherName</b>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="label-control text-left">Application Number</label><br />
+                                                                <b>@Model.ApplicationForm.Number</b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="label-control text-left">Email</label><br />
+                                                                <b>@Model.Person.Email</b>
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label class="label-control text-left">Phone</label><br />
+                                                                <b>@Model.Person.MobilePhone</b>
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label class="label-control text-left">Gender</label><br />
+                                                                <b>@Model.Person.Sex.Name</b>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row mt-4 inline">
+                                                @if (Model.Session.Id >= 29)
+                                                {
+                                                    <div class="col-md-3" style="margin-right:125px">
+                                                        @if (Model.HasPaidSchoolFees)
+                                                        {
+                                                            <button class="btn btn-success" type="button">School Fees Payment has been made &nbsp;<i class="fa fa-check fa-1x"></i></button>
+                                                            @*@Html.LabelFor(model => model.Person.LastName)*@
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink("Click to generate school fees invoice", "GeneratePrescienceSchoolFeesInvoice", "Form", new { @class = "btn btn-primary", target = "_blank" })
+                                                            @*@Html.LabelFor(model => model.Person.LastName)*@
+                                                        }
+
+
+                                                    </div>
+
+
+                                                    @*<div class="col-md-3">
+                                                        @if (Model.HasPaidTextBookFee)
+                                                        {
+                                                            <button class="btn btn-success" type="button">Text-Book Fee Payment Has Been Made &nbsp;<i class="fa fa-check fa-1x"></i></button>
+                                                            @@Html.LabelFor(model => model.Person.LastName)
+                                                        //}
+                                                        //else
+                                                        //{
+                                                            @Html.ActionLink("Click To Generate Text-Book Invoice", "GeneratePrescienceTextBookFeesInvoice", "Form", new { @class = "btn btn-primary ", target = "_blank" })
+                                                            @@Html.LabelFor(model => model.Person.LastName)*@
+                                                        @*}
+
+
+                                                    </div>*@
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-3" style="margin-right:125px">
+                                                        @if (Model.HasPaidSchoolFees)
+                                                        {
+                                                            <button class="btn btn-success" type="button">School Fees Payment has been made &nbsp;<i class="fa fa-check fa-1x"></i></button>
+                                                            @*@Html.LabelFor(model => model.Person.LastName)*@
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.ActionLink("Click To Generate School Fees Invoice", "GeneratePrescienceSchoolFeesInvoice", "Form", new { @class = "btn btn-primary", target = "_blank" })
+                                                            @*@Html.LabelFor(model => model.Person.LastName)*@
+                                                        }
+
+
+                                                    </div>
+                                                    @*<div class="col-md-3" style="margin-right:50px">
+                                                        @if (Model.HasPaidExamFee)
+                                                        {
+                                                            <button class="btn btn-success" type="button">Examination Fee Payment has been made &nbsp;<i class="fa fa-check fa-1x"></i></button>
+                                                            @Html.LabelFor(model => model.Person.LastName)
+                                                        @*}
+                                                        else
+                                                        {*@
+                                                            @*@Html.ActionLink("Click To Generate Examination Fee Invoice", "GeneratePrescienceExamFeesInvoice", "Form", new { @class = "btn btn-primary", target = "_blank" })*@
+                                                            @*@Html.LabelFor(model => model.Person.LastName)*@
+                                                        @*}*@
+
+
+                                                    @*</div>*@
+                                                }
+
+
+
+
+
+
+                                            </div>
+                                           
+
+                                          
+
+
+                                            
+
+
+
+                                        
+                                           
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row setup-content pr-4 pl-4 pb-4 pt-0" id="step-2">
+
+                        </div>
+
+
+
+                       
+                    }
+                </div>
+           
+            
+            </div>
+        </div>
+        
+    </div>
+</div>

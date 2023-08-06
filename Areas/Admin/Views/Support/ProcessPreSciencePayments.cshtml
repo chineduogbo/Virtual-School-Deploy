@@ -1,0 +1,202 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJAMBProgrammeViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        overflow-x: hidden !important;
+        font-family: 'Noto Sans', sans-serif !important;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background-color: #d2462f !important;
+        border-color: #2c1e8c !important;
+        color: ghostwhite !important
+    }
+</style>
+
+
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jquery")*@
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+    <link href="~/Scripts/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+    <link href="~/Scripts/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+    <script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+    <script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+    <script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+         
+
+        });
+
+    </script>
+
+}
+
+
+
+
+<div class="col-md-12" style="min-height:1000px">
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+
+        <div>
+            @*@if (Model != null && Model.StatusMessage == true)
+                {
+                   <div class="alert alert-danger">
+                       <p>@ViewBag.ResponseMessage</p>
+                   </div>
+                }*@
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-dark-head">
+                <p style="font-size:15px"><b>Pre-Science Payment Processing</b></p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @*<div class="btn-group btn-group-lg">
+            <button type="button" style="font-size:12px" class="btn btn-primary active">Application Form</button>
+            <button type="button" style="font-size:12px" class="btn btn-primary">School Fees</button>
+        </div>*@
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", TempData["Message"])
+                    }
+
+                    <br />
+
+                    @using (Html.BeginForm("ProcessPreSciencePayments", "Support", FormMethod.Post))
+                    {
+                        <div class="row" style="margin-top:30px">
+
+
+                            <div class="form-group col-sm-6">
+                                <label class="control-label">Enter RRR Number</label>
+                                @*@Html.LabelFor(model => model.RemitaPayment.payment.Id, new { @class = "control-label custom-text-white" })*@
+                                @Html.TextBoxFor(model => model.RemitaPayment.RRR, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RemitaPayment.RRR, null, new { @class = "text-danger" })
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div class="row" style="margin-top:10px">
+                            <div class="form-group col-md-12">
+
+                                <input class="btn btn-primary mr5" type="submit" name="submit" id="submit" value="View Payment" />
+
+                            </div>
+                        </div>
+                    }
+
+
+
+
+                    <hr />
+
+
+                    @if (Model != null && Model.RemitaPayment.payment != null)
+                    {
+                        <div class="text-center">
+                            <img src="~/Content/Images/absu logo.png" alt="NAU logo" style="width:50px">
+                            @*<p style="font-size:18px; color:#463939" class="text-uppercase"><b>Pre-Science <span>@Model.ReportType</span> Payment Report</b></p>*@
+                        </div>
+                        <hr />
+
+                        <div class="col-md-12 table-responsive">
+
+
+                            <table class="table table-bordered table-hover table-striped" id="studentTable">
+                                <thead>
+                                    <tr>
+                                        <th>RRR</th>
+                                        <th>Name</th>
+                                        <th>Application Number</th>
+                                        <th>Session</th>
+                                        <th>Payment Purpose</th>
+                                        <th>Payment Status</th>
+                                        <th> </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody style="color: black;">
+
+                                    <tr>
+                                        <td>@Model.RemitaPayment.RRR</td>
+                                        <td><p class="text-uppercase"><b>@Model.ApplicationForm.Person.Name</b></p></td>
+                                        <td>@Model.ApplicationForm.Number</td>
+                                        <td>@Model.RemitaPayment.payment.Session.Name</td>
+                                        <td><p class="text-uppercase">@Model.RemitaPayment.payment.FeeType.Name</p></td>
+                                        <td>
+                                            @if (Model.IsPaid == true)
+                                            {
+                                                <span class="badge badge-success">Paid</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Payment not confirmed</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (Model.IsPaid == true)
+                                            {
+                                                @Html.ActionLink("Generate Receipt", "Receipt", "Credential", new { Area = "Common", pmid = Model.RemitaPayment.payment.Id }, new { @class = "btn btn-primary btn-sm", target = "_blank" })
+                                            }
+                                            else
+                                            {
+                                                <button class="badge badge-outline-danger btn-sm" disabled>Generate Receipt</button>
+                                            }
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top:30px">
+
+                        </div>
+
+                        @*<div class="text-center">
+                <img src="~/Content/Images/absu logo.png" alt="NAU logo" style="width:70px">
+                <p style="font-size:18px; color:#463939" class="text-uppercase"><b>Pre-Science <span>@Model.ReportType</span> Payment Report</b></p>
+            </div>*@
+                        <hr />
+
+
+                    }
+
+                </div>
+                    </div>
+        </div>
+
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+
+

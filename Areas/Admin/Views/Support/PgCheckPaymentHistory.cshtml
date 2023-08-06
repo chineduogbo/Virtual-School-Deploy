@@ -1,0 +1,42 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@using Abundance_Nk.Model.Model
+@using Abundance_Nk.Web.Models
+@{
+    ViewBag.Title = "Check Payment History";
+   // Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    Layout = null;
+}
+<h2>Payment History</h2>
+
+@if (Model.Student != null)
+{
+   
+
+
+        <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                    </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 control-label"> Wallet Balance</label>
+                            <div class="col-sm-6">
+
+                                <h4 class="text"><span>&#8358;</span> @string.Format("{0:N}", 
+                                                                     @Model.WalletBalance)</h4>
+
+                            </div>
+                        </div>
+                      
+                   
+                </div>
+            </div>
+    
+
+        <embed src='@("/Applicant/Admission/GetAllReceipt?personId=" + Model.Student.Id)'
+               type="application/pdf"
+               frameBorder="0"
+               scrolling="auto"
+               width="100%" height="1200px">
+        </embed>
+    
+}

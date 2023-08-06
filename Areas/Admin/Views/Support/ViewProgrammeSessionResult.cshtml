@@ -1,0 +1,217 @@
+﻿
+
+
+@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@{
+    ViewBag.Title = "Programme Session";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/bootstrap/bootstrap.min.js"></script>
+
+<script src="~/Scripts/dataTables.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/momentjs/moment.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+<script src="~/Scripts/bootstrap.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.noConflict();
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+        $("#myTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+
+
+    })
+
+
+</script>
+
+<div>
+    @if (TempData["Message"] != null)
+    {
+        @Html.Partial("_Message", TempData["Message"])
+    }
+</div>
+
+<div class="panel panel-danger">
+    <div class="panel panel-heading">
+        <h3>Activate Sessions for Course Registration</h3>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("SaveProgrammeSession", "Support", FormMethod.Post))
+        {
+            <div class="row" style="margin-top:30px">
+                @Html.HiddenFor(x => x.Programme.Id)
+
+                <div class="form-group col-sm-3">
+                    @Html.LabelFor(model => model.Session.Name, "Session", new { @class = "control-label" })
+
+                    @Html.DropDownListFor(model => model.ProgrammeSession.Session.Id, (IEnumerable<SelectListItem>)Model.SessionSelectList, new { @class = "form-control", @required = "required" })
+                    @Html.ValidationMessageFor(model => model.ProgrammeSession.Session.Id, null, new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group col-sm-3 mt-4">
+                    @Html.LabelFor(model => model.ProgrammeSession.Active_For_CourseRegistration, "Activate Course Registration", new { @class = "control-label" })
+                    @Html.CheckBoxFor(model => model.ProgrammeSession.Active_For_CourseRegistration, new { @class = "ml-3 mb-8", @type = "checkbox" })
+                    @Html.ValidationMessageFor(model => model.ProgrammeSession.Active_For_CourseRegistration, null, new { @class = "text-danger" })
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="row">
+                <div class="form-group col-md-12">
+
+                    <input class="btn btn-primary mr5" type="submit" name="submit" id="submit" value="Save" />
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="panel panel-danger">
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table-bordered table-hover table-striped  table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Programme Name</th>
+                        <th>Session Name</th>
+                        <th>Toggle</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 0;}
+                    @foreach (var item in Model.ProgamSession)
+                    {
+
+                        i += 1;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.Programme.Name</td>
+                            <td>@item.Session.Name</td>
+                            <td>@item.Active_For_CourseRegistration</td>
+
+                            <td>
+                                @if (item.Active_For_CourseRegistration)
+                                {
+                                    <a class="btn btn-success" href="~/Admin/Support/ActivateProgrammeSessionResult?Id=@item.Id">Deactivate</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-danger" href="~/Admin/Support/ActivateProgrammeSessionResult?Id=@item.Id">Activate</a>
+                                }
+
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+    }
+
+

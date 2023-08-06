@@ -1,0 +1,112 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+@{
+    ViewBag.Title = "AddStudentStaff";
+}
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+        @if (TempData["Message"] != null)
+        {
+            @Html.Partial("_Message", (Abundance_Nk.Model.Model.Message)TempData["Message"])
+        }
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Create Student Staff Record </h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("AddStudentStaff", "Support", new { area = "Admin" }, FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>Application Number/Matric Number</label>
+                        </div>
+                        <div class="row col-md-8">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    @Html.TextBoxFor(model => model.MatricNumber, new { @class = "form-control", @placeholder = "Enter Application Number/Matric Number", @required = "required" })
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-12">
+                                <div class="form-group mt-5" style="margin-top:10px">
+
+                                    <input type="submit" value="Submit" class="btn btn-success mr5" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+    @if (Model.Person != null)
+    {
+
+        <div class="col-md-12">
+            <div class="container">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+
+                            <td>Fullname</td>
+                            <td>Department</td>
+                            <td>Picture</td>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Person.FullName</td>
+
+                            <td>
+                                @if (Model.AppliedCourse != null )
+                                {
+                                    if (Model.AppliedCourse.Department != null)
+                                    {
+                                    @Model.AppliedCourse.Department.Name
+                                    }
+                                }
+                            </td>
+                            <td>
+                            @if (!string.IsNullOrEmpty(@Model.Person.ImageFileUrl))
+                            {
+                            <img src="@Model.Person.ImageFileUrl.Substring(1)" height="100px" width="100px" />
+                            }</td>
+
+                        </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+        using (Html.BeginForm("SaveStudentStaff", "Support", new { area = "Admin" }, FormMethod.Post))
+        {
+            <div class="row">
+                @Html.HiddenFor(x=>x.Person.Id)
+                    <br />
+                    <div class="col-md-12">
+                        <div class="form-group mt-5" style="margin-top:10px">
+
+                            <input type="submit" value="Add Student" class="btn btn-success mr5" />
+                        </div>
+                    </div>
+                </div>
+          
+        }
+    }
+
+
+
+
+
+    <div class="col-md-1"></div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model Abundance_Nk.Web.Areas.Student.ViewModels.PaymentViewModel
+
+@{
+    ViewBag.Title = "GenerateAnyInvoice";
+}
+
+<h2>GenerateAnyInvoice</h2>
+@using (Html.BeginForm("GenerateAnyInvoice", "Support", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div>
+        <div class="card-body">
+            <h3 class="font-weight-normal mb-4">Choose Programme</h3>
+            <hr />
+            <div class="row">
+
+
+                <div class="col-md-6 col-sm-12 form-group">
+                  
+                    @Html.LabelFor(model => model.MAtricNo, new { @class = "control-label " })
+                    @Html.TextBoxFor(model => model.MAtricNo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MAtricNo, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                    @Html.LabelFor(model => model.SessionId, new { @class = "control-label " })
+                    @Html.DropDownListFor(model => model.SessionId, (IEnumerable<SelectListItem>)ViewBag.Sessions, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SessionId, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 col-sm-12 form-group">
+                   
+                    @Html.LabelFor(model => model.ProgrammeId, new { @class = "control-label " })
+                    @Html.DropDownListFor(model => model.ProgrammeId, (IEnumerable<SelectListItem>)ViewBag.Programmes, new { @class = "form-control", @id = "ProgrammeId" })
+                    @Html.ValidationMessageFor(model => model.ProgrammeId, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 col-sm-12 form-group">
+                  
+                    @Html.LabelFor(model => model.DepartmentId, "Course", new { @class = "control-label " })
+                    @Html.DropDownListFor(model => model.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.Departments, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DepartmentId, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6 col-sm-12 form-group">
+                   
+                    @Html.LabelFor(model => model.FeetypeId, "Course", new { @class = "control-label " })
+                    @Html.DropDownListFor(model => model.FeetypeId, (IEnumerable<SelectListItem>)ViewBag.Feetype, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FeetypeId, null, new { @class = "text-danger" })
+                </div>
+
+
+
+
+
+
+
+
+
+                <div class="col-md-6 col-sm-12 form-group">
+                    @Html.LabelFor(model => model.LevelId, new { @class = "control-label " })
+                    @Html.DropDownListFor(model => model.LevelId, (IEnumerable<SelectListItem>)ViewBag.Levels, new { @class = "form-control", @id = "LevelId" })
+                    @Html.ValidationMessageFor(model => model.LevelId, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-6 col-sm-12 form-group">
+                    @Html.LabelFor(model => model.PaymentmodeId, "Payment Option", new { @class = "control-label " })
+                    @Html.DropDownListFor(model => model.PaymentmodeId, (IEnumerable<SelectListItem>)ViewBag.PaymentModes, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PaymentmodeId, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-12 p-0">
+                    <button class="btn btn-primary" type="submit" id="submit">Generate Invoice</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

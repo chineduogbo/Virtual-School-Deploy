@@ -1,0 +1,378 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Nau PostGraduate</title>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link rel="stylesheet" href="~/Content/pg/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/pg/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Content/pg/css/owl.carousel.css" />
+    <link rel="stylesheet" href="~/Content/pg/css/owl.theme.default.min.css" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="~/Content/pg/css/templatemo-style.css" />
+</head>
+<body id="top"
+      data-spy="scroll"
+      data-target=".navbar-collapse"
+      data-offset="50">
+    <!-- PRE LOADER -->
+    <section class="preloader">
+        <div class="spinner">
+            <span class="spinner-rotate"></span>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                </button>
+
+                <!-- lOGO TEXT HERE -->
+
+                <a class="navbar-brand" href="#">
+                    <div class="row">
+                        <div class="col-md-2 ">
+                            <img src="~/Content/Images/school_logo.png" style='height: 50px; width: 60px; object-fit: contain' alt="NAU" />
+                        </div>
+                        <div class="col-md-10 collapse">
+                            <h6 style="font-size: 16px" class="d-inline mb-0">Nnamdi Azikiwe University</h6>
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+
+            <!-- MENU LINKS -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-nav-first">
+                   @* <li class="dropdown-item">  <a href="/" disabled="disabled">Generate Invoice<span class="badge badge-danger"> Applications Closed </span></a></li>*@
+                    <li> @Html.ActionLink("Generate Application Form Invoice", "PostGraduateApplicationInvoiceGeneration", "Form", new { Area = "PGApplicant" }, new { @class = "smoothScroll" })</li>
+                    <li> @Html.ActionLink("Fill Application Form", "Index", "PostGraduateForm", new { Area = "Applicant" }, new { @class = "smoothScroll" })</li>
+                    <li> @Html.ActionLink("Check Admission Status", "PGCheckStatus", "PGAdmission", new { Area = "PGApplicant" }, new { @class = "smoothScroll" })</li>
+                    <li>@Html.ActionLink("Create Referee Link", "GenerateApplicantRefreeLink", "PostGraduateForm", new { Area = "PGApplicant" }, new { @class = "smoothScroll" })</li>
+                    <li><a class="smoothScroll" href="~/Security/Account/Login">Login</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOME -->
+    @*<section id="home">
+        <div class="row">
+            <div class="owl-carousel owl-theme home-slider">
+                <div class="item item-first">
+                    <div class="caption">
+                        <div class="container">
+                            <div class="col-md-6 col-sm-12">
+                                <h1>NNAMDI AZIKIWE UNIVERSITY, AWKA,  COLLEGE OF POSTGRADUATE STUDIES.</h1>
+                                <h3>
+                                    The decision to pursue a higher degree is fundamental because it is a life changing decision. It impacts on one's future potential and the ability to advance professionally. At the School of Postgraduate Studies, Nnamdi Azikiwe University, our mission is to enable you embark on this life changing decision. Our core mandate is to assist our students to fulfil their dreams through the pursuit of academic excellence. To achieve this, we run a portfolio of quality courses accredited by the NUC and this forms part of our best practices at Nnamdi Azikiwe University.
+
+                                </h3>
+                                <a href="#feature"
+                                   class="section-btn btn btn-default smoothScroll">Discover more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item item-second">
+                    <div class="caption">
+                        <div class="container">
+                            <div class="col-md-6 col-sm-12">
+                                <h1>APPLICATION FOR ADMISSION INTO POSTGRADUATE COURSES FOR THE 2021/2022 ACADEMIC YEAR (FIRST TIER)</h1>
+                                <h3>
+                                    Applications are invited from suitably qualified candidates for full-time or part-time admissions into the postgraduate programmes of Nnamdi Azikiwe University for the 2021/2022 academic year (first tier)., leading to the award of Postgraduate Diploma, Master's and Doctorate degrees in the following Faculties and Institute/Centre:
+                                </h3>
+                                <a href="https://unizik.edu.ng/2021-2022-pg-advert/"
+                                   class="section-btn btn btn-default smoothScroll">See More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="item item-third">
+                        <div class="caption">
+                            <div class="container">
+                                <div class="col-md-6 col-sm-12">
+                                    <h1>SPGS</h1>
+                                    <h3>
+                                                 </h3>
+                                    <a href="#contact"
+                                       class="section-btn btn btn-default smoothScroll">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            @*</div>
+        </div>
+    </section>*@
+    <section  id="home">
+        <div class="container">
+            <div class="row">
+              
+                <div class="col-sm-8">
+                    @*<img src="~/Content/pg/Online-Banner-1350-x-590-Sale-of-Form-2.jpg" width="150px" />*@
+                   
+                    <img src="~/Content/pg/PgAdvert.jpg" class="img-fluid" alt="..." width="100%">
+                </div>
+                <div class="col-sm-4">
+
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="feature-thumb">
+                                <span>01</span>
+                                <h3 style="color:#454545;font-weight:bold;">Generate Application Form Invoice</h3>
+                                <p>
+                                    Generate application form invoice for Nnamdi Azikiwe University Post-Graduate School.
+                                </p>
+                                @*<a href="https://unizik.edu.ng/schools/postgraduate-studies/2022-2023-admissions/2022-23-available-programmes/"
+        class=" btn btn-default">View</a>*@
+                                @Html.ActionLink("View", "PostGraduateApplicationInvoiceGeneration", "Form", new { Area = "PGApplicant" }, new { @class = "btn btn-default" })
+                             @*<a class = "btn btn-default"  href="/" disabled="disabled"> Applications Closed </a>*@
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="feature-thumb">
+                                <span>02</span>
+                                <h3 style="color:#454545;font-weight:bold;">Fill Application Form</h3>
+                                <p>
+                                    Fill application form for Nnamdi Azikiwe University Post-Graduate School.
+                                </p>
+                                @*<a href="https://unizik.edu.ng/schools/postgraduate-studies/2022-2023-admissions/2022-23-admission-requirements/"
+                                   class=" btn btn-default">View</a>*@
+                                @Html.ActionLink("View", "Index", "PostGraduateForm", new { Area = "Applicant" }, new { @class = "btn btn-default" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </section>
+
+    @*<section id="home">
+        <div class="container">
+            <div class="row">
+
+                    <div class="col-md-6 col-sm-6">
+                        <div class="owl-carousel owl-theme home-slider">
+
+                            <div class="item item-second">
+                                <div class="caption">
+                                    <div class="container">
+                                        <div class="col-md-6 col-sm-12">
+                                            <h1>APPLICATION FOR ADMISSION INTO POSTGRADUATE COURSES FOR THE 2021/2022 ACADEMIC YEAR (FIRST TIER)</h1>
+                                            <h3>
+                                                Applications are invited from suitably qualified candidates for full-time or part-time admissions into the postgraduate programmes of Nnamdi Azikiwe University for the 2021/2022 academic year (first tier)., leading to the award of Postgraduate Diploma, Master's and Doctorate degrees in the following Faculties and Institute/Centre:
+                                            </h3>
+                                            <a href="https://unizik.edu.ng/2021-2022-pg-advert/"
+                                               class="section-btn btn btn-default smoothScroll">See More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="feature-thumb">
+                                    <span>01</span>
+                                    <h3>Generate Application Form Invoice</h3>
+                                    <p>
+                                        Generate application form invoice for Nnamdi Azikiwe University Post-Graduate School.
+                                    </p>
+                                    @*<a href="https://unizik.edu.ng/schools/postgraduate-studies/2022-2023-admissions/2022-23-available-programmes/"
+                        class=" btn btn-default">View</a>*@
+                                    @*@Html.ActionLink("View", "PostGraduateApplicationInvoiceGeneration", "Form", new { Area = "PGApplicant" }, new { @class = "btn btn-default" })
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="feature-thumb">
+                                    <span>02</span>
+                                    <h3>Admission Requirements</h3>
+                                    <p>
+                                        POSTGRADUATE ADMISSION REQUIREMENTS
+                                    </p>
+                                    <a href="https://unizik.edu.ng/schools/postgraduate-studies/2022-2023-admissions/2022-23-admission-requirements/"
+                                       class=" btn btn-default">View</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </section>*@
+    <!-- FEATURE -->
+    <section id="feature">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="feature-thumb">
+                        <span>03</span>
+                        <h3>Available Programmes</h3>
+                        <p>
+                            NNAMDI AZIKIWE UNIVERSITY, AWKA
+                            COLLEGE OF POSTGRADUATE STUDIES Offers The following programmes
+                        </p>
+                        <a href="https://unizik.edu.ng/schools/postgraduate-studies/post-graduate-admissions/"
+                           class=" btn btn-default">View</a>
+
+                    </div>
+                </div>
+
+                @*<div class="col-md-4 col-sm-4">
+                    <div class="feature-thumb">
+                        <span>04</span>
+                        <h3>Admission Requirements</h3>
+                        <p>
+                            POSTGRADUATE ADMISSION REQUIREMENTS
+                        </p>
+                        <a href="https://unizik.edu.ng/schools/postgraduate-studies/2022-2023-admissions/2022-23-admission-requirements/"
+                           class=" btn btn-default">View</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="feature-thumb">
+                        <span>05</span>
+                        <h3>Supervisors’ Profile</h3>
+                        <p>
+                            College Of Postgraduate Studies, Supervisors’ Profile
+                        </p>
+                        <a href="https://unizik.edu.ng/college-of-postgraduate-studies-supervisors-profile/"
+                           class="btn btn-default">View</a>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="footer-info">
+                        <div class="section-title">
+                            <h2>Address</h2>
+                        </div>
+                        <address>
+                            <p>
+                                Nnamdi Azikiwe University
+                                PMB 5025, Awka, Anambra State
+                            </p>
+                        </address>
+
+                        <ul class="social-icon">
+                            <li>
+                                <a href="#"
+                                   class="fa fa-facebook-square"
+                                   attr="facebook icon"></a>
+                            </li>
+                            <li><a href="#" class="fa fa-twitter"></a></li>
+                            <li><a href="#" class="fa fa-instagram"></a></li>
+                        </ul>
+
+                        <div class="copyright-text">
+                            <p>
+                                &copy; NNAMDI AZIKIWE UNIVERSITY,
+                                AWKA.
+                            </p>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="footer-info">
+                        <div class="section-title">
+                            <h2>ARE YOU EXPERIENCING ANY DIFFICULTIES OR ISSUES?</h2>
+                        </div>
+                        <address>
+                            <p> <b>CALL:</b> 07088391544 or 090838920222</p>
+
+                        </address>
+
+                        <div class="footer_menu">
+                            <h2>Send Us An Email</h2>
+                            <p>   <b>EMAIL SUPPORT:</b> support@unizik.edu.ng</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="footer-info">
+                        <div class="section-title">
+                            <h2>Powered By</h2>
+
+
+                            <img class="image" style="height: 30px; width: 30px" src="~/Content/images/lloydant.png" />
+                        </div>
+
+
+                        <div class="footer_menu">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="~/Content/pg/js/jquery.js"></script>
+    <script src="~/Content/pg/js/bootstrap.min.js"></script>
+    <script src="~/Content/pg/js/owl.carousel.min.js"></script>
+    <script src="~/Content/pg/js/smoothscroll.js"></script>
+    <script src="~/Content/pg/js/custom.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5e1c9b0b7e39ea1242a465b4/1eojovc27';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>

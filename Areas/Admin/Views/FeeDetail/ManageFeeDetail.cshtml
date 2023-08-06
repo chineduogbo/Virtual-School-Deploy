@@ -1,0 +1,371 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.FeeDetailViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script>
+	function selectAll() {
+		// assuming your checkboxes are wrapped in a container with ID "checkbox-container"
+		if (document.getElementById("checkbox_containerAll").checked){
+			$('#checkbox-container input[type="checkbox"]').prop('checked', true);
+		} else {
+			$('#checkbox-container input[type="checkbox"]').prop('checked', false);
+		}
+	}
+	
+</script>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="row">
+				<div>
+					@if (TempData["Message"] != null)
+					{
+						@Html.Partial("_Message", TempData["Message"])
+					}
+				</div>
+			</div>
+			<button type="button" class="btn btn-info btn-lg float-right" data-toggle="modal" data-target="#myModal">Add Credo To Departments Fees</button>
+
+			@using (Html.BeginForm())
+			{
+				@Html.AntiForgeryToken()
+				<div class="row">
+					<h3>View And Delete Departmental Fees</h3>
+					<hr style="margin-top: 0" />
+					<div class="col-md-12">
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.Programme.Id, "Programme", new { @class = "control-label " })
+									@Html.DropDownListFor(model => model.feeDetail.Programme.Id, (IEnumerable<SelectListItem>)ViewBag.Programmes, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.Programme.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.Level.Id, "Level", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.Level.Id, (IEnumerable<SelectListItem>)ViewBag.Levels, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.Level.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.FeeType.Id, "Fee Type", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.FeeType.Id, (IEnumerable<SelectListItem>)ViewBag.FeeTypes, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.FeeType.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.Session.Id, "Session", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.Session.Id, (IEnumerable<SelectListItem>)ViewBag.Sessions, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.Session.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.PaymentMode.Id, "Payment Mode", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.PaymentMode.Id, (IEnumerable<SelectListItem>)ViewBag.Paymentmodes, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.PaymentMode.Id, null, new { @class = "text-danger" })
+								</div>
+
+							</div>
+
+
+
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-offset-8 col-md-10">
+								<input type="submit" value="View" class="btn btn-default" />
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+			<br />
+
+			@if (Model.feeDetails != null)
+			{
+				using (Html.BeginForm("DeleteFeeDetailChanges", "FeeDetail", FormMethod.Post))
+				{
+					@*@Html.AntiForgeryToken()*@
+
+
+
+
+
+					<div class="panel panel-danger">
+						<div class="panel-body">
+							<h4>@Model.FeeTypeName</h4>
+							<table class="table-bordered table-hover table-striped table-responsive table">
+								<tr>
+									<th>
+										S/No
+									</th>
+									<th>
+										Department
+									</th>
+									<th>
+										amount
+									</th>
+									<th>
+										Credo Setup Service Key Name
+									</th>
+									<th>
+										Check All <input type="checkbox"  id="checkbox_containerAll" onchange="selectAll()" />
+									</th>
+								</tr>
+
+								@for (int i = 0; i < Model.feeDetails.Count; i++)
+								{
+									<tr id="checkbox-container">
+										<td>
+											@{ var s = i + 1;}
+											@s
+										</td>
+										<td>
+											@Model.feeDetails[i].Department.Name
+										</td>
+										<td>
+											@Model.feeDetails[i].Fee.Amount
+										</td>
+
+										<td>
+											@if (@Model.feeDetails[i].CredoSetup == null)
+											{
+
+											}
+											else
+											{
+												@Model.feeDetails[i].CredoSetup.Service_Type_Name
+											}
+										</td>
+										<td>
+											@Html.CheckBoxFor(m => m.feeDetailsToDelete[i].Id)
+											@Html.HiddenFor(m => m.feeDetails[i].Id)
+											
+										</td>
+
+
+									</tr>
+								}
+
+							</table>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-offset-8 col-md-10">
+							<input type="submit" value="Delete" class="btn btn-default" />
+						</div>
+					</div>
+				}
+			}
+		</div>
+
+    </div>
+
+    <div class="col-md-1"></div>
+</div>
+
+
+
+@*<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+
+
+
+
+			@using (Html.BeginForm("AddCredoToProgrammeFeeDetail", "FeeDetail", FormMethod.Post))
+			{
+				@Html.AntiForgeryToken()
+
+				<div class="row">
+					<h3>Add Credo To Programme Fees</h3>
+					<hr style="margin-top: 0" />
+					<div class="col-md-12">
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.Programme.Id, "Programme", new { @class = "control-label " })
+									@Html.DropDownListFor(model => model.feeDetail.Programme.Id, (IEnumerable<SelectListItem>)ViewBag.Programmes, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.Programme.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.Level.Id, "Level", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.Level.Id, (IEnumerable<SelectListItem>)ViewBag.Levels, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.Level.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.FeeType.Id, "Fee Type", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.FeeType.Id, (IEnumerable<SelectListItem>)ViewBag.FeeTypes, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.FeeType.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.Session.Id, "Session", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.Session.Id, (IEnumerable<SelectListItem>)ViewBag.Sessions, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.Session.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.PaymentMode.Id, "Payment Mode", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.PaymentMode.Id, (IEnumerable<SelectListItem>)ViewBag.Paymentmodes, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.PaymentMode.Id, null, new { @class = "text-danger" })
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									@Html.LabelFor(model => model.feeDetail.CredoSetup.Id, "Credo Setup service key", new { @class = "control-label" })
+									@Html.DropDownListFor(model => model.feeDetail.CredoSetup.Id, (IEnumerable<SelectListItem>)ViewBag.Credo, new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.feeDetail.CredoSetup.Id, null, new { @class = "text-danger" })
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-offset-8 col-md-10">
+								<input type="submit" value="View" class="btn btn-default" />
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+			}
+		</div>
+
+	</div>
+
+	<div class="col-md-1"></div>
+</div>*@
+
+<div class="modal fade" id="myModal" role="dialog" >
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content" style="width:1200px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Add Credo To Programme Fees</h4>
+			</div>
+			<div class="modal-body">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-md-1"></div>
+						<div class="col-md-10">
+
+
+
+
+							@using (Html.BeginForm("AddCredoToProgrammeFeeDetail", "FeeDetail", FormMethod.Post))
+							{
+								@Html.AntiForgeryToken()
+
+								<div class="row">
+									
+									<hr style="margin-top: 0" />
+									<div class="col-md-12">
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group col-12">
+													@Html.LabelFor(model => model.feeDetail.Programme.Id, "Programme", new { @class = "control-label " })
+													@Html.DropDownListFor(model => model.feeDetail.Programme.Id, (IEnumerable<SelectListItem>)ViewBag.Programmes, new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.feeDetail.Programme.Id, null, new { @class = "text-danger" })
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group col-12">
+													@Html.LabelFor(model => model.feeDetail.Level.Id, "Level", new { @class = "control-label" })
+													@Html.DropDownListFor(model => model.feeDetail.Level.Id, (IEnumerable<SelectListItem>)ViewBag.Levels, new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.feeDetail.Level.Id, null, new { @class = "text-danger" })
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group col-12">
+													@Html.LabelFor(model => model.feeDetail.FeeType.Id, "Fee Type", new { @class = "control-label" })
+													@Html.DropDownListFor(model => model.feeDetail.FeeType.Id, (IEnumerable<SelectListItem>)ViewBag.FeeTypes, new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.feeDetail.FeeType.Id, null, new { @class = "text-danger" })
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													@Html.LabelFor(model => model.feeDetail.Session.Id, "Session", new { @class = "control-label" })
+													@Html.DropDownListFor(model => model.feeDetail.Session.Id, (IEnumerable<SelectListItem>)ViewBag.Sessions, new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.feeDetail.Session.Id, null, new { @class = "text-danger" })
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													@Html.LabelFor(model => model.feeDetail.PaymentMode.Id, "Payment Mode", new { @class = "control-label" })
+													@Html.DropDownListFor(model => model.feeDetail.PaymentMode.Id, (IEnumerable<SelectListItem>)ViewBag.Paymentmodes, new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.feeDetail.PaymentMode.Id, null, new { @class = "text-danger" })
+												</div>
+											</div>
+
+											<div class="col-md-6">
+												<div class="form-group">
+													@Html.LabelFor(model => model.feeDetail.CredoSetup.Id, "Credo Setup service key", new { @class = "control-label" })
+													@Html.DropDownListFor(model => model.feeDetail.CredoSetup.Id, (IEnumerable<SelectListItem>)ViewBag.Credo, new { @class = "form-control" })
+													@Html.ValidationMessageFor(model => model.feeDetail.CredoSetup.Id, null, new { @class = "text-danger" })
+												</div>
+
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="col-md-offset-8 col-md-10">
+												<input type="submit" value="Save" class="btn btn-default" />
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+							
+						</div>
+
+					</div>
+
+					<div class="col-md-1"></div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>

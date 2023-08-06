@@ -1,0 +1,280 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJambViewModel
+
+@{
+    ViewBag.Title = "GetAllCepAdmissionList";
+   // Layout = null;
+}
+
+
+
+@*<script src="~/Scripts/jquery-1.11.1.min.js"></script>*@
+@*<script type="text/javascript" src="~/Scripts/file-upload/jquery-1.9.1.min.js"></script>*@
+<script type="text/javascript" src="~/Scripts/file-upload/jquery-ui-1.9.2.min.js"></script>
+@*<script type="text/javascript" src="~/Scripts/file-upload/jquery.iframe-transport.js"></script>*@
+@*<script type="text/javascript" src="~/Scripts/jquery.print.js"></script>*@
+@*<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.js"></script>*@
+
+<link href="~/Scripts/DataTables-1.10.15/media/css/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<link href="~/Scripts/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+@*<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>*@
+
+
+
+<script>
+    $(document).ready(function () {
+        $.noConflict();
+        $.extend($.fn.dataTable.defaults, {
+            responsive: false
+        });
+
+        $("#myTable").DataTable({
+            dom: 'Bfrtip',
+            ordering: true,
+            buttons: [
+                {
+                    extend: 'copy',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+                },
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':visible',
+                        header: true,
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+
+
+
+                    },
+                    orientation: 'landscape'
+
+
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            orientation: 'landscape'
+                        }
+                    },
+                    orientation: 'landscape'
+
+
+                }, , 'colvis'
+            ]
+        });
+
+
+    })
+    let fullname = "";
+    let formno = "";
+    let cepadmissionid = 0;
+    let phoneNo = "";
+    let deptid = 0;
+    function showedit(cepadmissionid, fullname, formno, phoneNo, deptid) {
+        $('#CepformId').val(cepadmissionid);
+
+        $('#FullName').val(fullname);
+        $('#FormNo').val(formno);
+        $('#PhoneNo').val(phoneNo);
+        $('#deptid').val(deptid);
+        //jQuery.noConflict();
+        $('#ModalShow').modal('show');
+    }
+
+
+    function SaveChanges() {
+       var cepid = $('#CepformId').val();
+
+      var fullname =  $('#FullName').val();
+      var formNo =  $('#FormNo').val();
+        var phoneno = $('#PhoneNo').val();
+        var deptiD = $('#deptid :selected').val();
+        $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveCepChanges", "Form")', //We are calling json method
+            dataType: 'json',
+            data: { fullname: fullname, formno: formNo, cepadmissionid: cepid, phoneNo: phoneno, deptiD: deptiD},
+
+            success: function (days) {
+                
+                $('#ModalShow').modal('hide');
+                    },
+                    error: function (ex) {
+                        $('#ModalShow').modal('hide');
+                    }
+                });
+
+    }
+
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div>
+                    @if (TempData["Message"] != null)
+                    {
+                        @Html.Partial("_Message", TempData["Message"])
+                    }
+                </div>
+            </div>
+
+
+            <br />
+
+            @if (Model != null && Model.cep_Admission_Fixes != null)
+            {
+                <table class="table table-bordered table-hover table-striped" id="myTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                SN
+                            </th>
+                            <th>
+                                FullName
+                            </th>
+                            <th>
+                                Form Number
+                            </th>
+                            <th>
+                                Department Name
+                            </th>
+                            <th>
+                                Phone Number
+                            </th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.cep_Admission_Fixes.Count; i++)
+                        {
+                            int sn = i + 1;
+                            <tr>
+
+                                <td>
+                                    @sn
+                                </td>
+                                <td>
+                                    @Model.cep_Admission_Fixes[i].FullName
+                                </td>
+                                <td>
+                                    @Model.cep_Admission_Fixes[i].FormNo
+                                </td>
+                                <td>
+                                    @Model.cep_Admission_Fixes[i].Department.Name
+                                </td>
+                                <td>
+                                    @Model.cep_Admission_Fixes[i].PhoneNumber
+                                </td>
+                                <td>
+                                    <button  onclick="showedit(`@Model.cep_Admission_Fixes[i].Id`,`@Model.cep_Admission_Fixes[i].FullName`,`@Model.cep_Admission_Fixes[i].FormNo`,`@Model.cep_Admission_Fixes[i].PhoneNumber`,`@Model.cep_Admission_Fixes[i].Department.Id`)">Edit</button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-1"></div>
+</div>
+
+
+
+<div class="modal fade" id="ModalShow" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete_title"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="font-weight-light" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="CepformId" />
+
+                <div class="form-group ">
+                    <label>Full Name</label>
+                    <div class="col-md-9">
+                        <input type="text" id="FullName">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Form No</label>
+                    <div class="col-md-9">
+                        <input type="text" id="FormNo">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Phone No</label>
+                    <div class="col-md-9">
+                        <input type="text" id="PhoneNo">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label>Department</label>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.Cep_Admission_Fix.Department.Id, (IEnumerable<SelectListItem>)Model.DepartmentSelectList,
+                       new { @class = "form-control Department",@id ="deptid" })
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-secondary btn-sm" type="button" onclick="SaveChanges()">Save Changes</button>
+
+            </div>
+        </div>
+    </div>
+</div>

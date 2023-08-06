@@ -1,0 +1,479 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJAMBFormPaymentViewModel
+@{
+    ViewBag.Title = "FillStudentIdentificationForm";
+}
+
+
+
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script src="~/Scripts/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        var l = 0;
+        var successsave = $("#successmodal").val();
+        if (successsave == true) {
+            $('#SuccessModalShow').modal('show');
+        }
+
+        function success() {
+
+
+            $('#SuccessModalShow').modal('show');
+
+            //$('#SuccessModalShow').on('hidden.bs.modal', function (e) {
+            //    window.location = "/Security/Account/Login";
+            //});
+
+        }
+        var selectedProgramme = $("#Programme_Id").val();
+
+
+        $("#Programme_Id").change(function () {
+
+            var programme = $("#Programme_Id").val();
+
+
+            $("#departmentid").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartmentByProgrammeId")', // we are calling json method
+                dataType: 'json',
+                data: { id: programme },
+                success: function (departments) {
+                    $("#departmentid").append('<option value=""> -- Select -- </option>');
+
+                    $.each(departments, function (i, department) {
+                        $("#departmentid").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve departments.' + ex);
+                }
+            });
+            //search for jambrecord on blur of jambnumber
+            $('#JambNumber').on('blur', function () {
+                let jambNo = $('#JambNumber').val();
+                if (jambNo != null && jambNo != "") {
+                    FetchJambRecord(jambNo);
+                }
+                else {
+                    RemoveReadOnly();
+                }
+            });
+        });
+
+        //alert("Please double-check all entries you have made; you cannot change any of your information once you have generated an invoice.");
+
+    //});
+
+
+
+
+
+
+
+        $("#AppliedCourse_Department_Id").change(function () {
+
+            var programme = $("#Programme_Id").val();
+
+
+            $("#formsettingdropdown").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartmentyProgrammeAndDepartmentId")', // we are calling json method
+                dataType: 'json',
+                data: { ProgrammeId: programme},
+                success: function (departments) {
+
+                    $.each(departments, function (i, department) {
+                        $("#formsettingdropdown").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+
+        });
+
+        //alert("Please double-check all entries you have made; you cannot change any of your information once you have generated an invoice.");
+
+        $("#stateid").change(function () {
+
+            var state = $("#stateid").val();
+
+
+            $("#lgadropdown").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ReturnLgaByState")', // we are calling json method
+                dataType: 'json',
+                data: { StateId: state},
+                success: function (departments) {
+
+                    $.each(departments, function (i, department) {
+                        $("#lgadropdown").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+
+        });
+
+
+
+
+        $("#departmentid").change(function () {
+           var departmentid =  $("#departmentid").val();
+           var programme = $("#Programme_Id").val();
+
+            $("#departmentoptionid").empty();
+            $("#divDepartmentOption").hide();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDepartmentOptionByDepartment")', // we are calling json method
+                dataType: 'json',
+                data: { id: departmentid, programmeid: programme },
+                success: function (departments) {
+                    if (departments.length >0)
+                    {
+                        $("#departmentoptionid").append('<option value="' + 0 +'">----Select Option ---- </option>');
+                        $("#divDepartmentOption").show();
+
+                        $.each(departments, function (i, department) {
+
+                            $("#departmentoptionid").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                        })
+                    ;
+                    }
+
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+</script>
+<script>
+    let maxLenght = 10;
+    function maxLengthCheck(object) {
+        if (object.value.length > maxLenght)
+            object.value = object.value.slice(0, object.maxLength)
+    }
+</script>
+<div>
+    @if (TempData["Message"] != null)
+    {
+        @Html.Partial("_Message", TempData["Message"])
+    }
+</div>
+@if (Model.IsSaved == true)
+{
+    <script>
+        $('#SuccessModalShow').modal('show');
+    </script>
+}
+<div class="container">
+
+    <div class="col-md-12">
+
+        <div class="row pt-4 justify-content-center">
+            <div class="col-lg-8 col-md-12 pl-0 pr-0">
+                <h4 class="text-center font-weight-bold">Update Student Form</h4>
+                <a class="btn btn-primary pull-right" style="text-decoration-color:white" href="~/Applicant/Form/EditFillStudentIdentificationForm">Edit Previous Form</a>
+                <div class="card">
+
+                    @if (Model.IsSaved == true)
+                    {
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-8 col-lg-6">
+                                                <div class="text-center">
+                                                    <img src=@Url.Content("~/assets/img/resultupload.gif") alt="" class="img-fluid" height="200px">
+                                                    <h6>Your account has been created successfully.</h6>
+                                                    <h6 class="mt-5">
+                                                        login with your matric number and 12345678 as your default password
+                                                    </h6>
+
+                                                    @Html.ActionLink("Continue to Login", "Login", "Account", new { Area = "Security" }, new { @class = "btn btn-danger btn-sm", @type = "button" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="container">
+
+                            @using (Html.BeginForm("FillStudentIdentificationForm", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+
+                                <div class="row setup-content pr-4 pl-4 pb-4 pt-0" id="step-1">
+                                    <div class="col-xs-12">
+                                        <div>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12  mb-2">
+                                                        <hr class="bg-primary m-0">
+                                                        @*<div class="ruleBg"></div>*@
+                                                    </div>
+                                                    <div class="col-md-12 mt-4">
+                                                        @if (TempData["Message"] != null)
+                                                        {
+                                                            @Html.Partial("_Message", TempData["Message"])
+                                                        }
+                                                    </div>
+                                                    <div  class="col-md-12">
+                                                        @if(Model.Student != null)
+                                                        {
+                                                        <span class="badge badge-danger">
+                                                            <p>
+                                                                This Matric Number Belongs to @Model.Student.FirstName @Model.Student.LastName @Model.Student.OtherName,
+                                                            </p>
+                                                            <p>
+
+                                                                if this is your name,
+                                                            </p> <p>please click on edit student details to edit your details or contact admin for assistance.
+                                                            </p>
+                                                        </span>
+                                                        }
+                                                    </div>
+                                                    @Html.TextBoxFor(x => x.IsSaved, new { type = "hidden", @id = "successmodal" })
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Programme.Id, new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.Programme.Id, (IEnumerable<SelectListItem>)ViewBag.ProgrammeId, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Programme.Id, null, new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.AppliedCourse.Department.Id, "Course", new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.AppliedCourse.Department.Id, (IEnumerable<SelectListItem>)ViewBag.DepartmentId, new { @class = "form-control", required = "required", @id = "departmentid" })
+                                                        @Html.ValidationMessageFor(model => model.AppliedCourse.Department.Id, null, new { @class = "text-danger" })
+                                                    </div>
+
+
+                                                    <div class="col-md-6 form-group" id="divDepartmentOption" style="display: none">
+                                                        @Html.LabelFor(model => model.AppliedCourse.Option.Id, "Course Option", new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.AppliedCourse.Option.Id, (IEnumerable<SelectListItem>)ViewBag.DepartmentOptionId, new { @class = "form-control", @id = "departmentoptionid" })
+                                                        @Html.ValidationMessageFor(model => model.AppliedCourse.Option.Id, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Student.MatricNumber, "Matric No./Application Number", new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Student.MatricNumber, new { @class = "form-control", required = "required",
+                                                       @placeholder = "2021 XXX XXX", type = "text" 
+                                                   })
+                                                        @Html.ValidationMessageFor(model => model.Student.MatricNumber, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.YearOfAdmission, "Session Admitted", new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.YearOfAdmission, (IEnumerable<SelectListItem>)ViewBag.SessionId, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.YearOfAdmission, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.CurrentSession.Name, "Current Session", new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.CurrentSession.Id, (IEnumerable<SelectListItem>)ViewBag.SessionId, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.CurrentSession.Id, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.CurrentLevel, "Current Level", new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.CurrentLevel, (IEnumerable<SelectListItem>)ViewBag.Level, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.CurrentLevel, null, new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Student.DirectEntry, "Direct Entry", new { @class = "control-label custom-text-white" })
+                                                        @Html.CheckBoxFor(model => model.Student.DirectEntry, new { @class = "" })
+                                                        @Html.ValidationMessageFor(model => model.Student.DirectEntry, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        @*<hr class="bg-primary m-0">*@
+                                                        @*<div class="ruleBg"></div>          ,  *@
+                                                    </div>
+
+
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.LastName, new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Person.LastName, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.LastName, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.FirstName, new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.FirstName, null, new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.OtherName, new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Person.OtherName, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.OtherName, null, new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.State.Id, new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.Person.State.Id, (IEnumerable<SelectListItem>)ViewBag.StateId, new { @class = "form-control", @id = "stateid", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.State.Id, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Student.LocalGovernment.Name, new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.Student.LocalGovernment.Id, (IEnumerable<SelectListItem>)ViewBag.Lga, new { @class = "form-control", @id = "lgadropdown", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Student.LocalGovernment.Id, null, new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.MobilePhone, new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Person.MobilePhone, new { @class = "form-control", @placeholder = "080XXXXXXXX", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.MobilePhone, null, new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.Email, new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.Email, null, new { @class = "text-danger" })
+                                                    </div>
+
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.ContactAddress, new { @class = "control-label custom-text-white" })
+                                                        @Html.TextBoxFor(model => model.Person.ContactAddress, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.ContactAddress, null, new { @class = "text-danger" })
+                                                    </div>
+
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Student.BloodGroup.Name, new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.Student.BloodGroup.Id, (IEnumerable<SelectListItem>)ViewBag.BloodGroup, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Student.BloodGroup.Id, null, new { @class = "text-danger" })
+                                                    </div>
+
+
+                                                    <div class="col-md-6 form-group">
+                                                        @Html.LabelFor(model => model.Person.Sex.Name, new { @class = "control-label custom-text-white" })
+                                                        @Html.DropDownListFor(model => model.Person.Sex.Id, (IEnumerable<SelectListItem>)ViewBag.Sex, new { @class = "form-control", required = "required" })
+                                                        @Html.ValidationMessageFor(model => model.Person.Sex.Id, null, new { @class = "text-danger" })
+                                                    </div>
+
+                                                    <div class="col-md-6 form-group">
+                                                        <label>Passport <span class="text-danger">(Image Upload Size Should Not Exceed 1Mb )</span></label>
+
+                                                        <input type="file" accept="image/*" title="Upload Passport" id="fileInput" name="Upload Passport" class="form-control" required />
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 text-right">
+                                                <button class="btn btn-primary pull-right" id="submitBtn" type="submit">Submit</button>
+                                                <span class="pull-right" style="display: none;" id="loading"> <img src="~/Content/Images/bx_loader.gif" /></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div><!-- Modal-->
+<div class="modal fade" id="SuccessModalShow" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delete_title"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span class="font-weight-light" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="DeleteId" />
+                <h6>Your account has been created successfully,</h6><span class="font-weight-bold h5"> login with your matric number and 1234567 as your default password</span>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Close</button>
+                <a class="btn btn-danger btn-sm" type="button" href="~/h">Continue to Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    document.querySelector("#fileInput").addEventListener("change", (e) => {
+        const fileEl = document.querySelector("#fileInput");
+        const file = e.target.files[0];
+        const fileType = file.type;
+        const fileSize = file.size;
+        if (fileSize > 1048576) {
+            alert("File size is too much. Allowed size is 1MB")
+            $("#fileInput").val("");
+            $("#fileInput").text("");
+            return false;
+        }
+        ////If file type is Video, Return False; ask user to insert a youtube link
+        //if (fileType.split("/")[1] != "") {
+        //    alert("Only Image is allowed!");
+
+        //    //Reset the file selector to application/pdf
+        //    fileEl.setAttribute("accept", "application/pdf");
+
+        //    //Clear the inout type field
+        //    $("#fileInput").val("");
+        //    $("#fileInput").text("");
+        //    //$('#videoUrl').show();
+        //    return false;
+        //}
+
+    });
+
+</script>

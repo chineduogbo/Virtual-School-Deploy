@@ -1,0 +1,13 @@
+ReceiptNo = 7
+PaymentCode = 76554543
+ConfirmationNo = 76554543
+MerchantCode = 74525454545454
+TransactionAmount = 70000
+BankCode = 700
+BranchCode = 005
+CustomerName = ::1
+CustomerAddress = FETCKFDFJKDFJDFKDF
+CustomerID = 43005
+TransactionDate = 05/06/2022 12:00:00 AM
+Used = False
+UsedBy = 0

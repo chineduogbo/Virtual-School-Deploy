@@ -1,0 +1,113 @@
+﻿@model Abundance_Nk.Web.Areas.Admin.ViewModels.SupportViewModel
+
+@{
+    ViewBag.Title = "ViewStudentPayments";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+        @if (TempData["Message"] != null)
+        {
+            @Html.Partial("_Message", (Abundance_Nk.Model.Model.Message)TempData["Message"])
+        }
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Clear Invoice RRR</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("ClearinvoiceRRR", "Support", new { area = "Admin" }, FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.Student.MatricNumber, "RRR Number", new { @class = "control-label " })
+                        </div>
+                        <div class="row col-md-8">
+                            <div class="col-md-6">
+                                <div class="form-group">
+
+                                    @Html.TextBoxFor(model => model.Student.MatricNumber, new { @class = "form-control", @placeholder = "Enter RRR Number", @required = "required" })
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-12">
+                                <div class="form-group mt-5" style="margin-top:10px">
+
+                                    <input type="submit" value="Submit" class="btn btn-success mr5" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+    </div>
+
+    @if (Model.Payment != null)
+    {
+        
+        <div class="col-md-12">
+            <div class="container">
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <td>Invoice Number</td>
+                            <td>Fullname</td>
+                            <td>FeeType</td>
+                            <td>Status</td>
+                            <td>Action</td>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.Payment.InvoiceNumber</td>
+                            <td>@Model.Payment.Person.FullName</td>
+                            <td>@Model.Payment.FeeType.Name</td>
+                            <td>
+                                @if (Model.IsPaid == true)
+                                {
+                                    <span class="badge badge-success">Paid for</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Not Paid for</span>
+                                }
+                            </td>
+                            <td>
+                                @if (Model.IsPaid == true)
+                                {
+                                    <button disabled class="btn btn-outline-primary btn-sm text-uppercase">
+                                        ...
+                                    </button>
+                                }
+                                else
+                                {
+                                    
+                                        @Html.ActionLink("Clear RRR", "ExecuteClearRRR", "Support", new { @area = "Admin" ,
+                                       paymentId = Model.Payment.Id }, new { @class = "btn btn-danger btn-sm  btn-lg mr5" })
+                           
+                                }
+
+
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+    }
+
+
+
+
+
+    <div class="col-md-1"></div>
+</div>              
