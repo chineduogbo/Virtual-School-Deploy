@@ -1,0 +1,372 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJAMBProgrammeViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    body {
+        overflow-x: hidden !important;
+        font-family: 'Noto Sans', sans-serif !important;
+    }
+
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background-color: #d2462f !important;
+        border-color: #2c1e8c !important;
+        color: ghostwhite !important
+    }
+
+    .table-responsive {
+        height: 400px !important;
+        overflow-y: scroll !important
+    }
+</style>
+
+
+
+
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/jquery/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/js/plugins/bootstrap/bootstrap.min.js"></script>
+
+<script src="~/Scripts/dataTables.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/media/js/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Buttons/js/buttons.colVis.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+
+<script src="~/Scripts/DataTables-1.10.15/buttons.flash.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.html5.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/buttons.print.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/jszip.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/pdfmake.min.js"></script>
+<script src="~/Scripts/DataTables-1.10.15/vfs_fonts.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/momentjs/moment.js"></script>
+
+<script src="~/Scripts/DataTables-1.10.15/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+<script src="~/Scripts/bootstrap.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+        @*function demoFromHTML() {
+            var doc = new jsPDF('p', 'pt');
+            var res = doc.autoTableHtmlToJson(document.getElementById('studentTable'));
+            var height = doc.internal.pageSize.height;
+            //doc.addImage(img, 'png', 280, 20, 28, 34);
+            doc.setFontType("bold");
+            doc.text("NNAMDI AZIKIWE UNIVERSITY, AWKA, ANAMBRA STATE", 100, 50);
+            doc.setFontSize(10)
+
+                doc.text("PRE-SCIENCE PAYMENT REPORT " + '@Model.SessionName', 180, 70);
+                doc.text("FOR: " + '@Model.ReportTitle', 40, 130);
+
+
+            doc.setFontType("normal");
+            doc.setFontSize(12)
+            doc.autoTable(res.columns, res.data, {
+                startY: 150,
+                //headStyles: { fillColor: "#090226" },
+                theme: 'grid',
+                styles: {
+                   fontSize:8
+                },
+            });
+
+            var check = doc.autoTableEndPosY() + 20;
+            doc.setFontSize(12);
+            doc.setFontType("bold");
+            doc.text("Total: " + "@Model.TotalAmount", 400, check)
+
+
+            doc.save('Pre-Science Payment Report.pdf');
+        }*@
+
+        $(document).ready(function () {
+            $.noConflict();
+            $.extend($.fn.dataTable.defaults, {
+                responsive: false
+            });
+
+            $('#studentTable').DataTable({
+                dom: 'Bfrtip',
+                ordering: true,
+                buttons: [
+                    {
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':visible',
+                            modifier: {
+                                orientation: 'landscape'
+                            }
+                        },
+                        orientation: 'landscape'
+
+
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':visible',
+                            modifier: {
+                                orientation: 'landscape'
+                            }
+                        },
+                        orientation: 'landscape'
+
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':visible',
+                            modifier: {
+                                orientation: 'landscape'
+                            }
+                        },
+                        orientation: 'landscape'
+
+
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':visible',
+                            header: true,
+                            modifier: {
+                                orientation: 'landscape'
+                            }
+
+
+
+                        },
+                        orientation: 'landscape'
+
+
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible',
+                            modifier: {
+                                orientation: 'landscape'
+                            }
+                        },
+                        orientation: 'landscape'
+
+
+                    }, , 'colvis'
+                ]
+            });
+
+
+
+        });
+
+</script>
+
+
+
+
+
+
+<div class="col-md-12" style="min-height:1000px">
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+
+        <div>
+            @*@if (Model != null && Model.StatusMessage == true)
+                {
+                   <div class="alert alert-danger">
+                       <p>@ViewBag.ResponseMessage</p>
+                   </div>
+                }*@
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading panel-dark-head">
+                <p style="font-size:15px"><b>Proposal Request Reports Summary</b></p>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @*<div class="btn-group btn-group-lg">
+                            <button type="button" style="font-size:12px" class="btn btn-primary active">Application Form</button>
+                            <button type="button" style="font-size:12px" class="btn btn-primary">School Fees</button>
+                        </div>*@
+                    @if (Model != null && Model.StatusMessage == true)
+                    {
+                        <div class="alert alert-danger alert-dismissable alert-dismissible">
+                            <p>@ViewBag.ResponseMessage</p>
+                        </div>
+                    }
+                    <br />
+
+                    @using (Html.BeginForm("ProposalRequestsReport", "Report", FormMethod.Post))
+                    {
+                        <div class="row" style="margin-top:30px">
+
+
+
+                            <div class="form-group col-sm-3">
+                                @Html.LabelFor(model => model.DateFrom, "Date From", new { @class = "control-label" })
+
+                                @Html.TextBoxFor(model => model.DateFrom, new { @class = "form-control txtDatePicker", placeholder = "dd/mm/yyyy e.g 01/01/2018", type = "date" })
+                                @Html.ValidationMessageFor(model => model.DateFrom, null, new { @class = "text-danger" })
+
+                            </div>
+
+
+                            <div class="form-group col-sm-3">
+                                @Html.LabelFor(model => model.DateTo, "Date To", new { @class = "control-label" })
+
+                                @Html.TextBoxFor(model => model.DateTo, new { @class = "form-control txtDatePicker", placeholder = "dd/mm/yyyy e.g 01/01/2018", type = "date" })
+                                @Html.ValidationMessageFor(model => model.DateTo, null, new { @class = "text-danger" })
+
+                            </div>
+                            <div class="form-group col-sm-3">
+                                @Html.LabelFor(model => model.ProgrammeId, "Programme", new { @class = "control-label " })
+                                <div class="col-sm-10">
+                                    @Html.DropDownListFor(model => model.ProgrammeId, (IEnumerable<SelectListItem>)ViewBag.Programme, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.ProgrammeId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-3">
+                                @Html.LabelFor(model => model.DepartmentId, "Department", new { @class = "control-label" })
+                                <div class="col-sm-10">
+                                    @Html.DropDownListFor(model => model.DepartmentId, (IEnumerable<SelectListItem>)ViewBag.Department, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.DepartmentId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row" style="margin-top:10px">
+                            <div class="form-group col-sm-4">
+                                @Html.LabelFor(model => model.FacultyId, "Faculty", new { @class = "control-label" })
+                                @* <div class="col-sm-10">*@
+                                @Html.DropDownListFor(model => model.FacultyId, (IEnumerable<SelectListItem>)ViewBag.Faculty, new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.FacultyId, null, new { @class = "text-danger" })
+                                @*</div>*@
+                            </div>
+                            <div class="form-group col-sm-4">
+                                @Html.LabelFor(model => model.ProposalTypeId, "Proposal Type", new { @class = "control-label " })
+                                <div class="col-sm-10">
+                                    @Html.DropDownListFor(model => model.ProposalTypeId, (IEnumerable<SelectListItem>)ViewBag.ProposalType, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.ProposalTypeId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                @Html.LabelFor(model => model.StageId, "Propsal Stage", new { @class = "control-label " })
+                                <div class="col-sm-10">
+                                    @Html.DropDownListFor(model => model.StageId, (IEnumerable<SelectListItem>)ViewBag.StageList, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.StageId, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+
+                                <input class="btn btn-primary mr5" type="submit" name="submit" id="submit" value="View Report" />
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        <hr />
+
+                        if (Model != null && Model.PresciencePayments != null)
+                        {
+
+                            <div style="margin-top:30px">
+
+                            </div>
+
+                            <div class="text-center">
+                                <img src="~/Content/Images/absu logo.png" alt="NAU logo" style="width:70px">
+                                <p style="font-size:18px; color:#463939" class="text-uppercase"><b>Pre-Science <span>@Model.ReportType</span> Payment Report</b></p>
+                            </div>
+                            <hr />
+
+
+
+                            <div class="col-md-4">
+                                <p style="font-size:18px"> Total Amount: <b> @Model.TotalAmount</b></p>
+                            </div>
+
+                            <div class="col-md-12 table-responsive">
+
+
+                                <table class="table table-bordered table-hover table-striped" id="studentTable">
+                                    <thead>
+                                        <tr>
+                                            <th>SN</th>
+                                            <th>Name</th>
+                                            <th>Application Number</th>
+                                            <th>Phone Number</th>
+                                            <th>Session</th>
+                                            <th>Transaction Amount</th>
+                                            <th>Transaction Date</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color: black;">
+                                        @for (int i = 0; i < Model.PresciencePayments.Count; i++)
+                                        {
+                                            var SN = i + 1;
+                                            <tr>
+                                                <td>@SN</td>
+                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Name)</td>
+                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].ApplicationNumber)</td>
+                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Phone)</td>
+                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Session)</td>
+                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Amount)</td>
+                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].TransactionDate)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+
+                                </div>
+                                <div class="col-md-6">
+                                    <p style="font-size:18px"> Total Amount: <b> @Model.TotalAmount</b></p>
+                                </div>
+                            </div>
+
+                        }
+
+
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
+
+
