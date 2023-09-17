@@ -1,0 +1,330 @@
+﻿@model Abundance_Nk.Web.Areas.Applicant.ViewModels.PostJambViewModel
+@{
+    ViewBag.Title = "";
+}
+
+
+
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#exampleModal").modal("show");
+
+
+        $("#stateid").change(function () {
+
+            var state = $("#stateid").val();
+
+
+            $("#LgaId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ReturnLgaByState")', // we are calling json method
+                dataType: 'json',
+                data: { StateId: state},
+                success: function (departments) {
+
+                    $.each(departments, function (i, department) {
+                        $("#LgaId").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+
+        });
+
+    });
+    function Getstate() {
+        var state = $("#StateId :selected").val();
+
+
+            $("#LgaId").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ReturnLgaByState")', // we are calling json method
+                dataType: 'json',
+                data: { StateId: state},
+                success: function (departments) {
+
+                    $.each(departments, function (i, department) {
+                        $("#LgaId").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve Forms on Sale.' + ex);
+                }
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<div>
+
+</div>
+
+<div class="container">
+
+    <div class="col-md-12">
+
+        <div class="row pt-4 justify-content-center">
+            <div class="col-lg-12 col-md-12 pl-0 pr-0">
+                <h4 class="text-center font-weight-bold">@Model.Person.FullName Bio-Data Form</h4>
+
+                <div class="card">
+
+
+                    <div class="container">
+
+                            @Html.HiddenFor(x => x.Person.LastName)
+                            @Html.HiddenFor(x => x.Person.FirstName)
+                            @Html.HiddenFor(x => x.Person.OtherName)
+                            @Html.HiddenFor(x => x.Person.MobilePhone)
+                            <div class="row setup-content pr-4 pl-4 pb-4 pt-0">
+                                <div class="col-xs-12">
+                                    <div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h4 style="font-weight:bold">Bio Data</h4>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    @Html.HiddenFor(x => x.Person.Id)
+                                                    @Html.LabelFor(model => model.Person.LastName)
+                                                    @Html.TextBoxFor(model => model.Person.LastName, new { @class = "form-control text-uppercase", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.LastName)*@
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.FirstName)
+                                                    @Html.TextBoxFor(model => model.Person.FirstName, new { @class = "form-control text-uppercase", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.FirstName)*@
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.OtherName, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.OtherName, new { @class = "form-control text-uppercase", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.OtherName)*@
+                                                </div>
+
+
+
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.AppliedCourse.Department.Name, new { @class = "control-label " })
+                                                    @Html.DropDownListFor(f => f.AppliedCourse.Department.Id, (IEnumerable<SelectListItem>)ViewBag.DepartmentId, 
+                                                   new { @class = "form-control", @readonly = true, @disabled = true })
+                                                    @*@Html.ValidationMessageFor(model => model.Person.State.Id)*@
+                                                </div>
+
+
+
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.MobilePhone, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.MobilePhone, new { @class = "form-control", max = "15", min = "11", type = "number", @id = "PhoneId", @readonly = true, @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.Person.MobilePhone)
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Person.Email, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.Person.Email, new { @class = "form-control text-uppercase", max = "50", @id = "EmailId" })
+                                                </div>
+
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.ApplicationForm.Number, new { @class = "control-label " })
+                                                    @Html.TextBoxFor(model => model.ApplicationForm.Number, new { @class = "form-control", @readonly = true, @disabled = true })
+                                                    @Html.ValidationMessageFor(model => model.ApplicationForm.Number)
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    @Html.LabelFor(model => model.Programme.Id, new { @class = "control-label " })
+                                                    @Html.DropDownListFor(model => model.Programme.Id, (IEnumerable<SelectListItem>)ViewBag.Programme, new { @class = "form-control", @readonly = true, @disabled = true })
+
+                                                </div>
+
+
+
+
+
+                                                <div class="panel panel-danger col-md-12 form-group">
+                                                    <div class="panel-body">
+                                                        <div class=" table-responsive">
+                                                            <table class="table-bordered table-hover table-striped table" id="myTable" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            Sn
+                                                                        </th>
+                                                                        <th>
+                                                                            Fee Name
+                                                                        </th>
+                                                                        <th>
+                                                                            RRR No
+                                                                        </th>
+                                                                        <th>
+
+                                                                        </th>
+
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                   
+
+                                                                    <tr>
+                                                                        <td>1.</td>
+                                                                        <td>School Fees</td>
+                                                                        @if (Model.SchoolFees != null)
+                                                                        {
+                                                                            <td><input class="form-group" value="@Model.SchoolFees.RRR"/></td>
+                                                                            <td>
+                                                                                <a class="btn btn-success" href="~/Common/Credential/Receipt?pmid=@Model.SchoolFees.payment.Id" target="_blank">Generate School Fees Receipt</a>
+                                                                            </td>
+                                                                                }
+                                                                        else
+                                                                        {
+                                                                            <td><input class="form-group" /></td>
+                                                                            <td> <button disabled>Generate </button></td>
+                                                                        }
+                                                                       
+                                                                    </tr>
+                                                                    
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        
+                                        <div class="col-md-4">
+
+                                        </div>
+                                        <div class="col-md-4 text-left">
+                                            <a class="btn btn-success" href="~/Applicant/Form/GenerateCdpSchoolFees?ApplicationId=@Model.ApplicationForm.Id"  target="_blank">Generate School Fees Invoice</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+    document.querySelector("#fileInput").addEventListener("change", (e) => {
+        const fileEl = document.querySelector("#fileInput");
+        const file = e.target.files[0];
+        const fileType = file.type;
+        const fileSize = file.size;
+        if (fileSize > 1048576) {
+            alert("File size is too much. Allowed size is 1MB")
+            $("#fileInput").val("");
+            $("#fileInput").text("");
+            return false;
+        }
+
+
+        ////If file type is Video, Return False; ask user to insert a youtube link
+        //if (fileType.split("/")[1] != "") {
+        //    alert("Only Image is allowed!");
+
+        //    //Reset the file selector to application/pdf
+        //    fileEl.setAttribute("accept", "application/pdf");
+
+        //    //Clear the inout type field
+        //    $("#fileInput").val("");
+        //    $("#fileInput").text("");
+        //    //$('#videoUrl').show();
+        //    return false;
+        //}
+
+    });
+    $('#checkboxDefault').on('click', function (e) {
+        $('#submitBtn').removeAttr("disabled");
+
+    });
+
+
+    function generateAcceptanceInvoice() {
+        var email = $('#EmailId').val();
+        var Jupep = $('#JupepId').val();
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GenerateAcceptanceInvoice","Form")', // we are calling json method
+            dataType: 'json',
+            data: { Email: email, JupepId: Jupep },
+            success: function (departments) {
+
+            },
+            error: function (ex) {
+                
+            }
+        });
+    }
+
+     function generateSchoolFeesInvoice() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("ReturnLgaByState")', // we are calling json method
+            dataType: 'json',
+            data: { StateId: state },
+            success: function (departments) {
+
+                $.each(departments, function (i, department) {
+                    $("#LgaId").append('<option value="' + department.Value + '">' + department.Text + '</option>');
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Forms on Sale.' + ex);
+            }
+        });
+    }
+</script>
+
+

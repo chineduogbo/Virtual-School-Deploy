@@ -1,0 +1,2668 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="CDP">
+    <meta name="description" content="CDP">
+    <meta name="keywords" content="RCDP,CERTIFICATE DIPLOMA PROGRAMME">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CDP HOME</title>
+
+    <link rel="shortcut icon" href="~/Content/Images/school_logo.png" type="image/x-icon">
+    <link rel="icon" href="~/Content/Images/school_logo.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Content/Images/school_logo.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Content/Images/school_logo.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/Images/school_logo.png">
+    <link rel="apple-touch-icon" href="~/Content/Images/school_logo.png">
+    <link rel="icon" href="~/Content/Images/school_logo.png" type="image/x-icon">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="~/Content/cdp/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FONT ICONS -->
+    <link href="~/Content/cdp/css/flaticon.css" rel="stylesheet">
+
+    <!-- PLUGINS STYLESHEET -->
+    <link href="~/Content/cdp/css/menu.css" rel="stylesheet">
+    <link id="effect" href="~/Content/cdp/css/dropdown-effects/fade-down.css" media="all" rel="stylesheet">
+    <link href="~/Content/cdp/css/magnific-popup.css" rel="stylesheet">
+    <link href="~/Content/cdp/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="~/Content/cdp/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="~/Content/cdp/css/lunar.css" rel="stylesheet">
+
+    <!-- ON SCROLL ANIMATION -->
+    <link href="~/Content/cdp/css/animate.css" rel="stylesheet">
+
+    <!-- TEMPLATE CSS -->
+    <link href="~/Content/cdp/css/blue-theme.css" rel="stylesheet">
+
+    <!-- Style Switcher CSS -->
+    <link href="~/Content/cdp/css/crocus-theme.css" rel="alternate stylesheet" title="crocus-theme">
+    <link href="~/Content/cdp/css/green-theme.css" rel="alternate stylesheet" title="green-theme">
+    <link href="~/Content/cdp/css/magenta-theme.css" rel="alternate stylesheet" title="magenta-theme">
+    <link href="~/Content/cdp/css/pink-theme.css" rel="alternate stylesheet" title="pink-theme">
+    <link href="~/Content/cdp/css/purple-theme.css" rel="alternate stylesheet" title="purple-theme">
+    <link href="~/Content/cdp/css/skyblue-theme.css" rel="alternate stylesheet" title="skyblue-theme">
+    <link href="~/Content/cdp/css/red-theme.css" rel="alternate stylesheet" title="red-theme">
+    <link href="~/Content/cdp/css/violet-theme.css" rel="alternate stylesheet" title="violet-theme">
+
+    <!-- RESPONSIVE CSS -->
+    <link href="~/Content/cdp/css/responsive.css" rel="stylesheet">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+
+
+
+<body>
+
+
+
+
+    <!-- PRELOADER SPINNER
+    ============================================= -->
+    <div id="loading" class="loading--theme">
+        <div id="loading-center"><span class="loader"></span></div>
+    </div>
+
+
+
+
+    <!-- STYLE SWITCHER
+    ============================================= -->
+    <div id="stlChanger">
+        <div class="blockChanger bgChanger">
+            <a href="#" class="chBut icon-xs"><span class="flaticon-control-panel"></span></a>
+            <div class="chBody white-color">
+
+                <div class="stBlock text-center" style="margin: 30px 20px 20px 26px;">
+                    <div class="stBgs">
+                        <p class="switch"></p>
+
+                        <p class="color--white">Color Scheme</p>
+                        <a href="javascript:chooseStyle('pink-theme', 60)"><img src="~/Content/cdp/images/color-scheme/pink.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('purple-theme', 60)"><img src="~/Content/cdp/images/color-scheme/purple.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('violet-theme', 60)"><img src="~/Content/cdp/images/color-scheme/violet.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('skyblue-theme', 60)"><img src="~/Content/cdp/images/color-scheme/skyblue.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('magenta-theme', 60)"><img src="~/Content/cdp/images/color-scheme/magenta.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('crocus-theme', 60)"><img src="~/Content/cdp/images/color-scheme/crocus.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('red-theme', 60)"><img src="~/Content/cdp/images/color-scheme/red.jpg" alt=""></a>
+                        <a href="javascript:chooseStyle('green-theme', 60)"><img src="~/Content/cdp/images/color-scheme/green.jpg" alt=""></a>
+
+                    </div>
+                </div>
+
+                <div class="stBlock text-center" style="margin: 0px 27px 25px 31px;">
+                    <a class="btn r-04 btn--theme hover--theme" href="javascript:chooseStyle('none', 60)">Reset Color</a>
+                </div>
+
+            </div>
+        </div>
+    </div>	  <!-- END SWITCHER -->
+    <!-- PAGE CONTENT
+    ============================================= -->
+    <div id="page" class="page font--jakarta">
+
+
+
+
+        <!-- HEADER
+    ============================================= -->
+        <header id="header" class="tra-menu navbar-dark inner-page-header white-scroll">
+            <div class="header-wrapper blog-header">
+
+
+                <!-- MOBILE HEADER -->
+                <div class="wsmobileheader clearfix">
+                    <span class="smllogo">  <h4 class="s-34 w-700">CDP <span class="flaticon-next"></span></h4></span>
+                    <a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>
+                </div>
+
+
+                <!-- NAVIGATION MENU -->
+                <div class="wsmainfull menu clearfix">
+                    <div class="wsmainwp clearfix">
+
+
+                        <!-- HEADER BLACK LOGO -->
+                        <div class="desktoplogo">
+
+                            <h4 class="s-34 w-700">CDP <span class="flaticon-next"></span></h4>
+
+                        </div>
+
+
+
+
+
+                        <!-- MAIN MENU -->
+                        <nav class="wsmenu clearfix">
+                            <ul class="wsmenu-list nav-theme">
+
+
+
+                                <!-- DROPDOWN SUB MENU -->
+                                <li class="nl-simple" aria-haspopup="true">
+                                    <a href="~/Applicant/Form/CDPFormInvoiceGeneration" class="h-link">Apply </a>
+
+                                </li>
+
+                                <!-- SIMPLE NAVIGATION LINK -->
+                                <li class="nl-simple" aria-haspopup="true"><a href="~/Applicant/Form/PostJambProgramme" class="h-link">Fill Application Form</a></li>
+
+
+                                <!-- SIMPLE NAVIGATION LINK -->
+                                <li class="nl-simple" aria-haspopup="true"><a href="~/Applicant/Form/FillCDPAdmissionForm" class="h-link">Check Admission Status</a></li>
+
+
+
+                                <!-- SIGN UP BUTTON -->
+                                <li class="nl-simple" aria-haspopup="true">
+                                    <a href="~/Security/Account/Login" class="btn r-04 btn--theme hover--theme last-link">Sign In</a>
+                                </li>
+
+
+                            </ul>
+                        </nav>	<!-- END MAIN MENU -->
+
+
+                    </div>
+                </div>	<!-- END NAVIGATION MENU -->
+
+
+            </div>     <!-- End header-wrapper -->
+        </header>	<!-- END HEADER -->
+        <!-- SINGLE POST
+    ============================================= -->
+        @if (ViewBag.typeid == 1)
+        {
+            <section id="single-post" class="pb-90 inner-page-hero blog-page-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+
+                        <!-- SINGLE POST CONTENT -->
+                        <div class="col-xl-10">
+                            <div class="post-content">
+
+
+                                <!--  SINGLE POST TITLE -->
+                                <div class="single-post-title text-center">
+
+                                    <!-- Post Tag -->
+                                    <span class="post-tag color--green-400">FRENCH</span>
+
+                                    <!-- Title -->
+                                    <h2 class="s-46 w-700">CERTIFICATE COURSE IN FRENCH</h2>
+
+
+                                </div>	<!-- END SINGLE POST TITLE -->
+                                <!-- SINGLE POST IMAGE -->
+                                <div class="blog-post-img py-50">
+                                    <img class="img-fluid r-16" src="~/Content/cdp/french.jpg" alt="blog-post-image">
+                                </div>
+
+                                <!-- SINGLE POST TEXT -->
+                                <div class="single-post-txt">
+                                    <h4>  FRENCH CERTIFICATION PROGRAMME</h4>
+                                    <!-- Text -->
+                                    <p>
+
+                                        This programme is for anyone who wants to learn French as it covers different levels based on the
+                                        Common European Framework of Reference for Languages (CEFRL); beginners to advanced
+                                        ((levels from A1 to C2).
+                                        This second stage is levels B1 and B2; the intermediate level.
+                                        At the start of the programme, learners are expected to take a placement test so that their level will
+                                        be determined and also take an exam at the end in order to be issued a certificate
+                                    </p>
+
+                                    <p><b>A. INTERMEDIATE I (B1)</b></p>
+                                    <p><b>At this level, the learner is becoming an independent speaker of French.</b></p>
+                                    <p>
+                                        Level B1, which is sometimes referred to as ‘Threshold’ or ‘Breakthrough’ stage, is the point at
+                                        which a French speaker moves away from the most simplistic language usage and is able to cope
+                                        with most of the situations that they are likely to encounter when travelling around a Frenchspeaking country.
+                                        In particular, a student at B1 level should be able to understand the key points from authentic
+                                        speech, connect written phrases into simple text and start to communicate more complicated ideas.
+                                        For example, they should be possible to describe events, experiences, expectations, ambitions and
+                                        hopes, while also giving their own opinion
+                                    </p>
+                                    <p><b>Objectives</b></p>
+                                    <p>
+                                        • Use the language being learned as a means of communication and personal expression,
+                                        both in the classroom and in a wide range of face-to-face and virtual situations and on both
+                                        concrete and abstract topics, including cultural ones.
+                                    </p> <p>
+                                        • Understand, interact and express themselves in these situations, orally and in writing, in an
+                                        appropriate, reasonably flexible, precise and correct manner.
+                                    </p> <p>
+                                        • Describe the sociocultural aspects related to usual situations, as well as those related to
+                                        one's own environment and use the appropriate social formulas, gestures, register and
+                                        treatment in these situations
+                                    </p> <p>
+                                        • Internalize the appropriate and necessary linguistic resources for the planned
+                                        communicative activities, through functional and formal practice.
+                                    </p> <p>
+                                        • Encourage and diversify the use of strategies that streamline communication and facilitate
+                                        learning.
+                                    </p> <p>
+                                        • Manage tools to evaluate and improve one's own learning and use of the language
+                                    </p>
+
+
+                                    <p>
+                                        <b>
+                                            Pertaining to what a student should know regarding 4 skills outlined by the CEFRL:
+                                            Reading, Writing, Listening and Speaking.
+                                        </b>
+                                    </p>
+                                    <p><b>      I. Reading Comprehension</b></p>
+                                    <p>
+                                        ▪ Read simple factual texts on topics with a satisfactory level of comprehension.
+                                    </p> <p>
+                                        ▪ Understand the description of facts, feelings and wishes in personal letters well enough to
+                                        correspond regularly with a foreign friend.
+                                    </p> <p>
+                                        ▪ Find and understand relevant information in everyday written material, such as letters,
+                                        catalogs, and short official documents.
+                                    </p> <p>
+                                        ▪ Recognize significant ideas from simple newspaper articles that deal with everyday issues.
+                                    </p> <p>
+                                        ▪ Identify the main conclusions in clearly argumentative texts. Recognize the line of
+                                        argument in the treatment of the issue presented, though not necessarily in full detail.
+                                    </p> <p>
+                                        ▪ Understand simple, clearly written instructions related to an appliance.
+                                    </p> <p>
+                                        ▪ Understand many films where visuals and action drive much of the storyline and are
+                                        articulated clearly and with a simple level of language.
+                                    </p> <p>
+                                        ▪ Capture the main ideas of television programs dealing with everyday topics when they are
+                                        articulated relatively slowly and clearly
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            II. Written Expression
+                                        </b>
+                                    </p>
+                                    <p>
+                                        ▪ Write simple and detailed descriptions of a range of everyday topics.
+                                    </p> <p>
+                                        ▪ Write a description of a specific event, a recent trip, real or imagined, and narrate a story.
+                                    </p> <p>
+                                        ▪ Write very brief reports in conventional format with information about common events and
+                                        the reasons for certain actions.
+                                    </p> <p>
+                                        ▪ Write short and simple essays on topics of interest.
+                                    </p> <p>
+                                        ▪ Can summarize, communicate and offer their opinion with a certain degree of confidence
+                                        on concrete facts related to everyday matters, whether usual or not, in their field of
+                                        expertise.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            III. Oral Comprehension (Listening)
+                                        </b>
+                                    </p>
+                                    <p>
+                                        ▪ Understand concrete every day or work-related information and identify both the general
+                                        message and specific details as long as the speech is clearly articulated and with a normal
+                                        accent.
+                                    </p> <p>
+                                        ▪ Understand the main ideas of clear, standard speech on everyday topics related to work,
+                                        school or leisure time, including short narratives.
+                                    </p> <p>
+                                        ▪ Generally, follow the main ideas of a long discussion going on around them, provided that
+                                        the discourse is clearly articulated at a standard language level.
+                                    </p> <p>
+                                        ▪ Understand simple technical information, such as operating instructions for frequently used
+                                        appliances, as well as follow detailed instructions.
+                                    </p> <p>
+                                        ▪ Understand the main ideas of radio news and other simpler recorded material dealing with
+                                        everyday topics delivered relatively slowly and clearly.
+                                    </p> <p>
+                                        ▪ Understand the information content of most recorded or broadcast material related to topics
+                                        of personal interest with clear standard pronunciation.
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            IV. Oral Expression (Speaking)
+                                        </b>
+                                    </p>
+                                    <p>
+                                        ▪ Carry out, with a reasonable degree of fluency, a simple description of a variety of topics
+                                        and presenting clearly.
+                                    </p> <p>
+                                        ▪ Give simple descriptions on a variety of common topics.
+                                    </p> <p>
+                                        ▪ Make detailed accounts of experiences describing feelings and reactions.
+                                    </p> <p>
+                                        ▪ Report the details of unpredictable events, such as an accident.
+                                    </p> <p>
+                                        ▪ Relate book or movie plots.
+                                    </p> <p>
+                                        ▪ Describe dreams, hopes and ambitions.
+                                    </p> <p>
+                                        ▪ Describe real or imagined events. Tell stories.
+                                    </p> <p>
+                                        ▪ Provide brief rationales and explanations for opinions, plans and actions.
+                                    </p> <p>
+                                        ▪ Develop arguments well enough so that they can be understood without difficulty most of
+                                        the time.
+                                    </p> <p>
+                                        ▪ Deliver a brief, prepared presentation on a topic with sufficient clarity to be followed
+                                        without difficulty most of the time and whose main ideas are explained with reasonable
+                                        accuracy. Can also answer supplemental questions, but may have to ask for repetition if
+                                        spoken quickly.
+                                    </p>
+
+
+
+
+                                    <table>
+                                        <tr>
+                                            <th style="width: 5px;"></th>
+                                            <th>Topics</th>
+                                            <th>Aim/Task to Do</th>
+                                            <th>Vocabulary</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                My Daily Routine
+                                                <ul>
+                                                    <li>
+                                                        • Daily Activities
+                                                    </li>
+                                                    <li>
+                                                        • Student Life
+                                                    </li>
+                                                    <li>
+                                                        • At Work
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>  - Talking about one’s passion</li>
+                                                    <li>
+                                                        - Presenting one's career and professional life
+                                                    </li>
+                                                    <li>
+                                                        - Presenting one’s personal life
+                                                    </li>
+                                                    <li>
+                                                        - Describe actions that are happening at that
+                                                        very moment
+                                                    </li>
+
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Talking about one’s passion</li>
+                                                    <li>Presenting one's career and professional life</li>
+                                                    <li>Presenting one’s personal life</li>
+                                                    <li>Describe actions that are happening at that very moment</li>
+                                                    <li>Hobbies</li>
+                                                    <li>Going out</li>
+                                                    <li>Shopping</li>
+                                                    <li>Transport</li>
+                                                    <li>Time</li>
+                                                    <li>School</li>
+                                                    <li>Objects found in a classroom/at work</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>2.</td>
+                                            <td>
+                                                Describing People
+                                                <ul>
+                                                    <li>
+                                                        •  Physical appearance
+                                                    </li>
+                                                    <li>
+                                                        •  Personality and
+                                                        Behavior
+                                                    </li>
+                                                    <li>
+                                                        •  Emotions
+                                                    </li>
+                                                    <li>
+                                                        •  Personal Relationships
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Describe professions
+                                                    </li>
+                                                    <li>   - Make comparisons </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Parts of the body, complexion,
+                                                        physical traits + character traits
+                                                    </li>
+                                                    <li>
+                                                        - Ask and express feelings towards
+                                                        others
+                                                    </li>
+                                                    <li>
+                                                        - Express opinions and beliefs
+                                                    </li>
+                                                    <li>
+                                                        -Emotions: happiness, sadness,
+                                                        disappointment, worries, fear,
+                                                        regret, surprise, curiosity,
+                                                        indifference
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.</td>
+                                            <td>
+                                                Let’s Eat!
+                                                <ul>
+                                                    <li>
+                                                        - At the Supermarket.
+                                                        Food and Drinks
+                                                    </li>
+                                                    <li>
+                                                        - Food Culinary
+                                                        Adjectives
+                                                    </li>
+                                                    <li>
+                                                        - Restaurants and
+                                                        Cuisine
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Address someone using polite formulas
+                                                        appropriate to the context
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and give information about food
+                                                    </li>
+                                                    <li>
+                                                        - Express a complaint or claim
+                                                    </li>
+                                                    <li>
+                                                        - Evaluate services
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and offer objects, help and services
+                                                    </li>
+                                                    <li>
+                                                        - Ask for things urgently but with courtesy
+                                                    </li>
+                                                    <li>
+                                                        - Offer something to others
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Food / Fast food/ vegetarian
+                                                    </li>
+                                                    <li>
+                                                        - Recipe
+                                                    </li>
+                                                    <li>
+                                                        - Menu
+                                                    </li>
+                                                    <li>
+                                                        -Items in a supermarket /restaurant
+                                                    </li>
+                                                    <li>
+                                                        -Different cuisines around the
+                                                        world
+                                                    </li>
+                                                    <li>
+                                                        - appetizers, main course, side
+                                                        dish, dessert
+                                                    </li>
+                                                    <li>
+                                                        - Paying bills
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4.</td>
+                                            <td>Around the World</td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Talk about future events/Planning a trip
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and give information about vacation
+                                                        spots
+                                                    </li>
+                                                    <li>
+                                                        - Modes of transport and traffic
+                                                    </li>
+                                                    <li>
+                                                        - Giving advice on safety
+                                                    </li>
+                                                    <li>
+                                                        - Understanding and writing reviews on
+                                                        tourist sites
+                                                    </li>
+                                                    <li>
+                                                        - Plan an activity
+                                                    </li>
+                                                    <li>
+                                                        -Suggest activities, accept/reject and react to
+                                                        suggestions
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        -Ways of Travelling and Methods
+                                                        of Transportation
+                                                    </li>
+                                                    <li>
+                                                        - Plane, train, bus, etc.
+                                                    </li>
+                                                    <li>
+                                                        - Accommodation
+                                                    </li>
+                                                    <li>
+                                                        -Going on Vacation. Tourism
+                                                    </li>
+                                                    <li>
+                                                        - Countries in the world
+                                                    </li>
+                                                    <li>
+                                                        - city, town, country side
+                                                    </li>
+                                                    <li>
+                                                        - nature + environment
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and give directions
+                                                    </li>
+                                                    <li>
+                                                        - Learn meteorological terms
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5.</td>
+                                            <td>
+                                                <ul>
+
+                                                    Events
+
+                                                    <li>
+                                                        - meetings
+                                                    </li>
+                                                    <li>
+                                                        - happening
+                                                    </li>
+                                                    <li>
+                                                        - accident
+                                                    </li>
+                                                    <li>
+                                                        - natural phenomena
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Retelling a personal story and discussing the
+                                                        chronology of events
+                                                    </li>
+                                                    <li>
+                                                        - Summarize important data from the past
+                                                    </li>
+                                                    <li>
+                                                        - Connect actions in the present, past and
+                                                        future
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Explain the causes, purposes and
+                                                        consequences
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6.</td>
+                                            <td>
+                                                <ul>
+
+                                                    Health and Medicine
+
+                                                    <li>
+                                                        - The Human Body
+                                                    </li>
+                                                    <li>
+                                                        - I Am Sick
+                                                    </li>
+                                                    <li>
+                                                        - Prevention. Physical
+                                                        Exercise and Food
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Ask about and express health conditions,
+                                                        symptoms and physical sensations
+                                                    </li>
+                                                    <li>
+                                                        - Ask questions and express improvements or
+                                                        worsening of health
+                                                    </li>
+                                                    <li>
+                                                        - React to information with expressions of
+                                                        interest, surprise, disbelief, joy and sorrow
+                                                    </li>
+                                                    <li>
+                                                        - Share feelings, reassure, encourage, express
+                                                        condolences
+                                                    </li>
+                                                    <li>
+                                                        - Make an appointment
+                                                    </li>
+                                                    <li>
+                                                        - Prevent and warn
+                                                    </li>
+                                                    <li>
+                                                        - Advise someone to do something
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - booking an appointment
+                                                    </li>
+                                                    <li>
+                                                        - meeting a doctor
+                                                    </li>
+                                                    <li>
+                                                        - viral vs bacterial infection
+                                                    </li>
+                                                    <li>
+                                                        - pharmacist
+                                                    </li>
+                                                    <li>
+                                                        - going for a test, scan, operation,
+                                                        etc.
+                                                    </li>
+                                                    <li>
+                                                        - Hospitalised, discharged
+                                                    </li>
+                                                    <li>
+                                                        - health car insurance
+                                                    </li>
+                                                    <li>
+                                                        -dentist, ophthalmologist,
+                                                        oncologist, urologist, etc
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7.</td>
+                                            <td>Media</td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Summarise information
+                                                    </li>
+                                                    <li>
+                                                        -React to information or a story with
+                                                        expressions of interest, surprise, disbelief,
+                                                        joy and sorrow
+                                                    </li>
+                                                    <li>
+                                                        - Express opinions and preferences
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - TV programmes
+                                                    </li>
+                                                    <li>
+                                                        - newspapers (dailies, weekly,
+                                                        monthly, etc)
+                                                    </li>
+                                                    <li>
+                                                        - Internet
+                                                    </li>
+                                                    <li>
+                                                        - Radio
+                                                    </li>
+                                                    <li>
+                                                        - Social media
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8.</td>
+                                            <td>Current affairs</td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Choose current affairs topics for
+                                                        presentation
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Climate change, agriculture,
+                                                        elections
+                                                    </li>
+                                                    <li>
+                                                        - SDGs
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9.</td>
+                                            <td>ASSESSMENT /EXAM</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </table>
+
+                                    <p>
+                                        <b>
+                                            <i>
+                                                Table 3: This Syllabus contains an overview of what a student is expected to know at the B1
+                                                level.
+                                            </i>
+                                        </b>
+                                    </p>
+                                    <p>
+                                        <b>
+                                            Based on the DELF B1 Syllabus, here's a list of DELF B1 Grammar Topics that you are
+                                            expected to know
+                                        </b>
+                                    </p>
+
+                                    <table>
+                                        <tr>
+                                            <th style="width: 5px;"></th>
+                                            <th>Les verbes</th>
+                                            <th>Les detailles</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Les temps du passe</td>
+                                            <td>
+                                                <p>
+                                                    Passé composé ou Imparfait
+                                                </p> <p>
+                                                    Accord du participe passé avec le sujet (auxiliaire être)
+                                                </p> <p>
+                                                    Accord du participe passé avec le COD (auxiliaire avoir)
+                                                </p> <p>
+                                                    Le Plus que Parfait
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Le future</td>
+                                            <td>
+                                                <p>
+                                                    Le futur simple (projets d’avenir)
+                                                </p> <p>
+                                                    Le futur proche (futur plus ou moins lointain)
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Le conditionnel présent</td>
+                                            <td>
+                                                <p>
+                                                    Le souhait (j’aimerais, je voudrais, Ça me ferait plaisir de)
+                                                    / Le désir / Le conseil/L’hypothèse (faits imaginaires)
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Le discours rapporte</td>
+                                            <td>Au présent et au passe</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>
+                                                La concordance des temps
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Le subjonctif</td>
+                                            <td>
+                                                <p>
+                                                    La possibilité́, l’obligation
+                                                </p> <p>
+                                                    Verbes de sentiments + verbes d’opinions
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Le passif</td>
+                                            <td>
+                                                La description d’une action ‘On’
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>L’expression de l’hypothèse</td>
+                                            <td>
+                                                <p>
+                                                    L’hypothèse certaine : Si + Présent / futur
+                                                </p> <p>
+                                                    L’hypothèse incertaine : Si + Imparfait / Conditionnel
+                                                    présent
+                                                </p> <p>
+                                                    Le regret : Si + Plus que parfait / Conditionnel passé
+                                                </p> <p>
+                                                    Le regret : Si + Plus que parfait / Conditionnel présent
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>Les pronoms</td>
+                                            <td>
+                                                <p>
+                                                    Les doubles pronoms
+                                                </p> <p>
+                                                    Les pronoms relatifs simples : qui, que, dont, où
+                                                </p> <p>
+                                                    Les pronoms possessifs
+                                                </p> <p>
+                                                    Les pronoms démonstratifs
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>Les tournures interpersonnelles simples</td>
+                                            <td>s Il est interdit de, Il est utile de, Il est important de...etc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>La localisation temporelle</td>
+                                            <td>
+                                                <p>
+                                                    L’expression de la durée (pendant / depuis)
+                                                </p> <p>
+                                                    L’expression du moment (dans / il y a)
+                                                </p> <p>
+                                                    Les adverbes de temps : expression du futur et du passé
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>La localisation spatiale</td>
+                                            <td>Les prépositions et les adverbes de lieu</td>
+                                        </tr>
+                                        <tr>
+                                            <td>12</td>
+                                            <td>Les adverbes de manière - en ~ment</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>13</td>
+                                            <td>La comparaison </td>
+                                            <td>
+                                                <p>
+                                                    Le superlatif de l’adjectif
+                                                </p> <p>
+                                                    Le superlatif de l’adverbe (le mieux, le meilleur)
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>14</td>
+                                            <td>La négation</td>
+                                            <td>Ne…que, ne…plus, ne…jamais, etc.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15</td>
+                                            <td>
+                                                Les articulateurs chronologiques du
+                                                discours
+                                            </td>
+                                            <td>
+                                                D’abord, ensuite, enfin, premièrement,
+                                                deuxièmement…etc.
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>16</td>
+                                            <td>Les connecteurs logiques</td>
+                                            <td>
+                                                <p>
+                                                    Cause : donc, puisque
+                                                </p> <p>
+                                                    Conséquence : comme, alors
+                                                </p> <p>
+                                                    Opposition : pourtant, alors que
+                                                </p>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                    <p>
+                                        <b>
+                                            <i>
+                                                Table 4: This Syllabus contains an overview of what a student is expected to know as grammar
+                                                topics at the B1 level
+                                            </i>
+                                        </b>
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            B. UPPER INTERMEDIATE II (B2)
+                                        </b>
+                                    </p>
+                                    <p>Level B2 is the Independent User Level.</p>
+                                    <p>
+                                        <b>
+                                            GENERAL OBJECTIVES
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            • Understand, interact and express yourself in a extensive range of situations, both orally and
+                                            written, with good control of linguistic resources and with a degree of precision and ease
+                                            that allows for natural communication with native speakers.
+                                        </li>
+                                        <li>
+                                            • Acquire deeper knowledge of sociocultural aspects related to these situations and alter your
+                                            register, attitudes and gestures appropriately in each situation.
+                                        </li>
+                                        <li>
+                                            • Internalize new linguistic resources through functional and formal practice and to reinforce
+                                            the use of those already known; to reflect on mistakes in order to be able to correct yourself.
+                                        </li>
+                                        <li>
+                                            • Become aware of the communication and learning strategies that help you the most, so that
+                                            you can use them intentionally.
+                                        </li>
+                                        <li>
+                                            • Develop autonomy in the planning, carrying out, evaluation and improvement of your own
+                                            learning.
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <b>
+                                            Pertaining to what a student should know regarding 4 skills outlined by the CEFRL:
+                                            Reading, Writing, Listening and Speaking
+                                        </b>
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            I. Reading comprehension
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            • Read articles and reports on contemporary issues in which the authors adopt a particular
+                                            attitude or viewpoint.
+                                        </li>
+                                        <li>• Understand a contemporary literary prose text</li>
+                                    </ul>
+                                    <p><b>II. Written expression</b></p>
+                                    <ul>
+                                        <li>• Write clear, detailed text on a wide range of topics related to my interests. </li>
+                                        <li>
+                                            • Write an essay or report, conveying information or giving reasons for or against a given
+                                            opinion.
+                                        </li>
+                                        <li>• Write letters highlighting events and experiences.</li>
+                                    </ul>
+                                    <p><b>III. Oral Comprehension</b></p>
+                                    <ul>
+                                        <li>
+                                            • Understand the main ideas of a linguistically complex speech, dealing with both concrete
+                                            and abstract topics delivered at a standard language level, including technical discussions.
+                                        </li>
+                                        <li>
+                                            • Understand any type of speech, both face-to-face conversations and broadcast speeches,
+                                            on topics, usual or not, of personal, social, academic or professional life.
+                                        </li>
+                                        <li>• Follow lively conversations between native speakers</li>
+                                        <li>
+                                            • Understand the main ideas of lectures, talks and reports, and other forms of academic and
+                                            professional presentation.
+                                        </li>
+                                        <li>• Understand statements and messages on concrete and abstract topics</li>
+                                        <li>
+                                            • Understand most radio documentaries and other recorded or rebroadcast material spoken
+                                            in standard language, and identify the speaker's mood and tone.
+                                        </li>
+                                        <li>
+                                            • Understand recordings in standard language that may be encountered in social, professional
+                                            or academic life, and identify the speaker's points of view and attitudes, as well as the
+                                            content of the information
+                                        </li>
+
+                                    </ul>
+                                    <p><b>IV. Oral Expression</b></p>
+                                    <ul>
+                                        <li>
+                                            • Participate in conversations with a degree of fluency and spontaneity that enables regular
+                                            interaction with native speakers without strain for either party.
+                                        </li>
+                                        <li>
+                                            • Speak fluently, accurately and effectively on a wide range of general, academic,
+                                            professional or leisure topics, clearly marking the relationship between ideas
+                                        </li>
+                                        <li>• Communicates spontaneously and has good grammatical control</li>
+                                        <li>
+                                            • Understand in detail what is said in standard language, even in an environment with
+                                            background noise
+                                        </li>
+                                        <li>
+                                            • Have conversations with native speakers without unintentionally amusing or annoying
+                                            them, and without demanding different behaviour from them than they would have with a
+                                            native speaker
+                                        </li>
+                                    </ul>
+
+                                    <table>
+                                        <tr>
+                                            <th></th>
+                                            <th>Topics</th>
+                                            <th>Aim / Things to do</th>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>
+                                                <b>Shopping</b>
+                                                <ul>
+                                                    <li>
+                                                        Places
+                                                    </li>
+                                                    <li>
+                                                        Fashion and Clothes
+                                                    </li>
+                                                    <li>
+                                                        In the Shop
+                                                    </li>
+                                                    <li>
+                                                        Means of Payment
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Express a complaint or claim
+                                                    </li>
+                                                    <li>
+                                                        - Value places and services
+                                                    </li>
+                                                    <li>
+                                                        - Express interest in products and prices
+                                                    </li>
+                                                    <li>
+                                                        - Make comparisons
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><b>Current Affairs</b></td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Do presentations on any current affair issues
+                                                    </li>
+                                                    <li>
+                                                        - Others should give their opinions
+                                                    </li>
+                                                    <li>
+                                                        - Explain the causes, purposes and consequences
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>
+                                                <b>
+                                                    At Home
+                                                </b>
+                                                <ul>
+                                                    <li>
+                                                        - Family Life
+                                                    </li>
+                                                    <li>
+                                                        - What is Your Home Like?
+                                                    </li>
+                                                    <li>
+                                                        - Furniture and Decoration
+                                                    </li>
+                                                    <li>
+                                                        - Household Chores
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Indicate possession
+                                                    </li>
+                                                    <li>
+                                                        - Describe objects and furniture in the house
+                                                    </li>
+                                                    <li>
+                                                        - Express where and when something happens
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>
+                                                <b>
+                                                    The Digital Era
+                                                </b>
+                                                <ul>
+                                                    <li>
+                                                        -Technology and Computers
+                                                    </li>
+                                                    <li>
+                                                        -Internet Has Changed Our Lives
+                                                    </li>
+                                                    <li>
+                                                        - Are You Connected?
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Advise, recommend, encourage and persuade someone to
+                                                        do something
+                                                    </li>
+                                                    <li>
+                                                        - Summarize information
+                                                    </li>
+                                                    <li>
+                                                        - Value ideas, facts, people and places
+                                                    </li>
+                                                    <li>
+                                                        - Plan an activity
+                                                    </li>
+                                                    <li>
+                                                        - Talk about future events
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>
+                                                <b>
+                                                    Life in the City
+                                                </b>
+                                                <ul>
+                                                    <li>
+                                                        - My City
+                                                    </li>
+                                                    <li>
+                                                        - Buildings and Stores
+                                                    </li>
+                                                    <li>
+                                                        - People and Activities
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Express and contrast opinions
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and offer objects, help and services
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and give information about spots in the city
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and give directions
+                                                    </li>
+                                                    <li>
+                                                        - Explain that all or part of what is said is not being
+                                                        understood, or ask if it has been understood
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>
+                                                <b>
+                                                    Culture and tradition
+                                                </b> <ul>
+                                                    <li>
+                                                        - Breaking Stereotypes
+                                                    </li>
+                                                    <li>
+                                                        - Festivals and Celebrations
+                                                    </li>
+                                                    <li>
+                                                        - Traditions and Customs
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - React to information or a story with expressions of interest,
+                                                        surprise, disbelief, joy and sorrow
+                                                    </li>
+                                                    <li>
+                                                        - Congratulating, expressing good wishes, inviting,
+                                                        accepting and declining an invitation,
+                                                        toasting, welcoming, thanking, sharing feelings in certain
+                                                        events and reacting in those
+                                                        situations
+                                                    </li>
+                                                    <li>
+                                                        - Ask for and give information about places, objects and
+                                                        customs
+                                                    </li>
+                                                    <li>
+                                                        - Assess, evaluate and justify ideas and facts
+                                                    </li>
+                                                    <li>
+                                                        - Activate knowledge and interests
+                                                    </li>
+                                                    <li>
+                                                        - Exchange information on dates and data
+                                                    </li>
+                                                    <li>
+                                                        - Propose, organize and arrange appointments
+                                                    </li>
+                                                    <li>
+                                                        - Make deductions
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td><b>Global Issues</b></td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - Describe actions that are happening at that very moment
+                                                        around the world
+                                                    </li>
+                                                    <li>
+                                                        - Make comparisons
+                                                    </li>
+                                                    <li>
+                                                        - Ask and express obligation and the necessity to do
+                                                        something (and their opposites)
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td><b>The job hunt</b></td>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        - writing a CV, a cover letter
+                                                    </li>
+                                                    <li>
+                                                        - writing professional emails
+                                                    </li>
+                                                    <li>
+                                                        - preparing for an interview
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td><b>EXAM / ASSESSMENT</b></td>
+                                            <td></td>
+                                        </tr>
+
+                                    </table>
+
+                                    <p>
+                                        <b>
+                                            <i>
+                                                Table 5: This Syllabus contains an overview of what a student is expected to know at the B2
+                                                level.
+                                            </i>
+                                        </b>
+                                    </p>
+                                    <p><b>Here's a list of DELF B2 Grammar Topics that you are expected to know. </b></p>
+                                    <ul>
+                                        <li>
+                                            1. Une variété de mots de liaison pour marquer les liens entre les idées de manière efficace
+                                        </li>
+                                        <li>
+                                            2. Des articulateurs logiques : expression de l’hypothèse, de l’opposition, de la condition, du but,
+                                            de la concession
+                                        </li>
+                                        <li>
+                                            3. Des verbes + subjonctif ou indicatif (je crois qu’il viendra, je ne crois pas qu’il vienne)
+                                        </li>
+                                        <li>
+                                            4. Des verbes + subjonctif ou infinitif (il travaille pour réussir, il travaille pour que ses enfants
+                                            puissent étudier)
+                                        </li>
+                                        <li>
+                                            5. La conjonction + subjonctif ou indicatif (de sorte qu’il puisse venir, de sorte qu’il viendra)
+                                        </li>
+                                        <li>
+                                            6. La conjonction + subjonctif ou infinitif (afin qu’il soit content, afin de venir)
+                                        </li>
+                                        <li>
+                                            7. Les formes impersonnelles qui expriment différents degrés de certitude (il est certain que, il est
+                                            probable que, il semble que, etc.)
+                                        </li>
+                                        <li>
+                                            8. Des verbes accompagnés de leur préposition (penser à, croire à / en, rêver de, décider de, agir
+                                            sur, etc.)
+                                        </li>
+                                        <li>
+                                            9. Des adjectifs accompagnés de prépositions (être heureux de, prêt à, confiant en, remarquable
+                                            par, etc.)
+                                        </li>
+                                        <li>
+                                            10. Des noms accompagnés de la préposition “de” + infinitif (avoir le courage de, la joie de, etc.)
+                                        </li>
+                                        <li>
+                                            11. Des pronoms relatifs complexes (auquel, parmi lesquels, etc.)
+                                        </li>
+                                        <li>
+                                            12. La mise en relief (c’est...qui, c’est...pour laquelle, etc.)
+                                        </li>
+                                        <li>
+                                            13. Le passé simple
+                                        </li>
+                                        <li>
+                                            14. Le passé surcomposé (il a eu terminé)
+                                        </li>
+                                        <li>
+                                            15. Le futur antérieur
+                                        </li>
+                                        <li>
+                                            16. L’infinitif passé (avoir terminé)
+                                        </li>
+                                        <li>
+                                            17. La bonne utilisation de la concordance des temps
+                                        </li>
+                                        <li>
+                                            18. Le participe présent : forme composée pour marquer
+                                        </li>
+                                        <li>
+                                            19. L’antériorité (ayant terminé son travail, il est parti)
+                                        </li>
+                                        <li>
+                                            20. Le subjonctif passé
+                                        </li>
+                                        <li>
+                                            21. Le conditionnel présent et passé : doute, incertitude
+                                        </li>
+                                        <li>
+                                            22. La modalisation : nuances pour exprimer l’hypothèse, le doute (il est possible que, il est
+                                            probable que), l’apparence, l’éventualité, l’obligation (il faudrait, tu devrais)
+                                        </li>
+                                        <li>
+                                            23. La nominalisation
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>    <!-- End row -->
+                </div>    <!-- End container -->
+            </section> <!-- END SINGLE POST -->
+        }
+        else if (ViewBag.typeid == 2)
+        {
+            <section id="single-post" class="pb-90 inner-page-hero blog-page-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+
+                        <!-- SINGLE POST CONTENT -->
+                        <div class="col-xl-10">
+                            <div class="post-content">
+
+
+                                <!--  SINGLE POST TITLE -->
+                                <div class="single-post-title text-center">
+
+                                    <!-- Post Tag -->
+                                    <span class="post-tag color--green-400">Agriculture</span>
+
+                                    <!-- Title -->
+                                    <h2 class="s-46 w-700"> CERTIFICATE COURSE IN AGRICULTURE</h2>
+
+
+                                </div>	<!-- END SINGLE POST TITLE -->
+                                <!-- SINGLE POST IMAGE -->
+                                <div class="blog-post-img py-50">
+                                    <img class="img-fluid r-16" src="~/Content/cdp/agric.jpg" alt="blog-post-image">
+                                </div>
+
+                                <!-- SINGLE POST TEXT -->
+                                <div class="single-post-txt">
+
+                                    <p><b> Proposed course: Livestock feed production</b></p>
+                                    <p>
+                                        Target audience: Livestock farmers
+                                    </p><p>
+                                        Course content: Ingredient identification and nutrient composition, Ingredient processing, ration formulation, feed mill components and their functions.
+                                    </p>  <p>
+                                        Course duration: 3 months
+                                    </p>  <p>    Course outcome: production of different livestock feed for optimal animal growth and development.  </p>
+
+
+                                    <p>
+                                        <b>
+                                            Proposed course: Snail Production
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Target audience: Farmers
+                                    </p>  <p>
+                                        Course content: Snail identification and classification, snail habitat, systems of production of snail, feed and feeding requirements of snail, hatching of snail eggs, processing of snail meat, marketing of snail meat.
+                                    </p>  <p>
+                                        Course duration: 3 months.
+                                    </p>  <p>
+                                        Course outcome: Production of table sized snail for sale in local and international market.
+                                    </p>
+
+
+                                    <p>
+                                        <b>
+                                            Proposed course: Pig production
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Target audience: Pig farmers and other interested farmers.
+                                    </p>  <p>
+                                        Course content: Pig identification and classification, housing systems  in pig production, pig feeding and feeding requirements, pig farrowing and breeding, pig marketing.
+                                    </p>  <p>
+                                    </p>  <p>
+                                        Course duration: 3 months
+                                    </p>  <p>
+                                        Course outcome: Production of lean pork meat at subsidized cost.
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            Proposed course: Maggot Production
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Target audience: Livestock farmers
+                                    </p>  <p>
+                                        Course content: Nutrient composition of maggot, materials used for maggot production, construction of maggotery, mixing ratio of the different components of the materials and application, harvesting of maggot, processing of maggot for incorporation into livestock feed.
+                                    </p>  <p>
+                                        Course duration: 2 months
+                                    </p>  <p>
+                                        Course outcome: Production of maggot for use in feeding fish and other livestock.
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            Proposed Course Hatchery Technology and Management techniques
+                                        </b>
+                                    </p>
+                                    <p> Target audience : Rich business men who are ready to invest  in Day old chick Production</p>
+                                    <p> Course Content.</p>
+                                    <ul>
+                                        <li>
+                                            - Design and construction of hatchery
+                                        </li>
+                                        <li>
+                                            - Egg production cycle in birds/ fertile and infertile eggs
+                                        </li>
+                                        <li>
+                                            -  Hatchery equipment: incubators, hatchers, egg loading equipment, vacuum egg lifters, candling equipment, fumigants
+                                        </li>
+                                        <li>
+                                            -chick sexing machines
+                                        </li>
+                                        <li>
+                                            - Chick boxes, cages and sales
+                                        </li>
+                                    </ul>
+                                        <p>
+                                            Course duration 2 months
+                                        </p>
+                                        <p>   Course outcome Production of day old chicks in the south east as the region depends largely on the south west for chick</p>
+
+                                        <p>
+                                            <b>
+                                                Proposed Course: Grasscutter farming
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Target audience : Unemployed youths, Retirees, Civil servants
+                                        </p>
+                                        <p>
+                                            Course Content.
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                - Sourcing of breeding stock
+                                            </li>
+                                            <li>
+                                                - Design and construction of grasscutter rearing facility/ cages
+                                            </li>
+                                            <li>
+                                                - Design and construction rearing equipment ( Handling cages, Feeders, Drinkers, transportation cages
+                                            </li>
+                                            <li>
+                                                - Differentiation of male and female grasscutter
+                                            </li>
+                                            <li>
+                                                -Oestrus cycle and Pregnancy diagnosis techniques
+                                            </li>
+                                            <li>
+                                                - Breeding and management of gestation period
+                                            </li>
+                                            <li>
+                                                -Management of young grasscutters
+                                            </li>
+                                            <li>
+                                                - Processing of grasscutter meat
+                                            </li>
+                                        </ul>
+                                        <p>
+                                            Course duration 6 months
+                                        </p>
+                                        <p>
+                                            Course outcome Production of grasscutter breeding stock referred to as a family comprising a male and four females sold at N150, 000 and sale of table sized adult grasscutter as meat
+                                        </p>
+
+                                        <p>
+                                            <b>
+                                                Proposed Course: Black Soldier Fly Production
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Target audience : Poultry and Fish farmers, Feed mill industries
+                                        </p>
+                                        <p>
+                                            Course Content.- Life cycle of black soldier fly
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                - Management at each stage of metamorphosis (egg, larva, pupa and adult flies) - - - Design and construction of black soldier fly rearing facility
+                                            </li>
+                                            <li>
+                                                - Design and Construction of the love and dark cages
+                                            </li>
+                                            <li>
+                                                -The eggies  -
+                                            </li>
+                                            <li>
+                                                - Processing of black soldier fly larva
+                                            </li>
+                                            <li>
+                                                -Nutritional composition of black soldier fly larva and pupa
+                                            </li>
+                                            <li>
+                                                - Incorporation of larval meal into fish and poultry feed
+                                            </li>
+                                        </ul>
+        <p>
+            Course duration 2 months
+        </p>
+        <p>    Course outcome Production of low cost fish and poultry feed by replacing costly fishmeal with insect protein</p>
+
+
+        <p>
+            <b>
+                Proposed course: Cattle production (beef and dairy)
+            </b>
+        </p>
+        <p>
+            Target audience: Business men and women, livestock farmers,
+        </p>
+        <p>
+            Course content: Beef and dairy industry, feeding management of cattle, artificial insemination, calf rearing, growing and feedlot. Meat and milk production and processing, and marketing of products.
+        </p>
+        <p>
+            Course duration: Three (3) months
+        </p>
+        <p>
+            Course outcome: conservation and multiplication of the indigenous breeds, skills for production of cattle, products availability and job creation.
+
+        </p>
+
+
+</div>
+
+                            </div>
+                        </div>
+
+
+                    </div>    <!-- End row -->
+                </div>    <!-- End container -->
+            </section> <!-- END SINGLE POST -->
+        }
+        else if (ViewBag.typeid == 3)
+        {
+            <section id="single-post" class="pb-90 inner-page-hero blog-page-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+
+                        <!-- SINGLE POST CONTENT -->
+                        <div class="col-xl-10">
+                            <div class="post-content">
+
+
+                                <!--  SINGLE POST TITLE -->
+                                <div class="single-post-title text-center">
+
+                                    <!-- Post Tag -->
+                                    <span class="post-tag color--green-400">Accounting</span>
+
+                                    <!-- Title -->
+                                    <h2 class="s-46 w-700">  CERTIFICATE COURSE IN ACCOUNTING</h2>
+
+
+                                </div>	<!-- END SINGLE POST TITLE -->
+                                <!-- SINGLE POST IMAGE -->
+                                <div class="blog-post-img py-50">
+                                    <img class="img-fluid r-16" src="~/Content/cdp/accounting.jpg" alt="blog-post-image">
+                                </div>
+
+                                <!-- SINGLE POST TEXT -->
+                                <div class="single-post-txt">
+
+                                    <p>
+                                        <b>
+                                            Proposed Course:  CERTIFICATE COURSE IN ACCOUNTING
+                                        </b>
+                                    </p>
+                                    <p>
+                                        <b>
+                                            Target Audience:
+                                        </b>
+                                    </p>
+                                    <p>  The target audience is Small scale business owners, artisans and anybody that is interested in basic accounting knowledge.</p>
+
+                                    <p>
+                                        <b>
+                                            Course Contents
+                                        </b>
+                                    </p>
+                                    <p>
+                                        <b>
+                                            First Semester Courses
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <p>
+                                                ACC 001 The fundamentals of accounting
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                This section will focus on: definition of accounting, definition of bookkeeping, distinction between bookkeeping and accounting, purpose of accounting information, branches of accounting, objectives of financial accounting, accounting principles and concepts.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                ACC 002    Source documents and subsidiary books
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                The core topics of this section are; meaning of source documents, types of source documents and importance of source documents, Meaning of subsidiary books, General journal and advantages of journal.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                ACC 003   Ledgers and Principles of double entries
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                This section focus on double entry system, features of double entry system, cash and credit transactions, ledgers, division of the ledger and application of double entry system in the ledger
+                                            </p>
+                                        </li>
+                                        <li>
+
+                                            <p>
+                                                ACC 004 Cash books and Imprest system
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                This section concentrates on: (i). two column cash book: contral entries, rules for Debiting and Crediting the cash book, posting the ledgers from the cash books (ii). Three column cash books; discount allowed, discount received, cash and trade discount (iii). Petty cash book, (iv). Imprest system.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <b>
+                                            SECOND SEMESTER COURSES
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <p>
+                                                ACC 005 Bank Reconciliation Statements
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                Bank statement, differences between bank statement and bank reconciliation, causes of difference between bank statement and bank reconciliation statement, causes of differences between cash book and bank statement, reasons for reconciliation and preparation of bank reconciliation statement.
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                ACC 006  General Journals
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                The focus of this section is the general journals, advantages of journal, correction of errors, suspense account, uses of suspense account, procedures of correcting error and suspense and effect of error on net profit
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                ACC 007  Account of Non Profit making Organization
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                This section covers; sources of income for Non Profit making Organization, Receipt and Payment Account, Income and Expenditure Account and Sole Proprietorship Account
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                ACC 008  Element of cost Accounting
+                                            </p><p>
+                                                2 Credit units
+                                            </p><p>
+                                                In this section, consideration is given to nature, classification and cost behaviour. The procedures employed for material management in an organization.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <b>
+                                            Course Duration:
+                                        </b>
+                                    </p>
+                                    <p>  The program will last for One Year.</p>
+
+<p>
+                                        <b>
+                                            Course Outcome:
+                                        </b>
+                                    </p>
+<p>
+    To enable students to develop:
+</p>
+<ul>
+    <li>
+        i.	Knowledge and understanding of the principles and practice of accounting for individuals, businesses, non-trading organisations and society as a whole.
+    </li>
+    <li>
+        ii.	An understanding of accounting concepts, principles, policies, techniques, procedures and terminology.
+    </li>
+    <li>
+        iii.	Improved accuracy, orderliness and the ability to think logically
+    </li>
+    <li>  iv.	An excellent foundation for acquisition of basic accounting knowledge.</li>
+</ul>
+
+
+
+
+</div>
+
+                            </div>
+                        </div>
+
+
+                    </div>    <!-- End row -->
+                </div>    <!-- End container -->
+            </section> <!-- END SINGLE POST -->
+        }
+        else if (ViewBag.typeid == 4)
+        {
+            <section id="single-post" class="pb-90 inner-page-hero blog-page-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+
+                        <!-- SINGLE POST CONTENT -->
+                        <div class="col-xl-10">
+                            <div class="post-content">
+
+
+                                <!--  SINGLE POST TITLE -->
+                                <div class="single-post-title text-center">
+
+                                    <!-- Post Tag -->
+                                    <span class="post-tag color--green-400">lINGUISTICS</span>
+
+                                    <!-- Title -->
+                                    <h2 class="s-46 w-700"> CERTIFICATE COURSE IN lINGUISTICS</h2>
+
+
+                                </div>	<!-- END SINGLE POST TITLE -->
+                                <!-- SINGLE POST IMAGE -->
+                                <div class="blog-post-img py-50">
+                                    <img class="img-fluid r-16" src="~/Content/cdp/linguistics.jpg" alt="blog-post-image">
+                                </div>
+
+                                <!-- SINGLE POST TEXT -->
+                                <div class="single-post-txt">
+
+                                    <p>
+                                        <b>
+                                            Introduction
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Certificate Programme in Language Softwares and Field Techniques is a certificate programme of the department of Linguistics, Faculty of Arts which will be run at the Directory of Certificate learning, both in Nnamdi Azikiwe University, Awka.  This program has become a necessity given the lack of expertise in handling softwares for linguistic analysis, among students, lecturers and language professionals; the need for standard documentation of intriguing aspects of our languages and the redundancy of collected data over the years. The certificate programme is a three packaged programme: certificate in language softwares, language documentation or corpus development and management. A participant is allowed to run ONLY one program at a time. A full programme is designed to run for two consecutive months of intensive study, practicals and quizes. All classroom/academic demands on the students  must be met before the issuance of  desired certificate.
+                                    </p>
+
+                                    <p>
+                                        <b>
+                                            1.	Certificate on language analytic softwares
+                                        </b>
+                                    </p>
+                                    <p>
+                                        This certificate program is for language professionals into language analyses, research and development. The main crux is to bring to our awareness and also  teach the use of Softwares that  aid linguistic research. Softwares to be taught include: Praat,  ELAN, Phonology Assistant, Lexico amd other relevant softwares that may be relevant.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            1.1 Praat
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Praat –doing phonetics with computer , developed by Boersma and Weenik (2009) is a computer programme which can be used to analyse, synthesize and manipulate speech. Students will be taught how to access, use and make this softaware beneficial to modern research.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            Outline
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            Introduction to Praat
+                                        </li>
+                                        <li>
+                                            Recording/ loading  of sounds
+                                        </li>
+                                        <li>
+                                            Segmentation     and  Annotation  of sounds
+                                        </li>
+                                        <li>
+                                            Recognition of Vowels on the spectrogram
+                                        </li>
+                                        <li>
+                                            Recognition of consonants on the  spectrogram
+                                        </li>
+                                        <li>
+                                            <b>  Measurements:</b>
+                                        </li>
+                                        <li>
+                                            Formants
+                                        </li>
+                                        <li>
+                                            Pitch
+                                        </li>
+                                        <li>
+                                            Duration
+                                        </li>
+                                        <li>
+                                            VOT
+                                        </li>
+                                        <li>
+                                            Filing, Drawing and Exporting
+                                        </li>
+                                        <li>
+                                            <b>   Advanced:</b>
+                                        </li>
+                                        <li>
+                                            R Code Analysis
+                                        </li>
+                                        <li>
+                                            Script writing
+                                        </li>
+                                    </ul>
+
+                                    <p>
+                                        <b>
+                                            1.2	ELAN
+                                        </b>
+                                    </p>
+
+
+                                    <p>
+                                        <b>
+                                            1.3	Phonology Assistant
+                                        </b>
+                                    </p>
+                                    <p>
+                                        This is a property of SIL language technology used for charting of sounds and syllables; it creates sound inventories and conducts comparative study of  sound patterns of languages.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            Outline
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            Introduction to Phonology Assistant
+                                        </li>
+                                        <li>
+                                            Features
+                                        </li>
+                                        <li>
+                                            Imputation  of data
+                                        </li>
+                                        <li>
+                                            Charting of Sound inventory
+                                        </li>
+                                        <li>
+                                            Computation of syllable structures
+                                        </li>
+                                    </ul>
+
+                                    <p>
+                                        <b>
+                                            2.	Language documentation
+                                        </b>
+                                    </p>
+                                    <p>
+                                        This centres on the collection of data from natural languages. This is to prevent loss of endangered languages or to harness a particular aspect of the grammar for linguistic enquiry.
+                                    </p>
+                                    Outline
+                                    Introduction to language documentation
+
+
+
+
+
+                                    <p>
+                                        <b>
+                                            3.	Corpus development and corpus management
+                                        </b>
+                                    </p>
+                                    <p>
+                                        A lot of large body has been gathered during undergraduate, masters and post graduate researches. However, proper storing of these data are not made neither is there any step to increase the volume or enrich the annotation of the data in any way. This course tailors the path of proper management of data collected , channels of archiving and procedures to follow in improving an existing corpus. Source Hubs are also given.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            Outline
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            Background on Corpus
+                                        </li>
+                                        <li>
+                                            Corpus tagging n annotation
+                                        </li>
+                                        <li>
+                                            Archiving of Corpus
+                                        </li>
+                                        <li>   Sourcing  of Archived  corpus</li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>    <!-- End row -->
+                </div>    <!-- End container -->
+            </section> <!-- END SINGLE POST -->
+        }
+        else if (ViewBag.typeid == 5)
+        {
+            <section id="single-post" class="pb-90 inner-page-hero blog-page-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+
+                        <!-- SINGLE POST CONTENT -->
+                        <div class="col-xl-10">
+                            <div class="post-content">
+
+
+                                <!--  SINGLE POST TITLE -->
+                                <div class="single-post-title text-center">
+
+                                    <!-- Post Tag -->
+                                    <span class="post-tag color--green-400">TECHNICAL</span>
+
+                                    <!-- Title -->
+                                    <h2 class="s-46 w-700"> CHISCO INSTITUTE FOR TRANSPORTATION STUDIES</h2>
+
+
+                                </div>	<!-- END SINGLE POST TITLE -->
+                                <!-- SINGLE POST IMAGE -->
+                                <div class="blog-post-img py-50">
+                                    <img class="img-fluid r-16" src="~/Content/cdp/technical.jpg" alt="blog-post-image">
+                                </div>
+
+                                <!-- SINGLE POST TEXT -->
+                                <div class="single-post-txt">
+
+                                    <p><b>   CONCEPT NOTES</b></p>
+                                    <p>
+                                        <b>
+                                            OVERVIEW
+                                        </b>
+                                    </p>
+                                    <p>
+                                        Nnamdi Azikiwe University (UNIZIK), Awka recognised the benefits to be derived from increased collaboration, cooperation and interaction for the further drive to implement the concepts, theories and practices of Technical, Vocational Education and Training for Job and Wealth Creation and then opted to collaborate with Chisco Group Limited and Webezact Technologies Services Limited and then define the scope, programmes and various areas in which to foster a collaborative framework in promoting Research, Training, Skills Acquisition and Certification for Sustainable Entrepreneurship Development and Employment Creation.
+                                        The parties agreed through a Service Level Agreement to pursue collaboration on the basis of Public-Private-Partnership in Fundamental Technician Professional Training, Diploma and Professional Certification in Automotive Technology, Electrical/Electronics, Mechanical and Metallurgical Technology, Logistics & Transport Management and Real Estate & Facility Management Training as well as Capacity Development Programmes for Sustainable Entrepreneurship Development and Employment Creation through implementation of Technical, Vocational Education and Training (TVET) pursuant to training periods ranging from 2 days to 6 years, that will prepare graduates and non-graduates for employment in Motor Vehicle Dealership, Garages, Truck and Trailer Dealerships, Foundry, Fleet Maintenance Companies, Service Stations, Automotive Specialty Shops, Logistics and Transport Companies as well as Retail Establishments and Real Estate & Facility Management Operations
+                                    </p>
+                                    <p>
+                                        <b>
+                                            GOAL
+                                        </b>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            1.	SMART Goals are Specific, Measurable, Attainable, Realistic and Time-bound
+                                        </li>
+                                        <li>
+                                            2.	To entrench a flexible, integrated system that will enable trainees to import personalised custom contents, retaining the ability to be creative with the curriculum while ensuring that the curriculum meets those changing global standards and industry standards
+                                        </li>
+                                        <li>
+                                            3.	To broaden pedagogy in terms of scope and horizon that will allow trainees to easily and seamlessly collaborate to ensure consistency in teaching methodology across all the training programmes and adhering to best practice in content delivery to maximize the student experience.
+                                        </li>
+                                        <li>
+                                            4.	To train Technicians to be ICT compliant in order to access digital contents, share it, monitor progress and conduct assessments.
+                                        </li>
+                                        <li>
+                                            5.	To provide avenue for Trainees to use technology to increase the quantity of skill acquisition with access to quality learning materials and facilities, as well as to improve the quality of Technical and Vocational Education in Nigeria.
+                                        </li>
+                                        <li>
+                                            6.	To produce Smart Technicians that will be professionals working to innovate and provide high-quality learning experiences.
+                                        </li>
+                                        <li>
+                                            7.	To promote SMART Teaching by SMART Trainers within a SMART Education System that will become key elements of professionalising Automotive Technical Training in Nigeria.
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        <b>
+                                            PROGRAMME DESCRIPTION
+                                        </b>
+                                    </p>
+                                    <p>
+                                        The various Diploma, Apprenticeship, Certificate and Executive Short Courses in Automotive Technology, Transportation Studies and Built Environment are intended collaboration between Chisco Transport Company Limited, Nnamdi Azikiwe University, Awka and Webezact Technologies Services Limited that are designed to involve collaboration in training and developing skills of youths, graduates, unemployed and those desiring to be self-employed.
+                                    </p>
+                                    <p>
+                                        <b>
+                                            GENERAL OBJECTIVES
+                                        </b>
+                                    </p>
+                                    <p>
+                                        The training programmes are designed to achieve the following aims and objectives amongst others:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            •	To introduce participants who are graduates From Universities, Polytechnics and Colleges of Education but are unemployed, to career opportunities and vocational skills in the automobile industry.
+                                        </li>
+                                        <li>
+                                            •	To introduce the use of modern technology and expose graduates to ICT and advanced diagnostics so as to improve the quality of automobile repairs and maintenance of modern vehicles in Nigeria.
+                                        </li>
+                                        <li>
+                                            •	To tackle the issue of unemployment of youth by encouraging young entrepreneurs to start their own businesses in the automobile industry and employability of youths with improved skills.
+                                        </li>
+                                        <li>
+                                            •	To provide opportunity for graduates and non-graduates to acquire skills and certification in trades that will enable them function as Automotive Service Technicians, professional employees or automotive business owners.
+                                        </li>
+                                        <li>
+                                            •	To foster a baseline for collaboration in workplace and professional networking in the automobile industry.
+                                        </li>
+                                        <li>
+                                            •	To enable graduates and non-graduates to have common vocational linkages, work-flow processes and professional practices.
+                                        </li>
+                                        <li>
+                                            •	To develop and encourage the spirit of entrepreneurship and wealth generation among graduates and non-graduates in the Automobile Industry.
+                                        </li>
+                                        <li>
+                                            •	Develop the ability to successfully manage within an automated environment
+                                        </li>
+                                        <li>
+                                            •	Integration of contemporary technology into the learning environment and professional development of graduates and non-graduates in Automotive Technology.
+                                        </li>
+                                    </ul>
+                                        <p>
+                                            <b>
+                                                EXPECTED LEARNING OUTCOMES
+                                            </b>
+                                        </p>
+                                        <p>
+                                            Upon completion of the Programme, participants/apprentices will have demonstrated the knowledge and skills required to perform the following tasks:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                •	Demonstrate safe working practices and techniques to ensure injury free workplace.
+                                            </li>
+                                            <li>
+                                                •	Comply with government and company policies and procedures, guidelines and standards.
+                                            </li>
+                                            <li>
+                                                •	Perform preliminary diagnosis to isolate system fault.
+                                            </li>
+                                            <li>
+                                                •	Locate and interpret specific information in service manuals and bulletins.
+                                            </li>
+                                            <li>
+                                                •	Select and operate hand, cutting and power tools.
+                                            </li>
+                                            <li>
+                                                •	Operate shop equipment, such as cleaning equipment, lifting and jacking equipment, air compressors and observes maintenance requirements.
+                                            </li>
+                                            <li>
+                                                •	Select, operate and maintain dimensional measuring devices for service and repair of cars, buses/vans, SUVs and light trucks.
+                                            </li>
+                                            <li>
+                                                •	Select, install and removes fastening and sealing devices.
+                                            </li>
+                                            <li>
+                                                •	Inspect, test engine components and isolates malfunctions to defective components or systems.
+                                            </li>
+                                            <li>
+                                                •	Inspect, test and repair valve train components and assemblies.
+                                            </li>
+                                            <li>
+                                                •	Dismantle, clean, inspect, repair and reassemble cylinder block assemblies.
+                                            </li>
+                                            <li>
+                                                •	Inspect, test and repair engine cooling systems.
+                                            </li>
+                                            <li>
+                                                •	Diagnose engine electronics to isolate driveability/performance/emission control problems caused by engine electronic components.
+                                            </li>
+                                            <li>
+                                                •	Inspect, test and repair emission control systems.
+                                            </li>
+                                            <li>
+                                                •	Repair or replace defective electronic components of engine management and emission control systems.
+                                            </li>
+                                            <li>
+                                                •	Diagnose and repair ignition systems.
+                                            </li>
+                                            <li>
+                                                •	Inspect, clean, diagnose, repair and replace fuel delivery components.
+                                            </li>
+                                            <li>
+                                                •	Inspect, test and repair air induction systems, including turbochargers and intercoolers.
+                                            </li>
+                                            <li>
+                                                •	Inspect, service and repair automatic transmissions/transaxles and components.
+                                            </li>
+                                            <li>
+                                                •	Test and service body electrical systems.
+                                            </li>
+                                            <li>
+                                                •	Diagnose and repair occupant restraint systems.
+                                            </li>
+                                            <li>
+                                                •	Inspect, test and service braking systems.
+                                            </li>
+                                            <li>
+                                                •	Inspect and repair tires, wheels, steering linkage and adjusts wheel alignments.
+                                            </li>
+                                            <li>
+                                                •	Inspect and service front and rear suspension systems.
+                                            </li>
+                                            <li>
+                                                •	Inspect and repair steering columns.
+                                            </li>
+                                            <li>
+                                                •	Identify problem area and repair trim and body hardware.
+                                            </li>
+                                            <li>
+                                                •	Install and service vehicle accessories.
+                                            </li>
+                                        </ul>
+                                            <p>
+                                                <b>
+                                                    TRAINING PROGRAMMES
+                                                </b>
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    1.	DIPLOMA PROGRAMMES – 12/24 MONTHS (1/2 Years)
+                                                </li>
+                                                <li>
+                                                    i.	Diploma in Automotive Technology
+                                                </li>
+                                                <li>
+                                                    ii.	Diploma in Computer Hardware & Electronics Technology
+                                                </li>
+                                                <li>
+                                                    iii.	Diploma in Electrical Technology
+                                                </li>
+                                                <li>
+                                                    iv.	Diploma in Welding & Fabrication
+                                                </li>
+                                                <li>
+                                                    v.	Diploma in Heating, Ventilation & Air-Conditioning
+                                                </li>
+                                                <li>
+                                                    vi.	Diploma in Hospitality, Travels & Tourism
+                                                </li>
+                                                <li>
+                                                    vii.	Diploma in Logistics and Transport Management
+                                                </li>
+                                                <li>
+                                                    viii.	Diploma in Real Estate & Facility Management
+                                                </li>
+                                            </ul>
+                                                <p>
+                                                    <b>
+                                                        Admission Requirements
+                                                    </b>
+                                                </p>
+                                                <ul>
+                                                    <li>
+                                                        a.	Four Credit/Passes in related subjects in WAEC/NECO SSCE or NABTEB obtained at not more than two sittings
+                                                    </li>
+                                                    <li>
+                                                        b.	Passes in three A/Levels (JUPEB/IJMB)
+                                                    </li>
+                                                    <li>
+                                                        c.	OND/NCE in related discipline including four credit/passes in related subjects in WAEC/NECO SSCE or NABTEB obtained at not more than two sittings for the twelve (12) months Programmes
+                                                    </li>
+                                                </ul>
+                                                    <p>
+                                                        <b>
+                                                            2.	APPRENTICESHIP PROGRAME – 36 MONTHS (3 Years)
+                                                        </b>
+                                                    </p>
+                                                    <ul>
+                                                        <li>
+                                                            i.	Automotive Electronic & Electrical Systems Training
+                                                        </li>
+                                                        <li>
+                                                            ii.	Automotive Powertrain & Mechanical Systems Training
+                                                        </li>
+                                                        <li>
+                                                            iii.	Automotive Transmission & Drivetrain System Training
+                                                        </li>
+                                                        <li>
+                                                            iv.	Electrical/Electronic Installations and Repairs
+                                                        </li>
+                                                        <li>
+                                                            v.	Heating, Ventilation & Air-Conditioning
+                                                        </li>
+                                                        <li>
+                                                            vi.	Executive Driver Mechanic Technician
+                                                            Admission Requirements
+                                                        </li>
+                                                        <li>
+                                                            a.	First School Leaving Certificate (FSLC)
+                                                        </li>
+                                                        <li>
+                                                            b.	Trade Test 1 or its equivalent
+                                                        </li>
+                                                    </ul>
+                                                        <p>
+                                                            <b>
+                                                                3.	GRADUATE PROFESSIONAL CERTIFICATE COURSES (6 – 12 MONTHS)
+                                                            </b>
+                                                        </p>
+                                                        <ul>
+                                                            <li>
+                                                                i.	Automotive Electronic & Electrical Systems Training
+                                                            </li>
+                                                            <li>
+                                                                ii.	Computer Hardware Technology
+                                                            </li>
+                                                            <li>
+                                                                iii.	Executive Driver Education and Motoring
+                                                            </li>
+                                                            <li>
+                                                                iv.	Health & Safety Management
+                                                            </li>
+                                                            <li>
+                                                                v.	Import and Export Operations Management
+                                                            </li>
+                                                            <li>
+                                                                vi.	Logistics and Transportation Operations Management
+                                                            </li>
+                                                            <li>
+                                                                vii.	Office Technology & Management
+                                                            </li>
+                                                            <li>
+                                                                viii.	Ports and Shipping Operations Management
+                                                            </li>
+                                                            <li>
+                                                                ix.	Power & Renewable Energy Technology
+                                                            </li>
+                                                            <li>
+                                                                x.	Purchasing and Supply Management
+                                                            </li>
+                                                            <li>
+                                                                xi.	Software Engineering
+                                                            </li>
+                                                            <li>
+                                                                xii.	Strategy Quality Management
+                                                            </li>
+                                                            <li>
+                                                                xiii.	Supply Chain and Operations Management
+                                                            </li>
+                                                            <li>
+                                                                xiv.	Tours, Travels & Hospitality
+                                                            </li>
+                                                            <li>
+                                                                xv.	Warehousing Operations Management
+                                                            </li>
+                                                        </ul>
+                                                            <p>
+                                                                <b>
+                                                                    Admission Requirements
+                                                                </b>
+                                                            </p>
+                                                            <ul>
+                                                                <li>
+                                                                    a.	Degree/HND in related discipline including five credit/passes in related subjects in WAEC/NECO SSCE or NABTEB obtained at not more than two sittings for the six (6) months Programmes
+                                                                </li>
+                                                                <li>
+                                                                    b.	OND/NCE in related discipline including four credit/passes in related subjects in WAEC/NECO SSCE or NABTEB obtained at not more than two sittings for the twelve (12) months Programmes
+                                                                </li>
+                                                            </ul>
+                                                                <p>
+                                                                    <b>
+                                                                        4.	EXECUTIVE SHORT TRAINING PROGRAMMES (2 DAYS – 4 WEEKS)
+                                                                    </b>
+                                                                </p>
+                                                                <ul>
+                                                                    <li>
+                                                                        i.	Automotive Insurance
+                                                                    </li>
+                                                                    <li>
+                                                                        ii.	Automotive Workshop Management
+                                                                    </li>
+                                                                    <li>
+                                                                        iii.	Customer Relationship Management
+                                                                    </li>
+                                                                    <li>
+                                                                        iv.	Fire Safety & Risk Management
+                                                                    </li>
+                                                                    <li>
+                                                                        v.	Fleet Management
+                                                                    </li>
+                                                                    <li>
+                                                                        vi.	Haulage Management
+                                                                    </li>
+                                                                    <li>
+                                                                        vii.	Hotel & Hospitality Management
+                                                                    </li>
+                                                                    <li>
+                                                                        viii.	Human Resources Management
+                                                                    </li>
+                                                                    <li>
+                                                                        ix.	International Transport & Shipping Management
+                                                                    </li>
+                                                                    <li>
+                                                                        x.	Inventory Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xi.	Maritime Transport Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xii.	Motor Park Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xiii.	Occupational Environmental Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xiv.	Quality Assurance Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xv.	Strategic Logistics Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xvi.	Supply Chain Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xvii.	Travel and Tours Management
+                                                                    </li>
+                                                                    <li>
+                                                                        xviii.	Warehouse Management
+                                                                    </li>
+                                                                </ul>
+                                                                    <p>
+                                                                        <b>
+                                                                            For Whom?
+                                                                        </b>
+                                                                    </p>
+                                                                    <ul>
+                                                                        <li>
+                                                                            a.	Chief Executive Officers, Middle and Senior Managers
+                                                                        </li>
+                                                                        <li>  b.	Career Professionals, Line Managers and Supervisors
+                                                                            </li>
+                                                                    </ul>
+                                                                        <p>
+                                                                            <b>
+                                                                                5. Commercial Workshop Services
+                                                                            </b>
+                                                                        </p>
+                                                                        <p>
+                                                                            This will involve the rendering of commercial services to members of the University community including staff and students as well as the general public in the following areas:
+                                                                        </p>
+                                                                        <ul>
+                                                                            <li>
+                                                                                a.	Automotive Diagnosis, Servicing and Repairs
+                                                                            </li>
+                                                                            <li>
+                                                                                b.	Automotive Key Cutting and Programming
+                                                                            </li>
+                                                                            <li>
+                                                                                c.	Electrical/Electronic Appliances Installations, Repairs and Maintenance
+                                                                            </li>
+                                                                            <li>
+                                                                                d.	Computer-Aided Design and Drafting
+                                                                            </li>
+                                                                            <li>
+                                                                                e.	CNC Machining and Programming
+                                                                            </li>
+                                                                            <li>
+                                                                                f.	Graphics Design and Secretarial Services
+                                                                            </li>
+                                                                            <li>
+                                                                                g.	Welding and Fabrication Services
+                                                                            </li>
+                                                                            <li>
+                                                                                h.	Computer Hardware and GSM Phones Repairs and Maintenance
+                                                                            </li>
+                                                                            <li>
+                                                                                i.	Business Centre Services, Typesetting, Graphics Design and DI Prinring
+                                                                            </li>
+                                                                        </ul>
+                                                                            <p>
+                                                                                We are also making plans to get National Board for Technical Education accredit the Institute as National Skill Qualification (NSQ) Centre. We hope to achieve that before the end of the new session
+                                                                            </p>
+
+
+</div>
+
+                            </div>
+                        </div>
+
+
+                    </div>    <!-- End row -->
+                </div>    <!-- End container -->
+            </section> <!-- END SINGLE POST -->
+        }
+        <!-- DIVIDER LINE -->
+        <hr class="divider">
+        <div class="container-fluid pt-5 pb-5 Design2">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-7 col-sm-12 pt-1 text-center">
+                        <span class="font-1 text-center"><b>ARE YOU EXPERIENCING ANY DIFFICULTIES OR ISSUES?</b></span><br />
+                        <b>CALL:</b> 07088391544 or 090838920222<br />
+                        <b>EMAIL SUPPORT:</b> support@lloydant.com
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>	<!-- END PAGE CONTENT -->
+    <!-- EXTERNAL SCRIPTS
+    ============================================= -->
+    <script src="~/Content/cdp/js/jquery-3.7.0.min.js"></script>
+    <script src="~/Content/cdp/js/bootstrap.min.js"></script>
+    <script src="~/Content/cdp/js/modernizr.custom.js"></script>
+    <script src="~/Content/cdp/js/jquery.easing.js"></script>
+    <script src="~/Content/cdp/js/jquery.appear.js"></script>
+    <script src="~/Content/cdp/js/menu.js"></script>
+    <script src="~/Content/cdp/js/owl.carousel.min.js"></script>
+    <script src="~/Content/cdp/js/pricing-toggle.js"></script>
+    <script src="~/Content/cdp/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/cdp/js/request-form.js"></script>
+    <script src="~/Content/cdp/js/jquery.validate.min.js"></script>
+    <script src="~/Content/cdp/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Content/cdp/js/popper.min.js"></script>
+    <script src="~/Content/cdp/js/lunar.js"></script>
+    <script src="~/Content/cdp/js/wow.js"></script>
+
+    <!-- Custom Script -->
+    <script src="~/Content/cdp/js/custom.js"></script>
+
+    <script>
+			$(document).on({
+			    "contextmenu": function (e) {
+			        console.log("ctx menu button:", e.which);
+
+			        // Stop the context menu
+			        e.preventDefault();
+			    },
+			    "mousedown": function(e) {
+			        console.log("normal mouse down:", e.which);
+			    },
+			    "mouseup": function(e) {
+			        console.log("normal mouse up:", e.which);
+			    }
+			});
+    </script>
+
+    <script>
+			$(function() {
+			  $(".switch").click(function() {
+			    $("body").toggleClass("theme--dark");
+				    if( $( "body" ).hasClass( "theme--dark" )) {
+	                	$( ".switch" ).text( "Light Mode" );
+	            	} else {
+	                	$( ".switch" ).text( "Dark Mode" );
+	            	}
+			    });
+			});
+    </script>
+
+    <script>
+			$(document).ready(function() {
+	            if( $( "body" ).hasClass( "theme--dark" )) {
+	                $( ".switch" ).text( "Light Mode" );
+	            } else {
+	                $( ".switch" ).text( "Dark Mode" );
+	            }
+	        });
+    </script>
+
+   
+
+    <script src="~/Content/cdp/js/changer.js"></script>
+    <script defer src="~/Content/cdp/js/styleswitch.js"></script>
+
+</body>
+
+</html>

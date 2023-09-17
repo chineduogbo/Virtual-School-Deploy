@@ -105,13 +105,16 @@
                             <h4 class="text-primary">@Model.remitaPayment.RRR</h4>
                         }
 
-                        @if (Model.paymentEtranzactType != null && Model.Payment.FeeDetails[0].Programme != null)
+                        @if (Model.paymentEtranzactType != null)
                         {
-                            if (Model.Payment.FeeDetails[0].Programme.Id != 3)
-                            {
-                                <h5 class="subtitle mb10">Etranzact Payment Type</h5>
-                                <h5 class="text-primary">@Model.paymentEtranzactType.Name</h5>
-                            }
+                            //if (Model.Payment.FeeDetails != null && Model.Payment.FeeDetails.Count() > 0)
+                            //{
+                            //if (Model.Payment.FeeDetails[0].Programme.Id != 3)
+                            //{
+                                    <h5 class="subtitle mb10">Etranzact Payment Type</h5>
+                                    <h5 class="text-primary">@Model.paymentEtranzactType.Name</h5>
+                               // }
+                           // }
                         }
 
                         <h5 class="subtitle mb10">To</h5>
@@ -193,6 +196,17 @@
                                             <td>@Model.Payment.FeeDetails[i].Fee.Amount.ToString("N")</td>
                                             <td>@Model.Payment.FeeDetails[i].Fee.Amount.ToString("N")</td>
                                         }
+                                    </tr>
+                                }
+                                if (Model.Payment.FeeType != null && Model.Payment.FeeDetails.Count == 0)
+                                {
+                                    <tr>
+                                        <td>
+                                            <h5><p>@Model.Payment.FeeType.Name</p></h5>
+                                        </td>
+                                        <td>1</td>
+                                        <td>@Model.Amount.ToString("n")</td>
+                                        <td>@Model.Amount.ToString("n")</td>
                                     </tr>
                                 }
                             }
@@ -495,6 +509,11 @@
                             <a class="btn btn-primary-alt" href="~/Common/Credential/GenerateCardPaymentCredoAsync?pmid=@Model.Payment.Id&amount=@Model.Payment.FeeDetails.Sum(p => p.Fee.Amount)&credoId=@Model.Payment.FeeDetails[0].CredoSetup.Id" target="_blank">Pay With Card Or Transfer</a>
                         }
                         else if (Model.Payment.Session.Id == 29 && Model.Payment.FeeDetails[0].Level.Id != 1)
+                        {
+                            <a class="btn btn-primary-alt" href="~/Common/Credential/GenerateCardPaymentCredoAsync?pmid=@Model.Payment.Id&amount=@Model.Payment.FeeDetails.Sum(p => p.Fee.Amount)&credoId=@Model.Payment.FeeDetails[0].CredoSetup.Id" target="_blank">Pay With Card Or Transfer</a>
+
+                        }
+                        else if (Model.Payment.Session.Id < 29 && Model.Payment.FeeDetails[0].Level.Id != 1)
                         {
                             <a class="btn btn-primary-alt" href="~/Common/Credential/GenerateCardPaymentCredoAsync?pmid=@Model.Payment.Id&amount=@Model.Payment.FeeDetails.Sum(p => p.Fee.Amount)&credoId=@Model.Payment.FeeDetails[0].CredoSetup.Id" target="_blank">Pay With Card Or Transfer</a>
 

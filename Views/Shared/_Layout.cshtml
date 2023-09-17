@@ -57,10 +57,11 @@
 
 
                                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdown" style="color: #333 !important;">
-                                        <li class="dropdown-item">@Html.ActionLink("Generate Invoice", "PostJambFormInvoiceGeneration", "Form", new { Area = "Applicant" }, null)</li>
-                                        @*<li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Closed Generate Cep Application Invoice </span></a></li>*@
+                                        @* <li class="dropdown-item">@Html.ActionLink("Generate Invoice", "PostJambFormInvoiceGeneration", "Form", new { Area = "Applicant" }, null)</li>*@
+                                        <li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Closed Generate Cep Application Invoice </span></a></li>
 
-                                        <li class="dropdown-item">@Html.ActionLink("Fill Application Form", "PostJambProgramme", "Form", new { Area = "Applicant" }, null)</li>
+                                      @*   <li class="dropdown-item">@Html.ActionLink("Fill Application Form", "PostJambProgramme", "Form", new { Area = "Applicant" }, null)</li>*@
+                                        <li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Closed Filling of Cep Application Form </span></a></li>
 
                                         @*<li class="dropdown-item">@Html.ActionLink("PUTME Hall Allocation", "PUTMEScreenVenueSchedule", "Screening", new { Area = "Applicant" }, null)</li>*@
                                         <li class="divider"></li>
@@ -121,23 +122,25 @@
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="menu-title">COCES</span></a>
 
                                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdown" style="color: #333 !important;">
-                                        <li class="dropdown-item">@Html.ActionLink("Generate Invoice", "PostJambFormInvoiceGeneration", "Form", new { Area = "Applicant" }, null)</li>
-                                        <li class="dropdown-item">@Html.ActionLink("Fill Application Form", "PostJambProgramme", "Form", new { Area = "Applicant" }, null)</li>
+                                        @*<li class="dropdown-item">@Html.ActionLink("Generate Invoice", "PostJambFormInvoiceGeneration", "Form", new { Area = "Applicant" }, null)</li>*@
+                                        <li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Closed Generate COCES Application Invoice </span></a></li>
+
+                                        @*<li class="dropdown-item">@Html.ActionLink("Fill Application Form", "PostJambProgramme", "Form", new { Area = "Applicant" }, null)</li>*@
+                                        <li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Closed Fill COCES Application Invoice </span></a></li>
 
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="menu-title">JUPEB</span></a>
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="menu-title">CERTIFICATE DIPLOMA PROGRAMME</span></a>
 
                                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdown" style="color: #333 !important;">
-                                        <li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Closed Generate Jupeb Application Invoice </span></a></li>
-                                        @*<li class="dropdown-item">@Html.ActionLink("Generate Jupeb Application Invoice", "JupebFormInvoiceGeneration", "Form", new { Area = "Applicant" }, null)</li>*@
-                                        @* <li class="dropdown-item">@Html.ActionLink("Fill Jupeb Application Form", "PostJambProgramme", "Form", new { Area = "Applicant" }, null)</li>*@
-                                        <li class="dropdown-item">  <a href="/" disabled="disabled"><span class="badge badge-danger"> Fill Jupeb Application Form Closed</span></a></li>
-                                        <li class="dropdown-item">@Html.ActionLink("Check Jupeb Admission Status", "CheckStatus", "Admission", new { Area = "Applicant" }, null)</li>
+                                        <li class="dropdown-item">@Html.ActionLink("Generate CDP Application Invoice", "CDPFormInvoiceGeneration", "Form", new { Area = "Applicant" }, null)</li>
+                                        <li class="dropdown-item">@Html.ActionLink("Fill CDP Application Form", "PostJambProgramme", "Form", new { Area = "Applicant" }, null)</li>
+                                        <li class="dropdown-item">@Html.ActionLink("Check CDP Admission Status", "FillCDPAdmissionForm", "Form", new { Area = "Applicant" }, null)</li>
 
                                     </ul>
                                 </li>
+
                                 @*<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="menu-title">RETURNING STUDENT</span></a>
 
@@ -186,7 +189,7 @@
         <li class="dropdown-item">@Html.ActionLink("Print Receipt", "PrintReceipt", "Registration", new { Area = "Student" }, null)</li>*@
                                     </ul>
                                 </li>
-                                <li class="nav-item dropdown">
+                                @*<li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="menu-title">Unizik Business School</span></a>
 
                                     <ul class="dropdown-menu bg-primary" aria-labelledby="dropdown" style="color: #333 !important;">
@@ -195,7 +198,7 @@
                                         <li class="dropdown-item">@Html.ActionLink("Check UBS Admission Status", "FillBusinessSchoolAdmissionForm", "Form", new { Area = "Applicant" }, null)</li>
                                         <li class="dropdown-item"> @Html.ActionLink("Returnee Students Form", "FillBusinessSchoolStudentIdentificationForm", "Form", new { Area = "Applicant" }, null)</li>
                                     </ul>
-                                </li>
+                                </li>*@
                                 @*<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"><span class="menu-title">GRADUATE</span></a>
 

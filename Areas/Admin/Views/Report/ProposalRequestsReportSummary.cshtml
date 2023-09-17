@@ -103,7 +103,7 @@
                 responsive: false
             });
 
-            $('#studentTable').DataTable({
+            $('#studentTable,#studentTable1,#studentTable2,#studentTable3,#studentTable4,#studentTable5,#studentTable6,#studentTable7,#studentTable8').DataTable({
                 dom: 'Bfrtip',
                 ordering: true,
                 buttons: [
@@ -215,7 +215,7 @@
                     }
                     <br />
 
-                    @using (Html.BeginForm("ProposalRequestsReport", "Report", FormMethod.Post))
+                    @using (Html.BeginForm("ProposalRequestsReportSummary", "Report", FormMethod.Post))
                     {
                         <div class="row" style="margin-top:30px">
 
@@ -295,8 +295,14 @@
 
                         <hr />
 
-                        if (Model != null && Model.PresciencePayments != null)
+                        if (Model != null && Model.PgStudentRequests != null)
                         {
+                            var ProgrammeGroup = Model.PgStudentRequests.GroupBy(x => x.Programme_Name);
+                            int programmecount = 0;                                          
+                                           foreach (var item in ProgrammeGroup)
+                                           {
+                                programmecount+=1;
+                                string TableName = "studentTable" + programmecount;
 
                             <div style="margin-top:30px">
 
@@ -304,45 +310,54 @@
 
                             <div class="text-center">
                                 <img src="~/Content/Images/absu logo.png" alt="NAU logo" style="width:70px">
-                                <p style="font-size:18px; color:#463939" class="text-uppercase"><b>Pre-Science <span>@Model.ReportType</span> Payment Report</b></p>
+                                <p style="font-size:18px; color:#463939" class="text-uppercase"><b>
+                                    <span>@item.Key</span> Proposal Reports Summary</b></p>
                             </div>
                             <hr />
 
 
 
-                            <div class="col-md-4">
-                                <p style="font-size:18px"> Total Amount: <b> @Model.TotalAmount</b></p>
-                            </div>
 
                             <div class="col-md-12 table-responsive">
 
 
-                                <table class="table table-bordered table-hover table-striped" id="studentTable">
+                                <table class="table table-bordered table-hover table-striped" id=@TableName>
                                     <thead>
                                         <tr>
                                             <th>SN</th>
-                                            <th>Name</th>
-                                            <th>Application Number</th>
-                                            <th>Phone Number</th>
-                                            <th>Session</th>
-                                            <th>Transaction Amount</th>
-                                            <th>Transaction Date</th>
+                                            <th>Department Name</th>
+                                            <th>Break Down</th>
+                                            <th>Total</th>
+                                           
 
 
                                         </tr>
                                     </thead>
                                     <tbody style="color: black;">
-                                        @for (int i = 0; i < Model.PresciencePayments.Count; i++)
-                                        {
-                                            var SN = i + 1;
+                                        @{var SN = 0;
+                                var dept = item.GroupBy(x => x.Department_Name);
+                            }
+
+                            @foreach (var itemList in dept)
+                            {
+                                SN += 1;
+                                var stageGroup = itemList.GroupBy(x => x.Name);
                                             <tr>
                                                 <td>@SN</td>
-                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Name)</td>
-                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].ApplicationNumber)</td>
-                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Phone)</td>
-                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Session)</td>
-                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].Amount)</td>
-                                                <td>@Html.DisplayTextFor(m => m.PresciencePayments[i].TransactionDate)</td>
+                                                <td>@itemList.Key</td>
+                                                <td>
+                                                    @foreach (var d in stageGroup)
+                                                    {
+                                                        <p>  ProposalType: @d.Key  No Of Students: @d.Count()</p>
+                                                        <p>Result Of Stage: </p>
+                                                        <p>Successful: @d.Where(x => x.PanelDecision == true).Count()</p>
+                                                        <p>Unsuccessful: @d.Where(x => x.PanelDecision == false).Count()</p>
+                                                        <p>Unavailable: @d.Where(x => x.PanelDecision == null).Count()</p>
+                                                    }
+                                                </td>
+                                                <td>@itemList.Count()</td>
+
+
                                             </tr>
                                         }
                                     </tbody>
@@ -352,12 +367,11 @@
                                 <div class="col-md-5">
 
                                 </div>
-                                <div class="col-md-6">
-                                    <p style="font-size:18px"> Total Amount: <b> @Model.TotalAmount</b></p>
-                                </div>
+                                
                             </div>
-
-                        }
+                                
+                            }
+                    }
 
 
                     }

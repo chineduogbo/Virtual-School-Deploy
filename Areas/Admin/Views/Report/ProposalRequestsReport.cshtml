@@ -324,6 +324,7 @@
                                         <th>Stage Requested</th>
                                         <th>Date Requested</th>
                                         <th>Matric Number</th>
+                                        <th>Result Of Stage</th>
                                         <th></th>
 
 
@@ -340,6 +341,12 @@
                                             <td>@Html.DisplayTextFor(m => m.PgStudentRequests[i].Name)</td>
                                             <td>@Html.DisplayTextFor(m => m.PgStudentRequests[i].DateRequested)</td>
                                             <td>@Html.DisplayTextFor(m => m.PgStudentRequests[i].Matric_Number)</td>
+                                            <td>
+                                                @(Model.PgStudentRequests[i].PanelDecision != null
+        ? (Model.PgStudentRequests[i].PanelDecision == true ? "Successful" : "Not Successful")
+        : "Not Available Yet")
+                                            </td>
+
                                             <td><a class="btn btn-success" href="/Admin/Support/ViewRequest?RequestId=@Model.PgStudentRequests[i].Id&ApprovalType=3">View Request</a></td>
 
                                         </tr>
